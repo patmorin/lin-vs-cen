@@ -75,7 +75,7 @@
 
 \newcommand{\ellt}{{\lfloor\ell/2\rfloor}}
 
-\title{\MakeUppercase{Linear versus Centered Colouring Numbers}\thanks{This research was partly funded by NSERC.}}
+\title{\MakeUppercase{Linear versus centred Colouring Numbers}\thanks{This research was partly funded by NSERC.}}
 \author{Prosenjit Bose, Vida Dujmović, Mehrnoosh Javarsineh, and Pat Morin}
 
 \date{}
@@ -99,7 +99,7 @@
 \maketitle
 
 \begin{abstract}
-    These are some notes on the relationships betwee linear colouring numbers and centered colouring numbers.
+    These are some notes on the relationships betwee linear colouring numbers and centred colouring numbers.
 \end{abstract}
 % \end{titlepage}
 
@@ -113,17 +113,17 @@
 
 \section{Introduction}
 
-Let $G$ be a simple undirected graph.  A \emph{$k$-colouring} of $G$ is any function $\varphi:V(G)\to S$ where $S$ is a set of size $k$.  A vertex $v$ of $G$ is a \emph{center} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  The colouring $\varphi$ is \emph{centered} if every connected sugraph $H\subseteq G$ has a center.  The colouring $\varphi$ is \emph{linear} if every simple path $P\subseteq G$ has a center. 
+Let $G$ be a simple undirected graph.  A \emph{$k$-colouring} of $G$ is any function $\varphi:V(G)\to S$ where $S$ is a set of size $k$.  A vertex $v$ of $G$ is a \emph{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \emph{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \emph{linear} if every simple path in $G$ has a centre with respect to $\varphi$.
 
-The \emph{centered chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centered $c$-colouring.  The \emph{linear chromatic number} of $G$ is the minimum integer $\ell$ such that $G$ has a linear $\ell$-colouring.  Since every path in $G$ is a connected subgraph of $G$, every centered colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$.
+The \emph{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring.  The \emph{linear chromatic number} of $G$ is the minimum integer $\ell$ such that $G$ has a linear $\ell$-colouring.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$.
 
 The question of upper bounding $\chicen(G)$ by some function of $\chilin(G)$ was considered by \citet[Theorem~1]{kun.obrien.ea:polynomial} who showed the following result:
 
 \begin{thm}[\citet{kun.obrien.ea:polynomial}]\label{kun-obrien-general}
-  For any graph $G$, $\chicen(G)\le \chilin^{190}(G)\cdot\log^{O(1)}(\chilin(G))$.  
+  For any graph $G$, $\chicen(G)\le \chilin^{190}(G)\cdot\log^{O(1)}(\chilin(G))$.
 \end{thm}
-  
-  
+
+
 Their proof of \cref{kun-obrien-general} has three steps:
 \begin{enumerate}
   \item A theorem of \citet{kawarabayashi.rossman:polynomial} shows that, if $\chicen(G)\ge k^{190}\log^{O(1)} k$ then $\chilin(G)\ge k^{38}$ or $G$ has treewidth $\tw(G)\ge k^{38}$.  In the former case there is nothing left to prove.
@@ -131,7 +131,7 @@ Their proof of \cref{kun-obrien-general} has three steps:
   \item A technical lemma \cite[Lemma~5]{kun.obrien.ea:polynomial} shows that, if $G$ contains a $k^2\times k^2$ grid minor, then $\chilin(G)\in\Omega(k)$.
 \end{enumerate}
 
-These notes are an attempt to improve the bound in \cref{kun-obrien-general} in the general case as well as for some special classes of graphs.  
+These notes are an attempt to improve the bound in \cref{kun-obrien-general} in the general case as well as for some special classes of graphs.
 
 As a first step, we attempt to improve the third part of the argument to show that, if $G$ contains a $k\times k$ grid minor, then $\chilin(G)\in \Omega(k)$.  This, by itself, reduces the exponent in \cref{kun.obrien.general} from $190$ to $95$.  Next, we observe that the first two parts of the argument are both ``heavy hammers'' and that, for some special graph classes, much lighter hammers suffice.  For example, if we consider only planar graphs, then it is well known that any planar graph $G$ of treewidth $k$ contains an $\Omega(k\times k)$ grid minor.  This already reduces the exponent further (for planar graphs) to $5$.  If one could prove a similar result for the first ``heavy hammer'' then this would show that, for any planar graph $G$, $\chicen(G)\in O(\chilin(G))$.
 
@@ -145,10 +145,10 @@ For a graph $G$ and a vertex $v\in V(G)$, $\deg_G(v):=|\{vw\in E(G)\}|$ denotes 
 \end{lem}
 
 \begin{proof}
-  Let $\Lambda$ be a subgraph of $G$ in which each vertex of $A$ has degree at most two, each vertex of $B$ has degree at most one, and that maximizes $\deg_\Lambda(A)$.  If $\deg_{\Lambda}(A) = 2|\Lambda|$ then there is nothing to prove. Assume therefore, for the sake of contradiction,  that there exists $v_0\in A$ with $\deg_\Lambda(v_0) < 2$.  
-  
+  Let $\Lambda$ be a subgraph of $G$ in which each vertex of $A$ has degree at most two, each vertex of $B$ has degree at most one, and that maximizes $\deg_\Lambda(A)$.  If $\deg_{\Lambda}(A) = 2|\Lambda|$ then there is nothing to prove. Assume therefore, for the sake of contradiction,  that there exists $v_0\in A$ with $\deg_\Lambda(v_0) < 2$.
+
   We say that a path $v_0,\ldots,v_m$ in $G$ is \emph{$\Lambda$-aternating} if $v_iv_{i+1}\in E(\Lambda)$ for all odd $i\in\{0,\ldots,m-1\}$ and $v_iv_{i+1}\not\in E(\Lambda)$ for all even $i\in\{0,\ldots,m\}$.  Observe that any such path has even length so that it ends at a vertex $v_m\in A$.  Otherwise, replacing the edges $\lfloor m/2\rfloor$ edges $\{v_1v_2,v_3v_4,\ldots,v_{m-2}v_{m-1}\}\in E(\Lambda)$ with the $\lceil m/2\rceil$ edges $\{v_0v_1,v_2v_3,\ldots,v_{m-1}v_m\}$ does not change $\deg_\Lambda(v)$ for any $v\in A_0\setminus\{v_0\}$ but does increase  $\deg_\Lambda(v_0)$, contradicting the assumption that $\Lambda$ maximizes $\deg_\Lambda(A)$.
-  
+
   Let $A_0\subseteq A$ and $B_0\subseteq B$ be the subsets of $A$ and $B$, respectively, that can be reached from $v_0$ by $\Lambda$-alternating paths.
   Observe that, for any $x\in B_0$,  there is exactly one edge $vx$ of $\Lambda$ incident on $x$ and the other endpoint $v$ of this edge is in $A_0$.  Let $a$ be the number of edges of $\Lambda$ having one endpoint $A_0$ and one endpoint in $B_0$, so that $a=\deg_\Lambda(B_0)=|B_0|$.  Let $b$ be the number of edges of $\Lambda$ having one endpoint in $A_0$ and one endpoint in $B\setminus B_0$, so that $\deg_\Lambda(A_0)=a+b = |B_0|+b$.    Since $\deg_{\Lambda}(v) \le 2$ for each $v\in A_0$ and $\deg_\Lambda(v_0)<2$, $\deg_\Lambda(A_0)<2|A_0|$.  This yields the desired contradiction, since $|N_\Lambda(A_0)| \le \deg_\Lambda(A_0) = |B_0|+b = \deg_\Lambda(A_0)< 2|A_0|$.
 \end{proof}
@@ -158,78 +158,79 @@ For a graph $G$ and a vertex $v\in V(G)$, $\deg_G(v):=|\{vw\in E(G)\}|$ denotes 
 
 A \emph{subdivision} $G'$ of a graph $G$ is any graph that can be obtained from $G$ by repeatedly replacing some edge edge $uw$ of $G$ with a path $uvw$, where $v\not\in V(G)$ is a newly introduced degree-$2$ vertex.  Alternatively, $G'$ is obtained from $G$ by replacing some of the edges of $G$ with paths whose internal vertices have degree $2$.
 
-The $k\times k$ grid graph $G_k$ is the graph with vertex set $V(G_k):=\{1,\ldots,k\}^2$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only $|v-x|+|w-y|=1$.  A graph $H$ is a $k\times k$ \emph{pseudogrid} if there exists a set $\mathcal{P}$ of vertex-disjoint paths in $G$ such that the quotient graph $H':=H/\mathcal{P}$ is isomorphic to a subdivision of $G_k$.  Since $G_k$ has maximum degree $4$ any graph $G$ that contains a $G_k$-minor contains a subgraph $H$ that is a $k\times k$ pseudogrid.
+For positive integers $a$ and $b$, the $a\times b$ \emph{grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only $|v-x|+|w-y|=1$. For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.
 
+A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{P}$ of vertex-disjoint paths in $H$ such that the quotient graph $H':=H/\mathcal{P}$ is isomorphic to a subdivision of $G_{a\times b}$.  Since $G_{a\times b}$ has maximum degree $4$ any graph $G$ that contains a $G_{a\times b}$-minor contains a subgraph $H$ that is a $a\times b$ pseudogrid.\footnote{This comes from the fact that any tree $T$ with at most $4$ leaves contains at most two vertices of degree greater than $2$.  Contracting the path between these two vertices (if they exist) produces a tree with exactly one vertex of degree greater than $2$.}
 
 \begin{lem}
   For any $k\times k$ pseudogrid $H$, $\chilin(G)\in\Omega(k)$.
 \end{lem}
 
 \begin{proof}
-  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$, where $\epsilon$ is a small positive constant.  We will show that $H$ contains a path $P$ which has no center with respect to $c$.  First we introduce some notations: 
+  This proof uses two large integer constants $\alpha$ and $\beta$ and a small positive real constant $\epsilon$.  The relationships between these constants are that $\beta = \Theta(\alpha^{1/4})$ and $\epsilon=\Theta(1/\alpha)$.  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$.  We will show that $H$ contains a path $P$ which has no centre with respect to $\varphi$.
 
-  For each vertex $v$ of $G_k$ there is a path $P_v$ in $\mathcal{P}$ (possibly consisting of one vertex) such that the vertex $v$ appears in $H'$ as a result of contracting $P_v$ in $H$.  In this way, each vertex $v$ of $G_k$ is associated with a non-empty \emph{colour set} $\phi(v):=\{\varphi(w):w\in V(P_v)\}$.  Similarly, for each edge $e$ of $G_k$ there is a path $P_e$ in $H'$ that comes from subdividing $e$.  Thus, each edge $e$ of $G_k$ is associated with (possibly empty) \emph{colour set} $\phi(e):=\{\varphi(w):w\in P^-_e\}$, where $P^-_e$ denotes the (possibly empty) set of internal vertices on the path $P_e$.
-  
-  For each colour $\alpha\in\{1,\ldots,C\}$, define the \emph{multiplicity} of $\alpha$ as the number of vertices and edges of $G_k$ that include $\alpha$ in their colour set.  Fix some large integer constant $\alpha$ and say that $\alpha$ is \emph{infrequent} if it has multiplicity at most $\alpha$ and \emph{frequent} otherwise.  
-  
+  First we introduce some notations for mapping edges and vertices of the grid $G_k$ to their corresponding paths in the pseudogrid $H$.  For each vertex $v$ of $G_k$ there is a path $P_v$ in $\mathcal{P}$ (possibly consisting of one vertex) such that the vertex $v$ appears in $H'$ as a result of contracting $P_v$ in $H$.  In this way, each vertex $v$ of $G_k$ is associated with a non-empty \emph{colour set} $\phi(v):=\{\varphi(w):w\in V(P_v)\}$.  Similarly, for each edge $e$ of $G_k$ there is a path $P_e$ in $H'$ that comes from subdividing $e$ (possibly zero times).  Thus, each edge $e$ of $G_k$ is associated with a (possibly empty) \emph{colour set} $\phi(e):=\{\varphi(w):w\in P^-_e\}$, where $P^-_e$ denotes the (possibly empty) set of internal vertices on the path $P_e$.
+
+  For each colour $c\in\{1,\ldots,C\}$, define the \emph{multiplicity} of $c$ as the number of vertices and edges of $G_k$ that include $c$ in their colour set.  Fix some large integer constant $\alpha$ and say that $\alpha$ is \emph{infrequent} if it has multiplicity less than $\alpha$ and \emph{frequent} otherwise.
+
   \begin{clm}\label{all_frequent}
-    $H$ contains a $k'\times k'$ pseudogrid in which every colour is frequent, for some $k'\ge (1-\epsilon \alpha)k$.
+    $H$ contains a $k'\times k'$ pseudogrid $H'$ in which every colour in $\{\varphi(v):v\in V(H')\}$ is frequent, for some $k'\ge (1-\epsilon \alpha)k$.
   \end{clm}
-  
+
   \begin{proof}
-    If there exists some infrequent colour $c\in\{1,\ldots,C\}$, we identify every row and column of $G_k$ that contains an edge or vertex with $c$ in its colour set.  We then \emph{remove} each of these (at most $A$) rows and columns from $H$ by removing all edges of $H$ in $P_e$ for each $e$ in the relevant row (column) of $G_k$ and then discarding any isolated vertices.  After doing this for each row and column containing $c$, the graph $H$ may be disconnected.  We discard any isolated vertices and any path $P_{v}$ that is disconnected from the rest of $H$.  
-     
-    The remaining graph contains a $k'\times k'$ pseudogrid for some $k' \ge k-A$ and contains no vertex of colour $c$.  We then repeat this (at most $c$ times) until the resulting graph has no infrequent colour.  This leaves a graph that contains a $k'\times k'$ pseudogrid for some $k'\ge k-C\alpha\ge(1-\epsilon \alpha)k$ for which every colour is frequent.
+    This proof uses the notion of \emph{removing} a row or column of a pseudogrid.  Removing a row is defined as follows (removing a column is similar): For each edge $e$ of $G_k$ in the relevant row, remove all edges of $P_e$ from $H$. Next, remove any isolated vertices from $H$ and finally, repeatedly remove degree-$1$ vertices from $H$ until none remain.  The result is pseudogrid with one less row.
+
+    While there exists some infrequent colour $c\in\{1,\ldots,C\}$, find a row or column of $G_k$ that contains an edge or vertex with $c$ in its colour set and remove that row or column.  Doing this exhaustively results in the removal of at most $(\alpha-1) C \le \epsilon\alpha k$ rows and at most $\epsilon\alpha k$ columns of $H$.  This leaves a pseudogrid $H'$ that contains a $k'\times k'$ pseudogrid for some $k'\ge (1-\epsilon \alpha)k$ for which every colour that appears colours at least one vertex of $H'$ is frequent.
   \end{proof}
 
-  From this point onward, we assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$.  Next we run a two stage process that, for each $c\in\{1,\ldots,C\}$, will identify a pair of vertices $v_c,w_c$ in $H$ whose colour is $c$.  These pairs are carefully chosen so that we will be able to construct a simple path $P$ in $H$ that contains $\bigcup_{c\in\{1,\ldots,C\}} \{v_c,w_c\}$.  
-  
-  \begin{compactenum}[{Stage} 1.]
-    \item We begin this stage by defining each vertex and edge of $G_k$ as being initially \emph{unmarked}.  Fix some integer constant $\beta>0$.  We iterate over each $c\in\{1,\ldots,C\}$ in turn.  If $G_k$ contain a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is an unmarked vertex or unmarked edge of $G_k$ with $c$ in its colour set and the distance in $G_k$ between $x_c$ and $y_c$ is at least $B$ then Stage~1 \emph{succeeds} for $c$.  In this case, we take $v_c$ to be any vertex in $P_{x_c}$ of colour $c$ and $w_c$ to be any vertex in $P_{y_c}$ of colour $c$.  We then \emph{mark} every vertex and edge $z$ of $G_k$ such that $\dist_{G_k}(z, \{x,y\})\le \beta$.
-    
-    If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $v_c$ and $w_c$ undefined and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G_k$ contains few than $B^2$ unmarked vertices/edges with $c$ in their colour sets.
+  Because of \cref{all_frequent}, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$.  Next we run a two stage process that, for each $c\in\{1,\ldots,C\}$, will identify a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is an edge or vertex of $G_k$ that contains $c$ in its colour set.  These pairs are carefully chosen so that we will be able to construct a simple path $P_k$ in $G_k$ that contains $\bigcup_{c\in\{1,\ldots,C\}} \{x_c,y_c\}$ and has some additional nice properties.  Using these additional properties, we will then show how to convert $P_k$ into a simple path $P$ in $H$ that contains at least two vertices of each colour.
 
-    \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeded and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 failed.  We construct a bipartite graph $I$ with vertex parts $A:=\overline{S}$ and $B:=\bigcup_{c\in S}\{x_c,y_c\}$.   For each marked vertex or edge $p$ of $G_k$, let $s(p)$ be a vertex $q\in B$ that minimizes $\dist_{G_k}(p,q)$.\todo{Gotta be really precise here to avoid degree 3 issue.}  The edge set of $I$ contains an edge $xy$ precisely when there is a marked edge or vertex $z$ of $G_k$ such that $x\in\phi(z)$ and $s(z)=y$.
-    
-    First observe that, for any node in $y\in B$, the number of $x\in A$ such that $\dist_{G_k}(x,y) \le \beta$ is at most $8\beta^2$.   Therefore, the number of marked vertices/edges $x$ of $G_k$ with $s(x)=y$ is at most $8\beta^2$.  Since each colour $c\in A$ is frequent, this implies that $\deg_I(c)\ge \alpha/8\beta^2$.  Similarly, for each $y\in B$,  $\deg_{I}(y) \le 8\beta^12$.  This implies that, for each $A_0\subseteq A$, $|N_I(A_0)|\ge \alpha/64\beta^4$.   In particular, for any $\alpha$ and $\beta$ with $\alpha > 128\beta^4$,  $|N_I(A_0)|\ge 2|A_0|$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\phi(y_c)$.  This defines the pairs $\{x_c,y_c\}$ for each element in $\overline{S}$.
+  \begin{compactenum}[{Stage} 1:]
+    \item We begin this stage by defining each vertex and edge of $G_k$ as being \emph{unmarked}.  Fix some integer constant $\beta>0$.  We iterate over each $c\in\{1,\ldots,C\}$ in turn.  If $G_k$ contain a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is an unmarked vertex or unmarked edge of $G_k$ with $c$ in its colour set and the distance in $G_k$ between $x_c$ and $y_c$ is at least $B$ then Stage~1 \emph{succeeds} for $c$.\todo{Define distance, including between sets}  We then \emph{mark} each vertex and edge $z$ of $G_k$ such that $\dist_{G_k}(z, \{x,y\})\le \beta$.
+
+    If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $x_c$ and $y_c$ undefined for now and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G_k$ contains fewer than $3(\beta/2+1)^2$\todo{check precisely} unmarked vertices/edges with $c$ in their colour sets.\footnote{$G_{a\times a}$ contains fewer than $3a^2$ vertices and edges and contains pairs of vertices/edges at distance $2(a-1)$.}
+
+    \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeds and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 fails.  We construct a bipartite graph $I$ with vertex parts $A:=\overline{S}$ and $B:=\bigcup_{c\in S}\{x_c,y_c\}$.   For each marked vertex or edge $p$ of $G_k$, let $s(p)$ be a vertex $q\in B$ that minimizes $\dist_{G_k}(p,q)$.\todo{Gotta be really precise here to avoid degree 3 issue.}  The edge set of $I$ contains an edge $xy$ precisely when there is a marked edge or vertex $z$ of $G_k$ such that $x\in\phi(z)$ and $s(z)=y$.
+
+    First observe that, for any node in $y\in B$, the number of $x\in A$ such that $\dist_{G_k}(x,y) \le \beta$ is at most $8\beta^2$.   Therefore, the number of marked vertices/edges $x$ of $G_k$ with $s(x)=y$ is at most $8\beta^2$.  Since each colour $c\in A$ is frequent, this implies that $\deg_I(c)\ge \alpha/8\beta^2$.  Similarly, for each $y\in B$,  $\deg_{I}(y) \le 8\beta^2$.  This implies that, for each $A_0\subseteq A$, $|N_I(A_0)|\ge \alpha/64\beta^4$.   In particular, for any $\alpha$ and $\beta$ with $\alpha > 128\beta^4$,  $|N_I(A_0)|\ge 2|A_0|$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
   \end{compactenum}
 
-  Summarizing our work thus far, we have identified a subset  $R:=\bigcup_{c=1}^C\{x_c,y_c\}$ of $2c$ vertices and edges of $G_k$ where each $c\in \phi(x_c)\cap \phi(y_c)$ for each $c\in\{1,\ldots,C\}$. Ultimately, we want to use these to find a path in $H$ that contains at least two vertices of each colour.  We start by first establishing some properties of $R\subseteq V(G_k)$. 
-  
-  Let $R_1:=z\in\bigcup_{c\in S}\{x_c,y_c\}$ and $R_2:=z\in\bigcup_{c\in \overline{S}}\{x_c,y_c\}$.
-  
+  Summarizing our work thus far, we have identified a subset  $R:=\bigcup_{c=1}^C\{x_c,y_c\}$ of at most $2c$ vertices and edges of $G_k$ where $c\in \phi(x_c)\cap \phi(y_c)$ for each $c\in\{1,\ldots,C\}$. Ultimately, we want to use these to find a path in $H$ that contains at least two vertices of each colour.  We start by first establishing some properties of $R\subseteq V(G_k)$.
+
+  Let $R_1:=z\in\bigcup_{c\in S}\{x_c,y_c\}$ and $R_2:=z\in\bigcup_{c\in \overline{S}}\{x_c,y_c\}$ be the subsets of $R$ obtained during Stages~1 and 2, respectively.
+
   \begin{clm}\label{far_from_home}
     For each $z\in R_1$ and $z'\in R_2$ with $s(z')\neq z$, $\dist_{G_k}(z,z')\ge \beta /2$.
   \end{clm}
-  
+
   \begin{proof}
     Since $s(z')\neq z$, there exists some other $z''\in R_1\setminus\{z\}$ with $s(z')=s(z'')$.  Since $z,z''\in R_1$ each of $z$ and $z''$ were selected in Stage~1.  The rules for selecting vertices in Stage~1 guarantee that $\dist_{G_k}(z,z'')\ge \beta$.  By the triangle inequality $\dist(z, z')+\dist(z',z'') \ge \dist(z,z'')\ge \beta$.  Since $s(z')=z''$, $\dist_{G_k}(z', z'') \le \dist_{G_k}(z, z')$, so $\dist_{G_k}(z,z') \ge \dist(z',z'')/2 \ge \beta/2$.
   \end{proof}
-  
+
   \begin{clm}
       There is no vertex of $G_k$ that has three or more incident edges in $R$.
   \end{clm}
-  
+
   \begin{proof}
     To prove this, we have to define $s(x)$ a little more carefully.
   \end{proof}
-    
+
   \begin{clm}
     Any $5$-element subset of $R$ contains a pair $x,y$ with $\dist_{G_k}(x,y)\ge\beta/2$.
   \end{clm}
-  
+
   \begin{proof}
-    Let $R'$ be some $5$-element subset of $R$. $R'$ contains two or more elements of $R_1$ then the distance between these two elements is at most $\beta>\beta/2$.  Therefore, we may assume that $R'$ contains at most one element in $R_1$.  If $R'$ contains exactly one element $x$ in $R_1$ then, by \cref{far_from_home}, there is at most one other element in $R'$ whose distance to $x$ is at most $\beta/2$, and the three remaining elements have greater distance.  Therefore, $R'$ contains no elements in $R_1$.  Therefore, $S:=\{s(x):x\in R'\}$ is a five-element set whose pairwise distances are all at most $\beta$.  But this implies that two elements in $R'$ have distance less than $\beta$.  This is a contradiction because all points in $R'$ are in $R_1$ and all pairs of points in $R_1$ have distance at least $\beta$.\todo{Something is off by a factor of 2.}
+    Let $R'$ be some $5$-element subset of $R$. $R'$ contains two or more elements of $R_1$ then the distance between these two elements is at most $\beta>\beta/2$.  Therefore, we may assume that $R'$ contains at most one element in $R_1$.  If $R'$ contains exactly one element $x$ in $R_1$ then, by \cref{far_from_home}, there is at most one other element in $R'$ whose distance to $x$ is at most $\beta/2$, and the three remaining elements have greater distance.  Therefore, $R'$ contains no elements in $R_1$.  Therefore, $R'':=\{s(x):x\in R'\}$ is a five-element set whose pairwise distances are all at most $5\beta/2$ and whose minimum distance is at least $\beta$ (Contradiction?)\todo{Finish}.
   \end{proof}
-  
+
   \begin{cor}
       In any $\beta/2\times \beta/2$ subgrid $G_k$ contains at most $4$ elements of $R$.
   \end{cor}
-    
+
     Now classify each vertex of $G_k$ as either being \emph{straight} or \emph{bent}. Define what it means for a path $P$ to go straight or bend at a vertex.  Now we should be able to finish with this lemma:
-    
+
     \begin{lem}
-        $G_k$ contain a simple path $P$ that contains every edge and vertex in $R$.  Furthermore, $P$ bends at each bent vertex in $R$ and $P$ goes straight at each straight vertex in $R$. 
+        $G_k$ contain a simple path $P$ that contains every edge and vertex in $R$.  Furthermore, $P$ bends at each bent vertex in $R$ and $P$ goes straight at each straight vertex in $R$.
     \end{lem}
 \end{proof}
 
