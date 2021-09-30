@@ -158,7 +158,72 @@ For a graph $G$ and a vertex $v\in V(G)$, $\deg_G(v):=|\{vw\in E(G)\}|$ denotes 
 
 A \emph{subdivision} $G'$ of a graph $G$ is any graph that can be obtained from $G$ by repeatedly replacing some edge edge $uw$ of $G$ with a path $uvw$, where $v\not\in V(G)$ is a newly introduced degree-$2$ vertex.  Alternatively, $G'$ is obtained from $G$ by replacing some of the edges of $G$ with paths whose internal vertices have degree $2$.
 
-For positive integers $a$ and $b$, the $a\times b$ \emph{grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only $|v-x|+|w-y|=1$. For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.
+For positive integers $a$ and $b$, the $a\times b$ \emph{grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only if $|v-x|+|w-y|=1$. For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  An $a'\times b'$ \emph{subgrid} of $G_{a\times b}$ is an induced graph of the form $G_{a\times b}[\{(v,w): v\in\{i,\ldots,i+a'-1\},\, w\in\{j,\ldots,j+b'-1\}$ for some $i\in\{1,\ldots,a-a'+1\}$ and $j\in\{1,\ldots,b-b'+1\}$.   The \emph{vertex boundary} of $G_{a\times b}$ is $\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  The \emph{edge boundary} of $G_{a,b}$ consists of all edges incident to at least one vertex in the vertex boundary of $G_{a,b}$. The \emph{boundary} of $G_{a\times b}$ is the union of the edge and vertex boundaries.
+
+
+\begin{lem}
+  Let $I,L$ be disjoint subsets of $V(G_{10})$, let $Q$ be a subset of $E(G_{10})$ and let $X:=I\cup L\cup Q$ have the following properties:
+  \begin{compactenum}[(Pr1)]\setcounter{enumi}{0}
+    \item $|X|\le 4$.
+    \item $Q$ does not contain the edges of a $4$-cycle.
+    \item No vertex of $G_k$ is incident to three or more edges in $Q$.
+    \item No vertex in $I\cup L$ is incident to two or more edges in $Q$.
+    \item $X$ contains no boundary vertices or edges.
+  \end{compactenum}
+  Then for any pair of boundary vertices $s$ and $t$, $G_{10}$ contains a path $P$ that 
+  \begin{compactenum}
+    \item begins at $s$ and ends at $t$
+    \item contains all elements of $X$;
+    \item goes straight through each vertex in $I$; and
+    \item turns at each vertex in $L$.\todo{Define turns and goes straight}
+    % \item contains no boundary vertices or edges except $s$ and $t$.
+  \end{compactenum}
+\end{lem}
+
+\begin{proof}
+  I have no idea how to prove this.  Computer search?.  
+\end{proof}
+
+A \emph{grid square} $S_{x,y,\ell}$ of side-length $\ell$ is a point set of the form $\{x,\ldots,x+\ell-1\}\times\{y,\ldots,y+\ell-1\}$ for some $x,y\in\Z^2$.  The \emph{interior} of $S_{x,y,\ell}$ is the grid square $S_{x+1,y+1,\ell-2}$
+
+\begin{lem}\label{four_points}
+  Let $P$ be a set of at most $4$ points in $\Z^2$.  Then there exists a set $S$ of disjoint grid squares, each of side-length $10$ such that each point of $P$ is contained in the interior of some square in $S$.
+\end{lem}
+
+\begin{proof}
+  Let $P:=\{p_1,\ldots,p_t\}$ where $p_i:=(x_i,y_i)$.  Let $X:=\bigcup_{i=1}^t \{x_i\bmod 10,(x_{i+1})\bmod 10\}$ and let $Y:=\bigcup_{i=1}^t\{y_i\bmod 10,(y_i+1)\bmod 10\}$.  Then $|X|\le 2t\le 8$ and $|Y|\le 2t\le 8$.  In particular, there exists some $x\in\{0,\ldots,9\}\setminus X$ and some $y\in\{0,\ldots,9\}\setminus Y$.  We use squares of the form $\{x+10r,\ldots,x+10r-1\}\times\{y+10r\ldots,y+10r-1\}$ for each $r\in\Z$.
+\end{proof}
+
+\begin{lem}
+  Let $P$ be a set of points in $\Z^2$ such that no square of side-length $80$ contains more than 4 points of $P$.  Then there exists a set $S$ of disjoint grid squares, each of side length $10$ and such that each point of $P$ is in the interior of some square in $S$.
+\end{lem}
+
+\begin{proof}
+  Define a graph $H$ with vertex set $V(H):=P$ and that contains an edge $pq$ if and only if $\|p-q\|_\infty \le 20$. Observe that each component of $H$ contains at most $4$ points of $P$.  For each component $C$ of $H$, apply \cref{four_points} to $V(C)$.  This produces a set of disjoint grid squares of side length $10$ that each contain some point of $V(C)$ in their interior.  Any two squares $s_1$ and $s_2$ obtained from different components of $H$ are disjoint because $s_1$ contains a point $p_1\in P$ and $s_2$ contains a point $p_2\in P$ such that $\|p_1-p_2\|\infty > 20$, but the squares $s_1$ and $s_2$ each have side length $10$.\todo{Could be tidier here.}
+\end{proof}
+
+\todo[inline]{Adjust the numbers in the point covering lemmas.}
+
+\begin{lem}
+  Let $k$ be a positive integer, let $I,L$ be disjoint subsets of $V(G_{k})$, let $Q$ be a subset of $E(G_{k})$ and let $X:=I\cup L\cup Q$ have the following properties:
+  \begin{compactenum}[(Pr1)]\setcounter{enumi}{0}
+    \item Each $80\times 80$ subgrid of $G_k$ contains at most $4$ elements of $X$.
+    \item $Q$ does not contain all the edges of a $4$-cycle.
+    % \item $X$ contains no boundary vertices or edges.
+    \item No vertex of $G_k$ is incident to three or more edges in $Q$.
+    \item No vertex in $I\cup L$ is incident to two or more edges in $Q$.
+  \end{compactenum}
+  Then $G_k$ contains a path $P$ that
+  \begin{compactenum}
+    \item contains all elements of $X$;
+    \item goes straight through each vertex in $I$; and
+    \item turns at each vertex in $L$.
+  \end{compactenum}
+\end{lem}
+
+\begin{proof}
+  Start with the snakelike path that visits every $10$th row of $G_k$. Cover the elements of $X$ with disjoint squares of side length $10$.  Each such square is intersected by exactly one row of the snakelike path.  Use \cref{ten_by_ten} to locally deform the path to pick up the objects in any square that it intersects.
+\end{proof}
 
 A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{P}$ of vertex-disjoint paths in $H$ such that the quotient graph $H':=H/\mathcal{P}$ is isomorphic to a subdivision of $G_{a\times b}$.  Since $G_{a\times b}$ has maximum degree $4$ any graph $G$ that contains a $G_{a\times b}$-minor contains a subgraph $H$ that is a $a\times b$ pseudogrid.\footnote{This comes from the fact that any tree $T$ with at most $4$ leaves contains at most two vertices of degree greater than $2$.  Contracting the path between these two vertices (if they exist) produces a tree with exactly one vertex of degree greater than $2$.}
 
@@ -167,7 +232,7 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
 \end{lem}
 
 \begin{proof}
-  This proof uses two large integer constants $\alpha$ and $\beta$ and a small positive real constant $\epsilon$.  The relationships between these constants are that $\beta = \Theta(\alpha^{1/4})$ and $\epsilon=\Theta(1/\alpha)$.  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$.  We will show that $H$ contains a path $P$ which has no centre with respect to $\varphi$.
+  This proof uses two large integer constants $\alpha$ and $\beta$ and two small positive real constants $\epsilon$ and $\delta$.  The relationships between these constants are that $\beta = \Theta(\alpha^{1/4})$ and $\epsilon=\Theta(1/\alpha)$.  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$.  We will show that $H$ contains a path $P$ which has no centre with respect to $\varphi$.
 
   First we introduce some notations for mapping edges and vertices of the grid $G_k$ to their corresponding paths in the pseudogrid $H$.  For each vertex $v$ of $G_k$ there is a path $P_v$ in $\mathcal{P}$ (possibly consisting of one vertex) such that the vertex $v$ appears in $H'$ as a result of contracting $P_v$ in $H$.  In this way, each vertex $v$ of $G_k$ is associated with a non-empty \emph{colour set} $\phi(v):=\{\varphi(w):w\in V(P_v)\}$.  Similarly, for each edge $e$ of $G_k$ there is a path $P_e$ in $H'$ that comes from subdividing $e$ (possibly zero times).  Thus, each edge $e$ of $G_k$ is associated with a (possibly empty) \emph{colour set} $\phi(e):=\{\varphi(w):w\in P^-_e\}$, where $P^-_e$ denotes the (possibly empty) set of internal vertices on the path $P_e$.
 
@@ -188,23 +253,61 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
   \begin{compactenum}[{Stage} 1:]
     \item We begin this stage by defining each vertex and edge of $G_k$ as being \emph{unmarked}.  Fix some integer constant $\beta>0$.  We iterate over each $c\in\{1,\ldots,C\}$ in turn.  If $G_k$ contain a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is an unmarked vertex or unmarked edge of $G_k$ with $c$ in its colour set and the distance in $G_k$ between $x_c$ and $y_c$ is at least $B$ then Stage~1 \emph{succeeds} for $c$.\todo{Define distance, including between sets}  We then \emph{mark} each vertex and edge $z$ of $G_k$ such that $\dist_{G_k}(z, \{x,y\})\le \beta$.
 
-    If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $x_c$ and $y_c$ undefined for now and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G_k$ contains fewer than $3(\beta/2+1)^2$\todo{check precisely} unmarked vertices/edges with $c$ in their colour sets.\footnote{$G_{a\times a}$ contains fewer than $3a^2$ vertices and edges and contains pairs of vertices/edges at distance $2(a-1)$.}
+    If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $x_c$ and $y_c$ undefined for now and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G_k$ contains fewer than $3(\beta/2+1)^2$\todo{check precisely} unmarked vertices/edges with $c$ in their colour sets.\footnote{$G_{a\times a}$ contains fewer than $3a^2$ vertices and edges and contains pairs of vertices/edges at distance $2(a-1)$.}  In particular, for $\alpha > 3(\beta/2+1)^2$, Stage~1 succeeds for $c=1$.
 
-    \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeds and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 fails.  We construct a bipartite graph $I$ with vertex parts $A:=\overline{S}$ and $B:=\bigcup_{c\in S}\{x_c,y_c\}$.   For each marked vertex or edge $p$ of $G_k$, let $s(p)$ be a vertex $q\in B$ that minimizes $\dist_{G_k}(p,q)$.\todo{Gotta be really precise here to avoid degree 3 issue.}  The edge set of $I$ contains an edge $xy$ precisely when there is a marked edge or vertex $z$ of $G_k$ such that $x\in\phi(z)$ and $s(z)=y$.
+    \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeds and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 fails.  Let $R_1:=\bigcup_{c\in S}\{x_c,y_c\}$ be the set of vertices and edges chosen in $R_1$.
+    
+    As mentioned above, for sufficiently large $\alpha$ (relative to $\beta$), the set $S$ is non-empty and therefore $R_1$ is non-empty. In the next paragraph, we will define a function $\nu$ that maps each marked vertex or edge of $G_k$ to some element of $R_1$.  We use to this to construct a bipartite graph $I$ with vertex parts $A:=\overline{S}$ and $R_1$. The edge set of $I$ contains an edge $cx$ precisely when there is a marked edge or vertex $z$ of $G_k$ such that $c\in\phi(z)$ and $\nu(z)=x$.
 
-    First observe that, for any node in $y\in B$, the number of $x\in A$ such that $\dist_{G_k}(x,y) \le \beta$ is at most $8\beta^2$.   Therefore, the number of marked vertices/edges $x$ of $G_k$ with $s(x)=y$ is at most $8\beta^2$.  Since each colour $c\in A$ is frequent, this implies that $\deg_I(c)\ge \alpha/8\beta^2$.  Similarly, for each $y\in B$,  $\deg_{I}(y) \le 8\beta^2$.  This implies that, for each $A_0\subseteq A$, $|N_I(A_0)|\ge \alpha/64\beta^4$.   In particular, for any $\alpha$ and $\beta$ with $\alpha > 128\beta^4$,  $|N_I(A_0)|\ge 2|A_0|$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
+    We now define the mapping $\nu$.  Fix some total order on $R_1$ by assigning each element of $R_1$ a distinct rank in $\{1,\ldots,|R_1|\}$.  For each marked element $z\in V(G_k)\cup E(G_k)$, let $\gamma(z):=\min\{\dist_{G_k}(z,x):x\in R_1\}$, let $\Gamma(z):=\{x\in R_1:\dist_{G_k}(z,x) \le (1+\delta)\gamma(z)$, and let $\nu(z)$ be the element in $\Gamma(z)$ of minimum rank.  In words, $\gamma(z)$ is the distance to $z$'s nearest neighbour in $R_1$, $\Gamma(z)$ is the set of all approximate nearest neighbours of $z$ in $R_1$ and $\nu(z)$ is the approximate nearest-neighbour of $z$ with smallest rank.  
+    
+    Note that for any marked element $z$, there exists $x\in R_1$ such that $\dist_{G_k}(z,x)\le\beta$.  Therefore $\gamma(z)\le\beta$.  Therefore, for any $x\in R_1$, the set $\nu{^-1}(x)$ only contains marked elements $z$ for which $\dist_{G_k}(x,z)\le (1+\delta)\beta$  Thus, $|\nu^{-1}(x)|\le \zeta\beta^2$ for some $\zeta$ depending only on $\delta$. This has two implications:
+    \begin{compactenum}
+      \item For each $x\in R_1$,  $\deg_{I}(x) \le \zeta\beta^2$.
+      \item Since each colour $c\in A$ is frequent, $\deg_I(c)\ge \alpha/\zeta beta^2$.  
+    \end{compactenum}
+    These two conditions imply that, for each $A_0\subseteq A$, $|N_I(A_0)|\ge \alpha/\zeta^2\beta^4$.   In particular, for any $\alpha$ and $\beta$ with $\alpha > 2\zeta^2\beta^4$,  $|N_I(A_0)|\ge 2|A_0|$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
   \end{compactenum}
 
   Summarizing our work thus far, we have identified a subset  $R:=\bigcup_{c=1}^C\{x_c,y_c\}$ of at most $2c$ vertices and edges of $G_k$ where $c\in \phi(x_c)\cap \phi(y_c)$ for each $c\in\{1,\ldots,C\}$. Ultimately, we want to use these to find a path in $H$ that contains at least two vertices of each colour.  We start by first establishing some properties of $R\subseteq V(G_k)$.
 
-  Let $R_1:=z\in\bigcup_{c\in S}\{x_c,y_c\}$ and $R_2:=z\in\bigcup_{c\in \overline{S}}\{x_c,y_c\}$ be the subsets of $R$ obtained during Stages~1 and 2, respectively.
-
+  Let $R_1:=z\in\bigcup_{c\in S}\{x_c,y_c\}$ and $R_2:=z\in\bigcup_{c\in \overline{S}}\{x_c,y_c\}$ be the subsets of $R$ obtained during Stages~1 and 2, respectively. The following claim follows immediately from the algorithm used to select pairs in Stage~1.
+  \begin{clm}\label{r1_far}
+      For each distinct pair $z,z'\in R_1$, $\dist_{G_k}(z,z')\ge \beta$.
+  \end{clm}
+  
+  The next claim states that any element $z'\in R_2$ is quite far from every element of $R_1$ except possibly its nearest neighbour in $R_1$.
+  
   \begin{clm}\label{far_from_home}
-    For each $z\in R_1$ and $z'\in R_2$ with $s(z')\neq z$, $\dist_{G_k}(z,z')\ge \beta /2$.
+    For each $x\in R_1$ and $y\in R_2$ with $\nu(y)\neq x$, $\dist_{G_k}(x,y)\ge \beta /(2+\delta)$.
   \end{clm}
 
   \begin{proof}
-    Since $s(z')\neq z$, there exists some other $z''\in R_1\setminus\{z\}$ with $s(z')=s(z'')$.  Since $z,z''\in R_1$ each of $z$ and $z''$ were selected in Stage~1.  The rules for selecting vertices in Stage~1 guarantee that $\dist_{G_k}(z,z'')\ge \beta$.  By the triangle inequality $\dist(z, z')+\dist(z',z'') \ge \dist(z,z'')\ge \beta$.  Since $s(z')=z''$, $\dist_{G_k}(z', z'') \le \dist_{G_k}(z, z')$, so $\dist_{G_k}(z,z') \ge \dist(z',z'')/2 \ge \beta/2$.
+    Since $\nu(y)\neq x$, there exists some other $z\in R_1\setminus\{y\}$ with $\nu(y)=\nu(z)$.  Since $x,z\in R_1$, \cref{r1_far} implies that $\dist_{G_k}(x,z)\ge \beta$.  Since $\nu(y)=z$, $\dist_{G_k}(y, z) \le (1+\delta)\gamma(y)\le (1+\delta)\dist_{G_k}(y, x)$.  By the triangle inequality
+    \[ \beta \le \dist_{G_k}(x,z) 
+        \le \dist_{G_k}(x,y)+\dist_{G_k}(y,z)
+        % \le \dist_{G_k}(x,y) + (1+\delta)\dist_{G_k}(x,y) 
+        \le (2+\delta)\dist_{G_k}(x,y) \enspace . \qedhere
+    \]
+  \end{proof}
+  
+  
+  \begin{clm}
+    Any subset of $R$ containing containing $4$ elements contains a pair $(x,y)$ such that $\dist_{G_k}(x,y)\ge \psi\beta$, for some $\psi>0$ that depends only on $\delta$.
+  \end{clm}
+  
+  \begin{proof}
+    Let $R':=\{x_1,x_2,x_3,x_4\}$ be a $4$-element subset of $R$.  If $|R'\cap R_1|\ge 2$ because say $x_1,x_2\in R_1$ then $\dist_{G_k}(x_1,x_2)\ge \beta$, by \cref{r1_far}.  If $|R'\cap R_1=1$ because say $x_1\in R_1$ then $\nu(x_i)= x_1$ for at most one $i\in\{2,3,4\}$. For each of the two $j\in\{2,3,4\}\setminus\{i\}$, $\dist_{G_k}(x_1,x_j)\ge \beta/(2+\delta)$, by \cref{far_from_home}.
+    
+    The only possibility that remains is that $R'\subseteq R_2$. Let the elements of $R'$ be labelled so that the rank of $\nu(x_i)$ is less than the rank of $\nu(x_j)$ for each $i<j$. Suppose that $\dist_{G_k}(x_i,x_j)\le \psi\beta$ for each $i,j\in\{1,2,3\}$, otherwise there is nothing to prove.
+    
+    First observe that, for any $i\in\{1,2,3,4\}$,  $\dist_{G_k}(x_i,\nu(x_i)) \ge (\tfrac{1}{2+\delta}-\psi)\beta$ since, otherwise 
+    \[  \dist_{G_k}(x_{i+1},\nu(x_i))\le \dist_{G_k}(x_{i+1},x_i) + 
+    \dist_{G_k}(x_i,\nu(x_i)) < \beta/(2+\delta) \enspace ,
+    \]
+    for any $j\in\{1,2,3,4\}\setminus\{i\}$, 
+    contradicting \cref{far_from_home}.\todo{Make this a separate lemma?}
+    
   \end{proof}
 
   \begin{clm}
@@ -214,7 +317,12 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
   \begin{proof}
     To prove this, we have to define $s(x)$ a little more carefully.
   \end{proof}
+  
+  \begin{clm}
+    There is no triple $(v,e_1,e_2)\in R$ where $v$ is a vertex of $G_k$ and $e_1$ and $e_2$ are each edges of $G_k$ incident on $v$.
+  \end{clm}
 
+  \todo[inline]{The following claim is not true.  It's easy to come up with an example in which a small square contains $8$ different elements.  We're probably better off adjusting the boundaries of Voronoi cells so that we enforce a minimum distance (say at least $\beta/10$) between Voronoi vertices.}
   \begin{clm}
     Any $5$-element subset of $R$ contains a pair $x,y$ with $\dist_{G_k}(x,y)\ge\beta/2$.
   \end{clm}
