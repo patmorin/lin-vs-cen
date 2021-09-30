@@ -14,6 +14,7 @@
 \usepackage{enumitem}
 
 \usepackage{todonotes}
+\usepackage{etoolbox}
 
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 
@@ -41,11 +42,6 @@
 }
 
 
-\newcommand{\coloured}[2]{{\color{#1}{#2}}}
-\newenvironment{colourblock}[1]{\color{#1}}{}
-
-\newcommand{\condref}[1]{(C\ref{#1})}
-
 % Taken from
 % https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
@@ -54,62 +50,27 @@
 \setlength{\parskip}{1ex}
 
 
-\DeclareMathOperator{\diam}{diam}
 \DeclareMathOperator{\tw}{tw}
-\DeclareMathOperator{\stw}{stw}
-\DeclareMathOperator{\ltw}{ltw}
-\DeclareMathOperator{\pw}{pw}
-\DeclareMathOperator{\lpw}{lpw}
-\DeclareMathOperator{\lhptw}{lhp-tw}
-\DeclareMathOperator{\lhppw}{lhp-pw}
+\DeclareMathOperator{\chicen}{\chi_{\mathrm{cen}}}
+\DeclareMathOperator{\chilin}{\chi_{\mathrm{lin}}}
+\DeclareMathOperator{\dist}{dist}
 
-\DeclareMathOperator{\x}{x}
-\DeclareMathOperator{\depth}{d}
-\DeclareMathOperator{\sh}{cbt}
-\DeclareMathOperator{\cbt}{cbt}
-\DeclareMathOperator{\sgn}{sgn}
-\DeclareMathOperator{\dc}{dc}
-
-\DeclareMathOperator{\afci}{\overline{\chi}_\pi}
-\DeclareMathOperator{\afcn}{\dot{\chi}_\pi}
-
-\newcommand{\ellt}{{\lfloor\ell/2\rfloor}}
+\newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
+\newrobustcmd{\leftup}{\mathord{\includegraphics{figs/left-up}}}
 
 \title{\MakeUppercase{Linear versus centred Colouring Numbers}\thanks{This research was partly funded by NSERC.}}
 \author{Prosenjit Bose, Vida Dujmović, Mehrnoosh Javarsineh, and Pat Morin}
 
 \date{}
 
-% \DeclareMathOperator{\ddiv}{div}
-% \DeclareMathOperator{\hist}{p}
-\DeclareMathOperator{\dist}{dist}
-
-\newcommand{\colored}[2]{{\color{#1}#2}}
-
-\usepackage{tabularx}
-
-\DeclareMathOperator{\ci}{\overline{\pi}}
-
-\DeclareMathOperator{\chicen}{\chi_{\mathrm{cen}}}
-\DeclareMathOperator{\chilin}{\chi_{\mathrm{lin}}}
 
 \begin{document}
 
-% \begin{titlepage}
 \maketitle
 
 \begin{abstract}
     These are some notes on the relationships betwee linear colouring numbers and centred colouring numbers.
 \end{abstract}
-% \end{titlepage}
-
-% \pagenumbering{roman}
-% \tableofcontents
-%
-% \newpage
-% \pagenumbering{arabic}
-
-
 
 \section{Introduction}
 
@@ -119,21 +80,21 @@ The \emph{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $
 
 The question of upper bounding $\chicen(G)$ by some function of $\chilin(G)$ was considered by \citet[Theorem~1]{kun.obrien.ea:polynomial} who showed the following result:
 
-\begin{thm}[\citet{kun.obrien.ea:polynomial}]\label{kun-obrien-general}
+\begin{thm}[\citet{kun.obrien.ea:polynomial}]\label{kun_obrien_general}
   For any graph $G$, $\chicen(G)\le \chilin^{190}(G)\cdot\log^{O(1)}(\chilin(G))$.
 \end{thm}
 
 
-Their proof of \cref{kun-obrien-general} has three steps:
+Their proof of \cref{kun_obrien_general} has three steps:
 \begin{enumerate}
   \item A theorem of \citet{kawarabayashi.rossman:polynomial} shows that, if $\chicen(G)\ge k^{190}\log^{O(1)} k$ then $\chilin(G)\ge k^{38}$ or $G$ has treewidth $\tw(G)\ge k^{38}$.  In the former case there is nothing left to prove.
   \item The current-best version of the Excluded Grid Theorem due to \citet{chuzhoy:improved} shows that, if $\tw(G)\ge k^{38}$, then $G$ contains an $\Omega(k^2\times k^2)$ grid minor.
   \item A technical lemma \cite[Lemma~5]{kun.obrien.ea:polynomial} shows that, if $G$ contains a $k^2\times k^2$ grid minor, then $\chilin(G)\in\Omega(k)$.
 \end{enumerate}
 
-These notes are an attempt to improve the bound in \cref{kun-obrien-general} in the general case as well as for some special classes of graphs.
+These notes are an attempt to improve the bound in \cref{kun_obrien_general} in the general case as well as for some special classes of graphs.
 
-As a first step, we attempt to improve the third part of the argument to show that, if $G$ contains a $k\times k$ grid minor, then $\chilin(G)\in \Omega(k)$.  This, by itself, reduces the exponent in \cref{kun.obrien.general} from $190$ to $95$.  Next, we observe that the first two parts of the argument are both ``heavy hammers'' and that, for some special graph classes, much lighter hammers suffice.  For example, if we consider only planar graphs, then it is well known that any planar graph $G$ of treewidth $k$ contains an $\Omega(k\times k)$ grid minor.  This already reduces the exponent further (for planar graphs) to $5$.  If one could prove a similar result for the first ``heavy hammer'' then this would show that, for any planar graph $G$, $\chicen(G)\in O(\chilin(G))$.
+As a first step, we attempt to improve the third part of the argument to show that, if $G$ contains a $k\times k$ grid minor, then $\chilin(G)\in \Omega(k)$.  This, by itself, reduces the exponent in \cref{kun_obrien_general} from $190$ to $95$.  Next, we observe that the first two parts of the argument are both ``heavy hammers'' and that, for some special graph classes, much lighter hammers suffice.  For example, if we consider only planar graphs, then it is well known that any planar graph $G$ of treewidth $k$ contains an $\Omega(k\times k)$ grid minor.  This already reduces the exponent further (for planar graphs) to $5$.  If one could prove a similar result for the first ``heavy hammer'' then this would show that, for any planar graph $G$, $\chicen(G)\in O(\chilin(G))$.
 
 
 \section{Preliminaries}
@@ -156,24 +117,45 @@ For a graph $G$ and a vertex $v\in V(G)$, $\deg_G(v):=|\{vw\in E(G)\}|$ denotes 
 
 \section{The Linear Colouring Number of Pseudogrids}
 
-A \emph{subdivision} $G'$ of a graph $G$ is any graph that can be obtained from $G$ by repeatedly replacing some edge edge $uw$ of $G$ with a path $uvw$, where $v\not\in V(G)$ is a newly introduced degree-$2$ vertex.  Alternatively, $G'$ is obtained from $G$ by replacing some of the edges of $G$ with paths whose internal vertices have degree $2$.
+A \emph{subdivision} of a graph $G$ is any graph $G'$ that can be obtained from $G$ by replacing each edge $vw$ of $G$ with a path $v,s_1,s_2,\ldots,s_\ell,w$ in which each of the (newly introduced) internal vertices $s_1,\ldots,s_\ell$ have degree exactly $2$.  Each vertex in $V(G')\setminus V(G)$ is called a \emph{subdivision vertex}.  A $\ell$-subdivision of $G$ is a subdivision of $G$ in which each edge of $G$ is replaced by a path that has exactly $\ell$ internal vertices.  For a graph $G$, we use $G^{\onesub}$ to denote the $1$-subdivision of $G$.
 
-For positive integers $a$ and $b$, the $a\times b$ \emph{grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only if $|v-x|+|w-y|=1$. For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  An $a'\times b'$ \emph{subgrid} of $G_{a\times b}$ is an induced graph of the form $G_{a\times b}[\{(v,w): v\in\{i,\ldots,i+a'-1\},\, w\in\{j,\ldots,j+b'-1\}$ for some $i\in\{1,\ldots,a-a'+1\}$ and $j\in\{1,\ldots,b-b'+1\}$.   The \emph{vertex boundary} of $G_{a\times b}$ is $\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  The \emph{edge boundary} of $G_{a,b}$ consists of all edges incident to at least one vertex in the vertex boundary of $G_{a,b}$. The \emph{boundary} of $G_{a\times b}$ is the union of the edge and vertex boundaries.
+\subsection{Subdivided Grids}
+
+For positive integers $a$ and $b$, the \emph{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only if $|v-x|+|w-y|=1$.  For each $i\in\{1,\ldots,a\}$, the \emph{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  We define the \emph{boundary} of $G_{a\times b}$ as $\partial G_{a\times b}:=\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  We say that a path $P:=v_0,v_1,\ldots,v_\ell$ in $G_{a\times b}$ \emph{goes straight} at a vertex $v_i$, $i\in\{1,\ldots,k-1\}$ if $v_{i-1}$, $v_i$, and $v_{i+1}$ are contained in a single row or column.  Otherwise, we say that $P$ \emph{turns} at $v_i$.
+
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{cc}
+      \includegraphics{figs/grid-1} &
+      \includegraphics{figs/grid-2}
+    \end{tabular}
+  \end{center}
+  \caption{The grid $G_{10}$ and its $1$-subdivision $G^{\onesub}_{10}$.}
+\end{figure}
+
+% An $a'\times b'$ \emph{subgrid} of $G_{a\times b}$ is an induced graph of the form $G_{a\times b}[\{(v,w): v\in\{i,\ldots,i+a'-1\},\, w\in\{j,\ldots,j+b'-1\}$ for some $i\in\{1,\ldots,a-a'+1\}$ and $j\in\{1,\ldots,b-b'+1\}$.   The \emph{vertex boundary} of $G_{a\times b}$ is $\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  The \emph{edge boundary} of $G_{a,b}$ consists of all edges incident to at least one vertex in the vertex boundary of $G_{a,b}$. The \emph{boundary} of $G_{a\times b}$ is the union of the edge and vertex boundaries.
+
+For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  We will work extensively with the $1$-subdivision $G^{\onesub}_k$ of $G_k$.  In this case, we define $\partial G^{\onesub}_k:=\{v\in V(G^{\onesub}_k):\dist_{G^{\onesub}_k}(v,\partial G_k)\le 1\}$.  That is, the boundary of $G^{\onesub}_k$ includes the vertex boundary of $G_k$ as well as any degree-$2$ vertex of $G^{\onesub}_k$ that is adjacent to at least one boundary vertex of $G_k$.  
+
+\begin{figure}
+  \begin{center}
+    \includegraphics{figs/grid-3}
+  \end{center}
+  \caption{The ball $B_2(v)=B_2(s)$ in $G^{\onesub}_{10}$.}
+\end{figure}
 
 
-\begin{lem}
-  Let $I,L$ be disjoint subsets of $V(G_{10})$, let $Q$ be a subset of $E(G_{10})$ and let $X:=I\cup L\cup Q$ have the following properties:
-  \begin{compactenum}[(Pr1)]\setcounter{enumi}{0}
-    \item $|X|\le 4$.
-    \item $Q$ does not contain the edges of a $4$-cycle.
-    \item No vertex of $G_k$ is incident to three or more edges in $Q$.
-    \item No vertex in $I\cup L$ is incident to two or more edges in $Q$.
-    \item $X$ contains no boundary vertices or edges.
+\begin{lem}\label{seven_by_seven}
+  Let $I,L,Q$ be disjoint subsets of $V(G^{\onesub}_{7})\setminus \partial G^{\onesub}_k$ with $|I\cup L\cup Q|\le 3$ that have the following properties:
+  \begin{compactenum}[(i)]\setcounter{enumi}{0}
+    \item Each vertex is $I\cup L$ has degree $4$ and each vertex in $Q$ has degree $2$.
+    \item No vertex in $V(G^{\onesub}_{10})$ is adjacent to three vertices of $Q$.
+    \item No vertex in $I\cup L$ is adjacent to two vertices of $Q$.
   \end{compactenum}
   Then for any pair of boundary vertices $s$ and $t$, $G_{10}$ contains a path $P$ that 
-  \begin{compactenum}
-    \item begins at $s$ and ends at $t$
-    \item contains all elements of $X$;
+  \begin{compactenum}[(a)]
+    \item begins at $s$ and ends at $t$;
+    \item contains every vertex in $I\cup L\cup Q$;
     \item goes straight through each vertex in $I$; and
     \item turns at each vertex in $L$.\todo{Define turns and goes straight}
     % \item contains no boundary vertices or edges except $s$ and $t$.
@@ -184,46 +166,53 @@ For positive integers $a$ and $b$, the $a\times b$ \emph{grid} $G_{a\times b}$ i
   I have no idea how to prove this.  Computer search?.  
 \end{proof}
 
-A \emph{grid square} $S_{x,y,\ell}$ of side-length $\ell$ is a point set of the form $\{x,\ldots,x+\ell-1\}\times\{y,\ldots,y+\ell-1\}$ for some $x,y\in\Z^2$.  The \emph{interior} of $S_{x,y,\ell}$ is the grid square $S_{x+1,y+1,\ell-2}$
+It will be helpful to take some natural definitions for $G_k$ and extend them to $G^{\onesub}_k$.  To do this, we associate each vertex $v$ of $G^{\onesub}_k$ with a vertex $v^{\leftup}$ of $G_k$. For each vertex $v\in V(G_k)$, we define $v^{\leftup}:=v$. For each subdivision vertex $s$ in $G^{\onesub}_k$ with neighbours $v$ and $w$, we define $s^{\leftup}$ to be the lexicographically smaller of $v$ or $w$.  For two vertices $v_1,v_2\in V(G^{\onesub}_k)$, with $v^{\leftup}_1:=(x_1,y_1)$ and $v^{\leftup}_2:=(x_2,y_2)$ we define the $L_\infty$-distance between $v_1$ and $v_2$ as $\|v_1v_2\|_\infty = \max\{|x_1-x_2|, |y_1-y_2|\}$.  For any $v\in V(G^{\onesub}_k)$, the \emph{($L_\infty$) ball} of radius $r$ centered at $v$ is $B_{r}(v):=\{w\in V(G^{\onesub}_k):\|vw\|_\infty \le r\}$.\todo{Make a figure that illustrates this.}
 
 \begin{lem}\label{four_points}
-  Let $P$ be a set of at most $4$ points in $\Z^2$.  Then there exists a set $S$ of disjoint grid squares, each of side-length $10$ such that each point of $P$ is contained in the interior of some square in $S$.
+  Let $P$ be a set of at most $3$ vertices of $G^{\onesub}_k$.  Then there exists a set $S$ of pairwise-disjoint balls, each of radius $3$, such that each vertex in $P$ is contained in the interior of some ball in $S$.\todo{Define the interior of a ball.}
 \end{lem}
 
 \begin{proof}
-  Let $P:=\{p_1,\ldots,p_t\}$ where $p_i:=(x_i,y_i)$.  Let $X:=\bigcup_{i=1}^t \{x_i\bmod 10,(x_{i+1})\bmod 10\}$ and let $Y:=\bigcup_{i=1}^t\{y_i\bmod 10,(y_i+1)\bmod 10\}$.  Then $|X|\le 2t\le 8$ and $|Y|\le 2t\le 8$.  In particular, there exists some $x\in\{0,\ldots,9\}\setminus X$ and some $y\in\{0,\ldots,9\}\setminus Y$.  We use squares of the form $\{x+10r,\ldots,x+10r-1\}\times\{y+10r\ldots,y+10r-1\}$ for each $r\in\Z$.
+  Let $P:=\{v_1,\ldots,v_t\}$ where $p_i^{\leftup}:=(x_i,y_i)$.  Let $X:=\bigcup_{i=1}^t \{x_i\bmod 10,(x_{i+1})\bmod 10\}$ and let $Y:=\bigcup_{i=1}^t\{y_i\bmod 10,(y_i+1)\bmod 10\}$.  Then $|X|,|Y|\le 2t\le 6$.  In particular, there exists some $x\in\{0,\ldots,6\}\setminus X$ and some $y\in\{0,\ldots,6\}\setminus Y$. For each $i,j\in\Z$, let $c_{i,j}:=(7i+x+3,7j+y+3)$ and observe that the ball $B_{3}(c_{i,j})$ does not have any point of $P$ on its boundary.  Furthermore, the set of balls $S:=\{B_{3}(c_{i,j}):i,j\in\Z\}$ is a partition of $V(G^{\onesub}_{k})$.  Therefore $S$ is a set of pairwise-disjoint balls, each of radius $3$, such that each vertex in $P$ is contained in the interior of some ball in $S$.
 \end{proof}
 
 \begin{lem}
-  Let $P$ be a set of points in $\Z^2$ such that no square of side-length $80$ contains more than 4 points of $P$.  Then there exists a set $S$ of disjoint grid squares, each of side length $10$ and such that each point of $P$ is in the interior of some square in $S$.
+  Let $P$ be a subset of $V(G^{\onesub}_k)$ such that no ball of radius $9$ contains more than $3$ vertices in $P$.  Then there exists a set $S$ of disjoint balls, each of radius $3$ and such that each point of $P$ is in the interior of some ball in $S$.
 \end{lem}
 
 \begin{proof}
-  Define a graph $H$ with vertex set $V(H):=P$ and that contains an edge $pq$ if and only if $\|p-q\|_\infty \le 20$. Observe that each component of $H$ contains at most $4$ points of $P$.  For each component $C$ of $H$, apply \cref{four_points} to $V(C)$.  This produces a set of disjoint grid squares of side length $10$ that each contain some point of $V(C)$ in their interior.  Any two squares $s_1$ and $s_2$ obtained from different components of $H$ are disjoint because $s_1$ contains a point $p_1\in P$ and $s_2$ contains a point $p_2\in P$ such that $\|p_1-p_2\|\infty > 20$, but the squares $s_1$ and $s_2$ each have side length $10$.\todo{Could be tidier here.}
+  Define a graph $H$ with vertex set $V(H):=P$ and that contains an edge $pq$ if and only if $\|pq\|_\infty \le 12$. Observe that, if some connected subgraph of $H$ contains $4$ vertices, then these $4$ vertices are contained in a ball of radius $9$.  Therefore each component of $H$ contains at most $3$ vertices.
+  
+  For each component $C$ of $H$, apply \cref{four_points} to $V(C)$ and keep only those balls in $S$ that contain at least one vertex of $V(C)$.  This produces a set $S_C$ of disjoint balls, each of radius $3$, that each contain some vertex in $V(C)$ in their interior.  Any two balls $B_{C_1}$ and $B_{C_2}$ obtained from different components of $H$ are disjoint because the first ball contains a vertex $p_1\in P$ and the second ball contains a vertex $p_2\in P$ such that $\|p_1p_2\|\infty > 12$, but the balls $s_1$ and $s_2$ each have radius $3$.
 \end{proof}
 
-\todo[inline]{Adjust the numbers in the point covering lemmas.}
 
-\begin{lem}
-  Let $k$ be a positive integer, let $I,L$ be disjoint subsets of $V(G_{k})$, let $Q$ be a subset of $E(G_{k})$ and let $X:=I\cup L\cup Q$ have the following properties:
-  \begin{compactenum}[(Pr1)]\setcounter{enumi}{0}
-    \item Each $80\times 80$ subgrid of $G_k$ contains at most $4$ elements of $X$.
-    \item $Q$ does not contain all the edges of a $4$-cycle.
-    % \item $X$ contains no boundary vertices or edges.
-    \item No vertex of $G_k$ is incident to three or more edges in $Q$.
-    \item No vertex in $I\cup L$ is incident to two or more edges in $Q$.
+\begin{lem}\label{one_path_enchilada}
+  Let $k$ be a positive integer, let $I,L,Q$ be disjoint subsets of $V(G^{\onesub}_{k})\setminus\partial G^{\onesub}_k$ that have the following properties:
+  \begin{compactenum}[(1)]\setcounter{enumi}{-1}
+    \item Any ball of radius 9 contains at most $3$ elements of $I\cup L\cup Q$.
+    \item Each vertex in $I\cup L$ has degree $4$ and each vertex in $Q$ has degree $2$.
+    \item No vertex in $V(G^{\onesub}_{10})$ is adjacent to three vertices of $Q$.
+    \item No vertex in $I\cup L$ is adjacent to two vertices of $Q$.
   \end{compactenum}
-  Then $G_k$ contains a path $P$ that
-  \begin{compactenum}
-    \item contains all elements of $X$;
+  Then $G^{\onesub}_k$ contains a path $P$ that
+  \begin{compactenum}[(a)]
+    \item contains all the vertices in $I\cup L\cup Q$;
     \item goes straight through each vertex in $I$; and
     \item turns at each vertex in $L$.
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
-  Start with the snakelike path that visits every $10$th row of $G_k$. Cover the elements of $X$ with disjoint squares of side length $10$.  Each such square is intersected by exactly one row of the snakelike path.  Use \cref{ten_by_ten} to locally deform the path to pick up the objects in any square that it intersects.
+  Start with the snakelike path $P_0$ that visits every $7$th row of $G_k$. Cover the elements of $I\cup L\cup Q$ with disjoint balls of side length $3$.  Each such square is intersected by exactly one row of the snakelike path.  Use \cref{seven_by_seven} to locally deform $P_0$ to pick up the objects in any square that it intersects.
 \end{proof}
+
+
+\subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
+
+Here we explain the ranking trick that allows us to make approximate Voronoi diagrams.  If the minimum-distance between any two sites in these diagrams is $\beta$, then any four points in four different cells of the diagram contains a pair of points at distance $\Omega(\beta)$.  In particular, there exists a constant $a>0$ such that any ball of radius $a\beta$ contains points from at most $3$ grid cells.  We will then use this to find vertex sets $P\subseteq V(G^{\onesub}_k)$ that can be used with \cref{one_path_enchilada}.
+
+\subsection{Pseudogrids}
 
 A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{P}$ of vertex-disjoint paths in $H$ such that the quotient graph $H':=H/\mathcal{P}$ is isomorphic to a subdivision of $G_{a\times b}$.  Since $G_{a\times b}$ has maximum degree $4$ any graph $G$ that contains a $G_{a\times b}$-minor contains a subgraph $H$ that is a $a\times b$ pseudogrid.\footnote{This comes from the fact that any tree $T$ with at most $4$ leaves contains at most two vertices of degree greater than $2$.  Contracting the path between these two vertices (if they exist) produces a tree with exactly one vertex of degree greater than $2$.}
 
