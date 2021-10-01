@@ -14,7 +14,11 @@
 \usepackage{enumitem}
 
 \usepackage{todonotes}
-\usepackage{etoolbox}
+
+% etoolbox allows for robust commands that don't need \protect, e.g.
+% \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
+% \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
+\usepackage{etoolbox}  
 
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 
@@ -49,11 +53,12 @@
 
 \setlength{\parskip}{1ex}
 
-
+% Document-specific commands and math operators
 \DeclareMathOperator{\tw}{tw}
 \DeclareMathOperator{\chicen}{\chi_{\mathrm{cen}}}
 \DeclareMathOperator{\chilin}{\chi_{\mathrm{lin}}}
 \DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\vor}{Vor}
 
 \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
 \newrobustcmd{\leftup}{\mathord{\includegraphics{figs/left-up}}}
@@ -211,6 +216,39 @@ It will be helpful to take some natural definitions for $G_k$ and extend them to
 \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
 
 Here we explain the ranking trick that allows us to make approximate Voronoi diagrams.  If the minimum-distance between any two sites in these diagrams is $\beta$, then any four points in four different cells of the diagram contains a pair of points at distance $\Omega(\beta)$.  In particular, there exists a constant $a>0$ such that any ball of radius $a\beta$ contains points from at most $3$ grid cells.  We will then use this to find vertex sets $P\subseteq V(G^{\onesub}_k)$ that can be used with \cref{one_path_enchilada}.
+
+
+\todo[inline]{This lemma is not true. Pick a center $x$ and place a point in each of the quadrants around $x$ where the $i$th point is at distance $10\beta - (ir)$ from $x$.  Then $x$ is incident on all four Voronoi regions.  We really have to use the fact that $\beta$ (or rather, $\beta+ar$) is also an upper bound on the distance we actually care about.}
+\begin{lem}
+  For any $r\in\N$ there exists $\beta\in\N$ such that, for any $k\in\N$ and any $P\subseteq G^{\onesub}_k$ with $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$ there exists a function $\vor_P:V(G^{\onesub}_k)\to P$ such that
+  \begin{compactenum}[(i)]
+    \item for any vertex $v$ of $G^{\onesub}_k$, $|\{\vor_P(v)\}\cup\{\vor_P(w):w\in N_{G^{\onesub}_k}(v)\}|\le 2$.
+    \item for any ball $B$ of radius $r$, $|\{\vor_P(v):v\in B\}|\le 3$;
+  \end{compactenum}
+\end{lem}
+
+\begin{proof}
+  % The idea behind this proof is to use the Voronoi diagram of $P$ to define the function $\vor$.  The problem is that the Voronoi diagram can have vertices of high degree and pairs of vertices that are close together, both of these violate the second requirement.  Instead, we construct an approximate Voronoi diagram in which each point is assigned to one of 
+  We first define a function $\vor':V(G^{\onesub}_k)\to P$ that only satisifies the second condition and then show how local modifications can be used to obtain a function $\vor$ that satisifies both conditions.
+  
+  Arbitrarily order the points of $P$ as $p_1,\ldots,p_{|P|}$.  For each vertex $v$ of $:V(G^{\onesub}_k)$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+ar\}$ for some $a>1$ discussed shortly, and let $\vor_P'(v):=\min\{i:p_i\in S(v)\}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $ar$), and $\vor_P'(v)$ is the approximate nearest neighbour of $v$ of smallest index.
+  
+  We now argue that for sufficiently large $\beta$, depending only on $r$, $\vor'$ satisfies the second condition.  Let $v_1,\ldots,v_4\in V(G^{\onesub}_k)$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor_P'(v_j)=p_{i_j}$ for each $j\in\{1,\ldots,4\}$.  Let $P':=\{p_1,\ldots,p_4\}$ and observe that $\vor'_{P'}(v_j)=\vor'_P(v_j)$ for each $j\in\{1,\ldots,4\}$.  Therefore, it suffices to consider the case where $|P|=4$, so that $i_j=j$ for each $j\in\{1,\ldots,4\}$.
+  
+  Claim: Some ball $B_2(x_1)$ of radius $2$ contains three vertices $y_1,y_2,y_3$ such that $\vor'(x_i)=p_i$ for each $i\in\{1,2,3\}$. Claim: Some ball $B_2(x_2)$ of radius $2$ contains three vertices $z_1,z_2,z_4$ such that $\vor'(z_i)=p_i$ for each $i\in\{1,2,4\}$.  (Prove this.)
+  
+  
+  
+  
+  
+  We will show that there exists $j_1,j_2\in\{1,\ldots,4\}$ such that $\|v_{j_1}v_{j_2}\|_\infty > 2r$, and therefore no ball of radius $r$ contains $v_1,\ldots,v_4$.
+  
+  Let $B'$ be any ball of radius $2$ that contains 
+  
+  
+  
+  
+\end{proof}
 
 \subsection{Pseudogrids}
 
