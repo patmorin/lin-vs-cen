@@ -18,7 +18,7 @@
 % etoolbox allows for robust commands that don't need \protect, e.g.
 % \newrobustcmd{\onesub}{\mathord{\includegraphics{figs/one-sub}}}
 % \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
-\usepackage{etoolbox}  
+\usepackage{etoolbox}
 
 \usepackage[longnamesfirst,numbers,sort&compress]{natbib}
 
@@ -140,7 +140,7 @@ For positive integers $a$ and $b$, the \emph{$a\times b$ grid} $G_{a\times b}$ i
 
 % An $a'\times b'$ \emph{subgrid} of $G_{a\times b}$ is an induced graph of the form $G_{a\times b}[\{(v,w): v\in\{i,\ldots,i+a'-1\},\, w\in\{j,\ldots,j+b'-1\}$ for some $i\in\{1,\ldots,a-a'+1\}$ and $j\in\{1,\ldots,b-b'+1\}$.   The \emph{vertex boundary} of $G_{a\times b}$ is $\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  The \emph{edge boundary} of $G_{a,b}$ consists of all edges incident to at least one vertex in the vertex boundary of $G_{a,b}$. The \emph{boundary} of $G_{a\times b}$ is the union of the edge and vertex boundaries.
 
-For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  We will work extensively with the $1$-subdivision $G^{\onesub}_k$ of $G_k$.  In this case, we define $\partial G^{\onesub}_k:=\{v\in V(G^{\onesub}_k):\dist_{G^{\onesub}_k}(v,\partial G_k)\le 1\}$.  That is, the boundary of $G^{\onesub}_k$ includes the vertex boundary of $G_k$ as well as any degree-$2$ vertex of $G^{\onesub}_k$ that is adjacent to at least one boundary vertex of $G_k$.  
+For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  We will work extensively with the $1$-subdivision $G^{\onesub}_k$ of $G_k$.  In this case, we define $\partial G^{\onesub}_k:=\{v\in V(G^{\onesub}_k):\dist_{G^{\onesub}_k}(v,\partial G_k)\le 1\}$.  That is, the boundary of $G^{\onesub}_k$ includes the vertex boundary of $G_k$ as well as any degree-$2$ vertex of $G^{\onesub}_k$ that is adjacent to at least one boundary vertex of $G_k$.
 
 \begin{figure}
   \begin{center}
@@ -157,7 +157,7 @@ For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ gr
     \item No vertex in $V(G^{\onesub}_{10})$ is adjacent to three vertices of $Q$.
     \item No vertex in $I\cup L$ is adjacent to two vertices of $Q$.
   \end{compactenum}
-  Then for any pair of boundary vertices $s$ and $t$, $G_{10}$ contains a path $P$ that 
+  Then for any pair of boundary vertices $s$ and $t$, $G_{10}$ contains a path $P$ that
   \begin{compactenum}[(a)]
     \item begins at $s$ and ends at $t$;
     \item contains every vertex in $I\cup L\cup Q$;
@@ -168,7 +168,7 @@ For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ gr
 \end{lem}
 
 \begin{proof}
-  I have no idea how to prove this.  Computer search?.  
+  I have no idea how to prove this.  Computer search?.
 \end{proof}
 
 It will be helpful to take some natural definitions for $G_k$ and extend them to $G^{\onesub}_k$.  To do this, we associate each vertex $v$ of $G^{\onesub}_k$ with a vertex $v^{\leftup}$ of $G_k$. For each vertex $v\in V(G_k)$, we define $v^{\leftup}:=v$. For each subdivision vertex $s$ in $G^{\onesub}_k$ with neighbours $v$ and $w$, we define $s^{\leftup}$ to be the lexicographically smaller of $v$ or $w$.  For two vertices $v_1,v_2\in V(G^{\onesub}_k)$, with $v^{\leftup}_1:=(x_1,y_1)$ and $v^{\leftup}_2:=(x_2,y_2)$ we define the $L_\infty$-distance between $v_1$ and $v_2$ as $\|v_1v_2\|_\infty = \max\{|x_1-x_2|, |y_1-y_2|\}$.  For any $v\in V(G^{\onesub}_k)$, the \emph{($L_\infty$) ball} of radius $r$ centered at $v$ is $B_{r}(v):=\{w\in V(G^{\onesub}_k):\|vw\|_\infty \le r\}$.\todo{Make a figure that illustrates this.}
@@ -187,7 +187,7 @@ It will be helpful to take some natural definitions for $G_k$ and extend them to
 
 \begin{proof}
   Define a graph $H$ with vertex set $V(H):=P$ and that contains an edge $pq$ if and only if $\|pq\|_\infty \le 12$. Observe that, if some connected subgraph of $H$ contains $4$ vertices, then these $4$ vertices are contained in a ball of radius $9$.  Therefore each component of $H$ contains at most $3$ vertices.
-  
+
   For each component $C$ of $H$, apply \cref{four_points} to $V(C)$ and keep only those balls in $S$ that contain at least one vertex of $V(C)$.  This produces a set $S_C$ of disjoint balls, each of radius $3$, that each contain some vertex in $V(C)$ in their interior.  Any two balls $B_{C_1}$ and $B_{C_2}$ obtained from different components of $H$ are disjoint because the first ball contains a vertex $p_1\in P$ and the second ball contains a vertex $p_2\in P$ such that $\|p_1p_2\|\infty > 12$, but the balls $s_1$ and $s_2$ each have radius $3$.
 \end{proof}
 
@@ -218,36 +218,46 @@ It will be helpful to take some natural definitions for $G_k$ and extend them to
 Here we explain the ranking trick that allows us to make approximate Voronoi diagrams.  If the minimum-distance between any two sites in these diagrams is $\beta$, then any four points in four different cells of the diagram contains a pair of points at distance $\Omega(\beta)$.  In particular, there exists a constant $a>0$ such that any ball of radius $a\beta$ contains points from at most $3$ grid cells.  We will then use this to find vertex sets $P\subseteq V(G^{\onesub}_k)$ that can be used with \cref{one_path_enchilada}.
 
 
-\todo[inline]{This lemma is not true. Pick a center $x$ and place a point in each of the quadrants around $x$ where the $i$th point is at distance $10\beta - (ir)$ from $x$.  Then $x$ is incident on all four Voronoi regions.  We really have to use the fact that $\beta$ (or rather, $\beta+ar$) is also an upper bound on the distance we actually care about.}
+% \todo[inline]{This lemma is not true. Pick a center $x$ and place a point in each of the quadrants around $x$ where the $i$th point is at distance $10\beta - (ir)$ from $x$.  Then $x$ is incident on all four Voronoi regions.  We really have to use the fact that $\beta$ (or rather, $\beta+ar$) is also an upper bound on the distance we actually care about.}
 \begin{lem}
-  For any $r\in\N$ there exists $\beta\in\N$ such that, for any $k\in\N$ and any $P\subseteq G^{\onesub}_k$ with $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$ there exists a function $\vor_P:V(G^{\onesub}_k)\to P$ such that
+  For any $r\in\N$ there exists $\beta\in\N$ such that, for any $k\in\N$ and any $P\subseteq G^{\onesub}_k$ with $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$ the following statement is true.  Let $Q:=\bigcup_{p\in P} B_\beta(p)$.  There exists a function $\vor_P:Q\to P$ such that
   \begin{compactenum}[(i)]
-    \item for any vertex $v$ of $G^{\onesub}_k$, $|\{\vor_P(v)\}\cup\{\vor_P(w):w\in N_{G^{\onesub}_k}(v)\}|\le 2$.
-    \item for any ball $B$ of radius $r$, $|\{\vor_P(v):v\in B\}|\le 3$;
+    \item for any $v\in Q$, $|\{\vor_P(v)\}\cup\{\vor_P(w):w\in Q\cap N_{G^{\onesub}_k}(v)\}|\le 2$.
+    \item for any ball $B$ of radius $r$, $|\{\vor_P(v):v\in B\cap Q\}|\le 3$;
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
-  % The idea behind this proof is to use the Voronoi diagram of $P$ to define the function $\vor$.  The problem is that the Voronoi diagram can have vertices of high degree and pairs of vertices that are close together, both of these violate the second requirement.  Instead, we construct an approximate Voronoi diagram in which each point is assigned to one of 
+  % The idea behind this proof is to use the Voronoi diagram of $P$ to define the function $\vor$.  The problem is that the Voronoi diagram can have vertices of high degree and pairs of vertices that are close together, both of these violate the second requirement.  Instead, we construct an approximate Voronoi diagram in which each point is assigned to one of
   We first define a function $\vor':V(G^{\onesub}_k)\to P$ that only satisifies the second condition and then show how local modifications can be used to obtain a function $\vor$ that satisifies both conditions.
-  
-  Arbitrarily order the points of $P$ as $p_1,\ldots,p_{|P|}$.  For each vertex $v$ of $:V(G^{\onesub}_k)$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+ar\}$ for some $a>1$ discussed shortly, and let $\vor_P'(v):=\min\{i:p_i\in S(v)\}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $ar$), and $\vor_P'(v)$ is the approximate nearest neighbour of $v$ of smallest index.
-  
-  We now argue that for sufficiently large $\beta$, depending only on $r$, $\vor'$ satisfies the second condition.  Let $v_1,\ldots,v_4\in V(G^{\onesub}_k)$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor_P'(v_j)=p_{i_j}$ for each $j\in\{1,\ldots,4\}$.  Let $P':=\{p_1,\ldots,p_4\}$ and observe that $\vor'_{P'}(v_j)=\vor'_P(v_j)$ for each $j\in\{1,\ldots,4\}$.  Therefore, it suffices to consider the case where $|P|=4$, so that $i_j=j$ for each $j\in\{1,\ldots,4\}$.
-  
-  Claim: Some ball $B_2(x_1)$ of radius $2$ contains three vertices $y_1,y_2,y_3$ such that $\vor'(x_i)=p_i$ for each $i\in\{1,2,3\}$. Claim: Some ball $B_2(x_2)$ of radius $2$ contains three vertices $z_1,z_2,z_4$ such that $\vor'(z_i)=p_i$ for each $i\in\{1,2,4\}$.  (Prove this.)
-  
-  
-  
-  
-  
-  We will show that there exists $j_1,j_2\in\{1,\ldots,4\}$ such that $\|v_{j_1}v_{j_2}\|_\infty > 2r$, and therefore no ball of radius $r$ contains $v_1,\ldots,v_4$.
-  
-  Let $B'$ be any ball of radius $2$ that contains 
-  
-  
-  
-  
+
+  Arbitrarily order the points of $P$ as $p_1,\ldots,p_{|P|}$.  For each $v\in Q$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+ar\}$ for some $a>1$ discussed shortly, and let $\vor_P'(v):=\min\{i:p_i\in S(v)\}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $ar$), and $\vor_P'(v)$ is the approximate nearest neighbour of $v$ of smallest index.
+
+  We now argue that for sufficiently large $\beta$, depending only on $r$, $\vor'$ satisfies the second condition.  Let $v_1,\ldots,v_4\in V(G^{\onesub}_k)$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor_P'(v_j)=p_{i_j}$ for each $j\in\{1,\ldots,4\}$.  Suppose that $v_1,\ldots,v_4$ are contained in some ball $B_{x/2}(c)$ of radius $x$
+  % , so that $\max\{\|v_iv_j\|_\infty:i,j\in\{1,\ldots,4\}\}\le x$.  Then
+  \[ \|p_{i_1}c\|_\infty \le \|p_{i_1}v_1\|+x \le \beta + ar + x \]
+  Since $\vor'(v_2)=p_{i_2}\neq p_{i_1}$,
+  \[ \|p_{i_2}v_2\|_\infty
+     < \|p_{i_1}v_2\|_\infty - ar
+     \le \|p_{i_1}c\|_\infty + x - ar
+     \le \beta + 2x
+  \]
+  so $\|p_{i_2}c\|_\infty < \beta + 3x$.
+  Since $\vor'(v_3)=p_{i_3}\neq p_{i_2}$,
+  \[
+     \|p_{i_2}v_3\|_\infty
+     < \|p_{i_2}v_3\|_\infty - ar
+     \le \|p_{i_2}c\|_\infty + x - ar
+     < \beta + 4x - ar
+  \]
+  so $\p_{i_2}c\|_\infty \le \beta + 5x - ar$.  Finally, since $\vor'(v_4)=p_{i_4}\neq p_{i_3}$,
+  \[
+    \|p_{i_4}v_4\|_\infty
+    < \|p_{i_3}v_4\|_\infty - ar
+    \le \|p_{i_3}c\|_\infty +x -ar
+    < \beta + 5x - 2ar \enspace .
+  \]
+  Setting $ar := 3\beta/4$ and $5x=\beta/2$ we find that $\|p_{i,4}v_4\|_\infty < 0$, clearly a contradiction.  We conclude that, for $ar=3\beta/4$, any ball of radius $\beta/10$ contains $v_1,\ldots,v_4$.  Thus, $\vor'$ satisfies the second condition of the lemma.\todo{Optimize and cleanup. Finish proving (i)}
 \end{proof}
 
 \subsection{Pseudogrids}
@@ -283,15 +293,15 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
     If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $x_c$ and $y_c$ undefined for now and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G_k$ contains fewer than $3(\beta/2+1)^2$\todo{check precisely} unmarked vertices/edges with $c$ in their colour sets.\footnote{$G_{a\times a}$ contains fewer than $3a^2$ vertices and edges and contains pairs of vertices/edges at distance $2(a-1)$.}  In particular, for $\alpha > 3(\beta/2+1)^2$, Stage~1 succeeds for $c=1$.
 
     \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeds and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 fails.  Let $R_1:=\bigcup_{c\in S}\{x_c,y_c\}$ be the set of vertices and edges chosen in $R_1$.
-    
+
     As mentioned above, for sufficiently large $\alpha$ (relative to $\beta$), the set $S$ is non-empty and therefore $R_1$ is non-empty. In the next paragraph, we will define a function $\nu$ that maps each marked vertex or edge of $G_k$ to some element of $R_1$.  We use to this to construct a bipartite graph $I$ with vertex parts $A:=\overline{S}$ and $R_1$. The edge set of $I$ contains an edge $cx$ precisely when there is a marked edge or vertex $z$ of $G_k$ such that $c\in\phi(z)$ and $\nu(z)=x$.
 
-    We now define the mapping $\nu$.  Fix some total order on $R_1$ by assigning each element of $R_1$ a distinct rank in $\{1,\ldots,|R_1|\}$.  For each marked element $z\in V(G_k)\cup E(G_k)$, let $\gamma(z):=\min\{\dist_{G_k}(z,x):x\in R_1\}$, let $\Gamma(z):=\{x\in R_1:\dist_{G_k}(z,x) \le (1+\delta)\gamma(z)$, and let $\nu(z)$ be the element in $\Gamma(z)$ of minimum rank.  In words, $\gamma(z)$ is the distance to $z$'s nearest neighbour in $R_1$, $\Gamma(z)$ is the set of all approximate nearest neighbours of $z$ in $R_1$ and $\nu(z)$ is the approximate nearest-neighbour of $z$ with smallest rank.  
-    
+    We now define the mapping $\nu$.  Fix some total order on $R_1$ by assigning each element of $R_1$ a distinct rank in $\{1,\ldots,|R_1|\}$.  For each marked element $z\in V(G_k)\cup E(G_k)$, let $\gamma(z):=\min\{\dist_{G_k}(z,x):x\in R_1\}$, let $\Gamma(z):=\{x\in R_1:\dist_{G_k}(z,x) \le (1+\delta)\gamma(z)$, and let $\nu(z)$ be the element in $\Gamma(z)$ of minimum rank.  In words, $\gamma(z)$ is the distance to $z$'s nearest neighbour in $R_1$, $\Gamma(z)$ is the set of all approximate nearest neighbours of $z$ in $R_1$ and $\nu(z)$ is the approximate nearest-neighbour of $z$ with smallest rank.
+
     Note that for any marked element $z$, there exists $x\in R_1$ such that $\dist_{G_k}(z,x)\le\beta$.  Therefore $\gamma(z)\le\beta$.  Therefore, for any $x\in R_1$, the set $\nu{^-1}(x)$ only contains marked elements $z$ for which $\dist_{G_k}(x,z)\le (1+\delta)\beta$  Thus, $|\nu^{-1}(x)|\le \zeta\beta^2$ for some $\zeta$ depending only on $\delta$. This has two implications:
     \begin{compactenum}
       \item For each $x\in R_1$,  $\deg_{I}(x) \le \zeta\beta^2$.
-      \item Since each colour $c\in A$ is frequent, $\deg_I(c)\ge \alpha/\zeta beta^2$.  
+      \item Since each colour $c\in A$ is frequent, $\deg_I(c)\ge \alpha/\zeta beta^2$.
     \end{compactenum}
     These two conditions imply that, for each $A_0\subseteq A$, $|N_I(A_0)|\ge \alpha/\zeta^2\beta^4$.   In particular, for any $\alpha$ and $\beta$ with $\alpha > 2\zeta^2\beta^4$,  $|N_I(A_0)|\ge 2|A_0|$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
   \end{compactenum}
@@ -302,39 +312,39 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
   \begin{clm}\label{r1_far}
       For each distinct pair $z,z'\in R_1$, $\dist_{G_k}(z,z')\ge \beta$.
   \end{clm}
-  
+
   The next claim states that any element $z'\in R_2$ is quite far from every element of $R_1$ except possibly its nearest neighbour in $R_1$.
-  
+
   \begin{clm}\label{far_from_home}
     For each $x\in R_1$ and $y\in R_2$ with $\nu(y)\neq x$, $\dist_{G_k}(x,y)\ge \beta /(2+\delta)$.
   \end{clm}
 
   \begin{proof}
     Since $\nu(y)\neq x$, there exists some other $z\in R_1\setminus\{y\}$ with $\nu(y)=\nu(z)$.  Since $x,z\in R_1$, \cref{r1_far} implies that $\dist_{G_k}(x,z)\ge \beta$.  Since $\nu(y)=z$, $\dist_{G_k}(y, z) \le (1+\delta)\gamma(y)\le (1+\delta)\dist_{G_k}(y, x)$.  By the triangle inequality
-    \[ \beta \le \dist_{G_k}(x,z) 
+    \[ \beta \le \dist_{G_k}(x,z)
         \le \dist_{G_k}(x,y)+\dist_{G_k}(y,z)
-        % \le \dist_{G_k}(x,y) + (1+\delta)\dist_{G_k}(x,y) 
+        % \le \dist_{G_k}(x,y) + (1+\delta)\dist_{G_k}(x,y)
         \le (2+\delta)\dist_{G_k}(x,y) \enspace . \qedhere
     \]
   \end{proof}
-  
-  
+
+
   \begin{clm}
     Any subset of $R$ containing containing $4$ elements contains a pair $(x,y)$ such that $\dist_{G_k}(x,y)\ge \psi\beta$, for some $\psi>0$ that depends only on $\delta$.
   \end{clm}
-  
+
   \begin{proof}
     Let $R':=\{x_1,x_2,x_3,x_4\}$ be a $4$-element subset of $R$.  If $|R'\cap R_1|\ge 2$ because say $x_1,x_2\in R_1$ then $\dist_{G_k}(x_1,x_2)\ge \beta$, by \cref{r1_far}.  If $|R'\cap R_1=1$ because say $x_1\in R_1$ then $\nu(x_i)= x_1$ for at most one $i\in\{2,3,4\}$. For each of the two $j\in\{2,3,4\}\setminus\{i\}$, $\dist_{G_k}(x_1,x_j)\ge \beta/(2+\delta)$, by \cref{far_from_home}.
-    
+
     The only possibility that remains is that $R'\subseteq R_2$. Let the elements of $R'$ be labelled so that the rank of $\nu(x_i)$ is less than the rank of $\nu(x_j)$ for each $i<j$. Suppose that $\dist_{G_k}(x_i,x_j)\le \psi\beta$ for each $i,j\in\{1,2,3\}$, otherwise there is nothing to prove.
-    
-    First observe that, for any $i\in\{1,2,3,4\}$,  $\dist_{G_k}(x_i,\nu(x_i)) \ge (\tfrac{1}{2+\delta}-\psi)\beta$ since, otherwise 
-    \[  \dist_{G_k}(x_{i+1},\nu(x_i))\le \dist_{G_k}(x_{i+1},x_i) + 
+
+    First observe that, for any $i\in\{1,2,3,4\}$,  $\dist_{G_k}(x_i,\nu(x_i)) \ge (\tfrac{1}{2+\delta}-\psi)\beta$ since, otherwise
+    \[  \dist_{G_k}(x_{i+1},\nu(x_i))\le \dist_{G_k}(x_{i+1},x_i) +
     \dist_{G_k}(x_i,\nu(x_i)) < \beta/(2+\delta) \enspace ,
     \]
-    for any $j\in\{1,2,3,4\}\setminus\{i\}$, 
+    for any $j\in\{1,2,3,4\}\setminus\{i\}$,
     contradicting \cref{far_from_home}.\todo{Make this a separate lemma?}
-    
+
   \end{proof}
 
   \begin{clm}
@@ -344,7 +354,7 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
   \begin{proof}
     To prove this, we have to define $s(x)$ a little more carefully.
   \end{proof}
-  
+
   \begin{clm}
     There is no triple $(v,e_1,e_2)\in R$ where $v$ is a vertex of $G_k$ and $e_1$ and $e_2$ are each edges of $G_k$ incident on $v$.
   \end{clm}
