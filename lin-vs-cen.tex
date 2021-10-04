@@ -220,44 +220,43 @@ Here we explain the ranking trick that allows us to make approximate Voronoi dia
 
 % \todo[inline]{This lemma is not true. Pick a center $x$ and place a point in each of the quadrants around $x$ where the $i$th point is at distance $10\beta - (ir)$ from $x$.  Then $x$ is incident on all four Voronoi regions.  We really have to use the fact that $\beta$ (or rather, $\beta+ar$) is also an upper bound on the distance we actually care about.}
 \begin{lem}
-  For any $r\in\N$ there exists $\beta\in\N$ such that, for any $k\in\N$ and any $P\subseteq G^{\onesub}_k$ with $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$ the following statement is true.  Let $Q:=\bigcup_{p\in P} B_\beta(p)$.  There exists a function $\vor_P:Q\to P$ such that
+  For any $\beta, k\in\N$ and any $P\subseteq V(G^{\onesub}_k)$ with $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$ the following statement is true:  Let $Q:=\bigcup_{p\in P} B_\beta(p)$. There exists a function $\vor_P:Q\to P$ such that
   \begin{compactenum}[(i)]
     \item for any $v\in Q$, $|\{\vor_P(v)\}\cup\{\vor_P(w):w\in Q\cap N_{G^{\onesub}_k}(v)\}|\le 2$.
-    \item for any ball $B$ of radius $r$, $|\{\vor_P(v):v\in B\cap Q\}|\le 3$;
+    \item for any ball $B$ of radius $\beta/12$, $|\{\vor_P(v):v\in B\cap Q\}|\le 3$;
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
   % The idea behind this proof is to use the Voronoi diagram of $P$ to define the function $\vor$.  The problem is that the Voronoi diagram can have vertices of high degree and pairs of vertices that are close together, both of these violate the second requirement.  Instead, we construct an approximate Voronoi diagram in which each point is assigned to one of
-  We first define a function $\vor':V(G^{\onesub}_k)\to P$ that only satisifies the second condition and then show how local modifications can be used to obtain a function $\vor$ that satisifies both conditions.
+  We first define a function $\vor':Q\to P$ that satisfies the second condition and then show how local modifications can be used to obtain a function $\vor$ that satisfies both conditions.
 
-  Arbitrarily order the points of $P$ as $p_1,\ldots,p_{|P|}$.  For each $v\in Q$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+ar\}$ for some $a>1$ discussed shortly, and let $\vor_P'(v):=\min\{i:p_i\in S(v)\}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $ar$), and $\vor_P'(v)$ is the approximate nearest neighbour of $v$ of smallest index.
+  Arbitrarily order the vertices of $P$ as $p_1,\ldots,p_{|P|}$.  For each $v\in Q$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+3\beta/4\}$, and let $\vor'_P(v):=\min\{i:p_i\in S(v)\}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $\beta/12$), and $\vor_P'(v)$ is (the index of) the approximate nearest neighbour of $v$ of smallest index.
 
-  We now argue that for sufficiently large $\beta$, depending only on $r$, $\vor'$ satisfies the second condition.  Let $v_1,\ldots,v_4\in V(G^{\onesub}_k)$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor_P'(v_j)=p_{i_j}$ for each $j\in\{1,\ldots,4\}$.  Suppose that $v_1,\ldots,v_4$ are contained in some ball $B_{x/2}(c)$ of radius $x$
-  % , so that $\max\{\|v_iv_j\|_\infty:i,j\in\{1,\ldots,4\}\}\le x$.  Then
-  \[ \|p_{i_1}c\|_\infty \le \|p_{i_1}v_1\|+x \le \beta + ar + x \]
-  Since $\vor'(v_2)=p_{i_2}\neq p_{i_1}$,
+  We now argue that $\vor'$ satisfies the second condition.  Let $v_1,\ldots,v_4\in Q$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor_P'(v_j)=i_j$ for each $j\in\{1,\ldots,4\}$.  Suppose, for the sake of contradiction, that $i_1,\ldots,i_4$ are all distinct and that $v_1,\ldots,v_4$ are contained in some ball $B_{\beta/12}(c)$.  By the triangle inequality $\|v_iv_j\|_\infty \le \|v_ic\|_\infty+\|cv_j\|_\infty \le \beta/6$ for each  $i,j\in\{1,\ldots,4\}$.
+  Since $v_1\in Q$, $d(v)\le\beta$ so
+  \[ \|p_{i_1}v_1\|_\infty \le d(v_1) + 3\beta/4 \le \beta + 3\beta/4 \]
+  Since $\vor'(v_2)=i_2\neq i_1$,
   \[ \|p_{i_2}v_2\|_\infty
-     < \|p_{i_1}v_2\|_\infty - ar
-     \le \|p_{i_1}c\|_\infty + x - ar
-     \le \beta + 2x
+     < \|p_{i_1}v_2\|_\infty - 3\beta/4
+     \le \|p_{i_1}v_1\|_\infty + \beta/6 - 3\beta/4
+     \le \beta + \beta/5 \enspace .
   \]
-  so $\|p_{i_2}c\|_\infty < \beta + 3x$.
-  Since $\vor'(v_3)=p_{i_3}\neq p_{i_2}$,
+  Since $\vor'(v_3)=i_3\neq i_2$,
   \[
      \|p_{i_2}v_3\|_\infty
-     < \|p_{i_2}v_3\|_\infty - ar
-     \le \|p_{i_2}c\|_\infty + x - ar
-     < \beta + 4x - ar
+     < \|p_{i_2}v_3\|_\infty - 3\beta/4
+     \le \|p_{i_2}v_2\|_\infty + \beta/6 - 3\beta/4
+     < \beta + 2\beta/6 - 3\beta/4 \enspace .
   \]
-  so $\p_{i_2}c\|_\infty \le \beta + 5x - ar$.  Finally, since $\vor'(v_4)=p_{i_4}\neq p_{i_3}$,
+  Finally, since $\vor'(v_4)=p_{i_4}\neq p_{i_3}$,
   \[
     \|p_{i_4}v_4\|_\infty
-    < \|p_{i_3}v_4\|_\infty - ar
-    \le \|p_{i_3}c\|_\infty +x -ar
-    < \beta + 5x - 2ar \enspace .
+    < \|p_{i_3}v_4\|_\infty - 3\beta/4
+    \le \|p_{i_3}v_3\|_\infty + \beta/5 - 3\beta/4
+    < \beta + 3\beta/6 - 3\beta/2 = 0 \enspace ,
   \]
-  Setting $ar := 3\beta/4$ and $5x=\beta/2$ we find that $\|p_{i,4}v_4\|_\infty < 0$, clearly a contradiction.  We conclude that, for $ar=3\beta/4$, any ball of radius $\beta/10$ contains $v_1,\ldots,v_4$.  Thus, $\vor'$ satisfies the second condition of the lemma.\todo{Optimize and cleanup. Finish proving (i)}
+  which is clearly a contradiction.  This establishes that $\vor'$ satisfies Condition~(ii).\todo{Optimize and cleanup. Finish proving (i)}\todo{Why not use $\beta$ (or $100\beta$) instead of $3\beta/4$?}
 \end{proof}
 
 \subsection{Pseudogrids}
