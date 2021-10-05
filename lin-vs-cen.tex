@@ -327,7 +327,7 @@ The second case (\ref{two_degree_three}) in the proof of \cref{pseudogrid_minor}
 Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in $T_x$ also contains all the vertices of $P_x$.  Furthermore, if $x$ is bent, then, for each $\overline\i,\overline\j\in\{-1,1\}$, the path from $B_{i,j+\overline\j}$ to $B_{i+\overline\i, j}$ in $T_x$ contains all the vertices of $P_x$.
 
 
-\todo[inline]{I can't yet prove the full result, which is why the next lemma has some weird conditions.}
+\todo[inline]{I can't yet prove the full result, which is why the next lemma has some weird condition involving a newly introduced parameter $r$.}
 
 \begin{lem}\label{pseudogrid_lower_bound}
   %For any $k\times k$ pseudogrid $H$
@@ -357,7 +357,7 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
     While there exists some infrequent colour $c\in\{1,\ldots,C\}$, find a row or column of $G^{\onesub}_k$ that contains a vertex with $c$ in its colour set and remove that row or column.  Doing this exhaustively results in the removal of at most $(\alpha-1) C \le \epsilon\alpha k$ rows and at most $\epsilon\alpha k$ columns of $H$.  This leaves a pseudogrid $H'$ that contains a $k'\times k'$ pseudogrid for some $k'\ge (1-\epsilon \alpha)k$ for which every colour that appears in at least one vertex of $H'$ is frequent.  This completes the proof of \cref{all_frequent}.
   \end{proof}
 
-  Returning to the proof of \cref{pseudogrid_lower_bound}, we set $\epsilon=1/2\alpha=O(1/r\beta^2)$ so that \cref{all_frequent} guarantees that $H'$ contains a $k/2\times k/2$ pseudogrid in which each colour $c\in\{1,\ldots,C\}$ either does not appear in $H'$ or is frequent in $H'$.  To avoid overloading notation, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$ in $H$.  (The remainder of the proof does not depend on the values of $k$ or $C$.)
+  Returning to the proof of \cref{pseudogrid_lower_bound}, we set $\epsilon=1/2\alpha=\Theta(1/r\beta^2)$ so that \cref{all_frequent} guarantees that $H'$ contains a $k/2\times k/2$ pseudogrid in which each colour $c\in\{1,\ldots,C\}$ either does not appear in $H'$ or is frequent in $H'$.  To avoid overloading notation, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$ in $H$.  (The remainder of the proof does not depend on the values of $k$ or $C$.)
 
   % Colour sets turn out to be problematic, so we would like to assign a single colour $c\in\Phi(v)$ to each $v\in G^{\onesub}_k$.  To do this, consider the bipartite graph $X$ with parts $A:=\{1,\ldots,C\}$ and $B:=V(G^{\onesub}_k)$ and which contains the edge $cv$ if and only if $c\in\Phi(v)$.  Since each colour in $A$ is frequent, $\deg_x(c)\ge a$ for each $c\in C$.  S
 
@@ -394,6 +394,30 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
 
   Conditions~(\ref{never_far}) and (\ref{three_in_ball}) of \cref{voronoi_mapping} imply that each any ball of radius $\min\{\beta/8-1, \beta/12\}/2$ contains at most three elements of $R$.  This condition is satisfied for $\beta= 12\cdot18 = 218$ (so the conditions on $\alpha$ are satisified for any $\alpha = r(7\beta/2+1)^2=2331729r$).  Therefore, by \cref{one_path_enchilada}, there exists a path $P$ in $G^{\onesub}_k$ that contains every vertex of $R$, that goes straight at every straight vertex of $R$ and that bends at every bent vertex of $R$. These latter two conditions guarantee that $V(P)$ contains $P_x$ for each $x\in R$. For each colour $c\in\{1,\ldots,C\}$, there are at least two vertices $x_c,y_c\in R$ such that $P_{x_c}$ and $P_{y_c}$ each contain some vertex of colour $c$.  Therefore the path $P$ contains two vertices of each colour, so $P$ has no center and therefore $\varphi$ is not a linear colouring of $H$.  Since $\varphi$ is an arbitrary $\epsilon k$-colouring of $H$, this implies that $\chilin(H)\ge \epsilon k = \Theta(k/\alpha)=\Theta(k/r)$.
 \end{proof}
+
+To finish the proof, we need some lemma which states that highly subdivided graphs don't have linear colouring numbers that are much smaller than mildly subdivided graphs.  It would be enough to prove the following.
+
+A \emph{refinement} $G'$ of a graph $G$ is a subdivision of $G$ in which each subdivision vertex is adjacent only to degree-$2$ vertices, i.e., $\deg_{G'}(v)=2$ for each $v\in N_{G'}(s)$ and each $s\in V(G')\setminus V(G)$.
+
+\begin{lem}\label{refinement_bound}
+  For any refinement $G'$ of any graph $G$, $\chilin(G') = \Omega(\chilin(G))$.
+\end{lem}
+
+In general, we know that if $G'$ is an $\ell$-subdivision of $G$ then
+\[  
+    \log\ell \le \chilin(G') \le \chilin(G) + \log\ell \enspace .
+\] 
+The lower bound comes from the fact that a path of length $\ell$ has a linear chromatic number at least $\log\ell$. The upper bound comes by introducing $\log\ell$ additional colours that are used to colour the paths in $G'-G$.  Of course, the upper bound holds even when $G'$ is a $\le\!\!\ell$-subdivision of $G$ and the lower bound holds as long as at least one edge of $G$ is subdivided $\ell$ or more times.
+
+Perhaps \cref{refinement_bound} is true even if we replace ``refinement'' with ``subdivision''.  As a test case, one could start with the $1$-subdivision $K^{\onesub}_k$ of the $k$-clique $K_k$.  The following result is certainly true, as can be seen from a treedepth decomposition:
+
+\begin{lem}
+  For any subdivision $G'$ of any graph $G$, $\chicen(G') \ge \chicen(G)$.
+\end{lem}
+
+
+
+
 
 
 
