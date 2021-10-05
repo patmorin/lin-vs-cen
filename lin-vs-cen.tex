@@ -329,7 +329,7 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
 
 \todo[inline]{I can't yet prove the full result, which is why the next lemma has some weird conditions.}
 
-\begin{lem}
+\begin{lem}\label{pseudogrid_lower_bound}
   %For any $k\times k$ pseudogrid $H$
   Let $H$ be a $k\times k$ pseudogrid and $\mathcal{P}:=(P_x:x\in V(G_{k}))$ be such that
   \begin{inparaenum}[(i)]
@@ -340,7 +340,7 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
 \end{lem}
 
 \begin{proof}
-  This proof uses two large integer constants $\alpha$ and $\beta$ and two small positive real constants $\epsilon$ and $\delta$.  The relationships between these constants are that $\beta = \Theta(\alpha^{1/4})$ and $\epsilon=\Theta(1/\alpha)$.  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$.  We will show that $H$ contains a path $P$ which has no centre with respect to $\varphi$.
+  This proof uses two large integer constants $\alpha$ and $\beta$ and two small positive real constants $\epsilon$ and $\delta$.  The relationships between these constants are that $\alpha=\Theta(r\beta^2)$  $\epsilon=\Theta(1/\alpha)$.  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$.  We will show that $H$ contains a path $P$ which has no centre with respect to $\varphi$.
 
   First we introduce some notations for vertices of the subdivided grid $G^{\onesub}_k$ to their corresponding paths in the pseudogrid $H$.  For each vertex $v$ of $G_k$ there is a path $P_v$ in $\mathcal{P}$ (possibly consisting of one vertex) such that the vertex $v$ appears in $H'$ as a result of contracting $P_v$ in $H$.  In this way, each vertex $v$ of $G_k$ is associated with a non-empty \emph{colour set} $\Phi(v):=\{\varphi(w):w\in V(P_v)\}$.  Similarly, for each subdivision vertex $s$ of $G^{\onesub}_k$ that comes from subdividing an edge $e$ of $G_k$, there is a path $P_s$ in $H'$ that comes from subdividing $e$ (possibly zero times).  Thus, each subdivision vertex $s$ of $G^{\onesub}_k$ is associated with a (possibly empty) \emph{colour set} $\Phi(s):=\{\varphi(w):w\in P^-_e\}$, where $P^-_e$ denotes the (possibly empty) set of internal vertices on the path $P_e$.
 
@@ -351,13 +351,13 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
     $H$ contains a $k'\times k'$ pseudogrid $H'$ in which every colour in $\{\varphi(v):v\in V(H')\}$ is frequent.
   \end{clm}
 
-  \begin{proof}
+  \begin{proof}[Proof of \cref{all_frequent}]
     This proof uses the notion of \emph{removing} a row or column of a pseudogrid.  Removing a row is defined as follows (removing a column is similar): For each vertex $v$ of $G^{\onesub}_k$ in the relevant row, remove all edges of $P_v$ from $H$. Next, remove any isolated vertices from $H$ and finally, repeatedly remove degree-$1$ vertices from $H$ until none remain.  The result is pseudogrid with one less row.
 
-    While there exists some infrequent colour $c\in\{1,\ldots,C\}$, find a row or column of $G^{\onesub}_k$ that contains a vertex with $c$ in its colour set and remove that row or column.  Doing this exhaustively results in the removal of at most $(\alpha-1) C \le \epsilon\alpha k$ rows and at most $\epsilon\alpha k$ columns of $H$.  This leaves a pseudogrid $H'$ that contains a $k'\times k'$ pseudogrid for some $k'\ge (1-\epsilon \alpha)k$ for which every colour that appears in at least one vertex of $H'$ is frequent.
+    While there exists some infrequent colour $c\in\{1,\ldots,C\}$, find a row or column of $G^{\onesub}_k$ that contains a vertex with $c$ in its colour set and remove that row or column.  Doing this exhaustively results in the removal of at most $(\alpha-1) C \le \epsilon\alpha k$ rows and at most $\epsilon\alpha k$ columns of $H$.  This leaves a pseudogrid $H'$ that contains a $k'\times k'$ pseudogrid for some $k'\ge (1-\epsilon \alpha)k$ for which every colour that appears in at least one vertex of $H'$ is frequent.  This completes the proof of \cref{all_frequent}.
   \end{proof}
 
-  Because of \cref{all_frequent}, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$.
+  Returning to the proof of \cref{pseudogrid_lower_bound}, we set $\epsilon=1/2\alpha=O(1/r\beta^2)$ so that \cref{all_frequent} guarantees that $H'$ contains a $k/2\times k/2$ pseudogrid in which each colour $c\in\{1,\ldots,C\}$ either does not appear in $H'$ or is frequent in $H'$.  To avoid overloading notation, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$ in $H$.  (The remainder of the proof does not depend on the values of $k$ or $C$.)
 
   % Colour sets turn out to be problematic, so we would like to assign a single colour $c\in\Phi(v)$ to each $v\in G^{\onesub}_k$.  To do this, consider the bipartite graph $X$ with parts $A:=\{1,\ldots,C\}$ and $B:=V(G^{\onesub}_k)$ and which contains the edge $cv$ if and only if $c\in\Phi(v)$.  Since each colour in $A$ is frequent, $\deg_x(c)\ge a$ for each $c\in C$.  S
 
@@ -368,7 +368,7 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
     \begin{inparaenum}[(i)]
       \item each of $x_c$ and $y_c$ is unmarked;
       \item $\|x_cy_c\|_\infty \ge \beta$; and
-      \item $c\in \phi(x_c)$ and $c\in \phi(y_c)$;
+      \item $c\in \Phi(x_c)$ and $c\in \Phi(y_c)$;
     \end{inparaenum}
     then we say that Stage~1 \emph{succeeeds} for colour $c$ and we mark each vertex in $B_{\beta}(x_c)$ and $B_\beta(y_c)$.
 
@@ -376,15 +376,15 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
 
     \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeds and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 fails.  Let $R_1:=\bigcup_{c\in S}\{x_c,y_c\}$ be the set of vertices and edges chosen in $R_1$.  By construction, $\min\{\|pq\|_\infty: \{p,q\}\in \binom{R_1}{2}\}\ge \beta$.
 
-    As mentioned above, for sufficiently large $\alpha$ (relative to $\beta$), the set $S$ is non-empty and therefore $R_1$ is non-empty.  Let $P:=R_1$ and let $Q:=\bigcup_{p\in P} B_\beta(p)$ and apply \cref{voronoi_mapping} to obtain the mapping $\vor:Q\to P$.  We use to this to construct a bipartite graph $I$ with vertex parts $\overline{S}$ and $R_1$. The edge set of $I$ contains an edge $cx$ precisely when there is a marked vertex $z$ of $G^{\onesub}_k$ such that $c\in\phi(z)$ and $\vor(z)=x$.
+    As mentioned above, for sufficiently large $\alpha$ (relative to $\beta$), the set $S$ is non-empty and therefore $R_1$ is non-empty.  Let $P:=R_1$ and let $Q:=\bigcup_{p\in P} B_\beta(p)$ and apply \cref{voronoi_mapping} to obtain the mapping $\vor:Q\to P$.  We use to this to construct a bipartite graph $I$ with vertex parts $\overline{S}$ and $R_1$. The edge set of $I$ contains an edge $cx$ precisely when there is a marked vertex $z$ of $G^{\onesub}_k$ such that $c\in\Phi(z)$ and $\vor(z)=x$.
 
     First observe that each vertex $x$ of $G^{\onesub}_k$ corresponds to a path $P_x$ in $H$ that contains at most $r$ vertices.\footnote{For some subdivision vertices of $G^{\onesub}_k$, $P_x$ may be empty.}  This implies that $|\Phi(x)|\le r$ for each $x\in V(G^{\onesub}_k)$.  Next observe that, for each $p\in R_1$, \cref{voronoi_mapping}(\ref{never_far}) implies that $|\vor^{-1}(p)|\le|B_{7\beta/4}(p)|\le (7\beta/2+1)^2$.  This implies that $\deg_I(p) \le r(7\beta/2+1)^2$ for each $p\in R_1$.
 
     This implies that, for any $A_0\subseteq\overline{S}$,
     \[
-        |N_I(A_0)| \ge \frac{a|A_0|}{r(7\beta/2+1)^2} \ge 2|N_I(A_0)| \enspace .
+        |N_I(A_0)| \ge \frac{\alpha|A_0|}{r(7\beta/2+1)^2} \ge 2|A_0| \enspace .
     \]
-    for appropriately chosen $\alpha$ and $\beta$ (with $\beta\in O(\sqrt{\alpha}))$.\todo{Specify precise condition.}  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \Phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\Phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
+    for $\alpha\ge 2r(7\beta/2+1)^2$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p,q\in R_1$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $\vor(x_c)=p$ and $c\in \Phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $\vor(y_c)=q$ and $c\in\Phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
   \end{enumerate}
 
   Summarizing our work thus far, we have identified a subset  $R:=\bigcup_{c=1}^C\{x_c,y_c\}$ of at most $2c$ vertices and edges of $G_k$ where $c\in \Phi(x_c)\cap \Phi(y_c)$ for each $c\in\{1,\ldots,C\}$.
@@ -392,7 +392,7 @@ Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in 
 
   \todo[inline]{There is a technical condition missing here.  To apply \cref{one_path_enchilada} we need the elements of $R$ to be distance at least $3$ from the boundary of $G^{\onesub}_k$.  When counting multiplicity, we shouldn't count occurrences of a colour that are close to the boundary.}
 
-  Conditions~(\ref{never_far}) and (\ref{three_in_ball}) of \cref{voronoi_mapping} imply that each any ball of radius $\min\{\beta/8-1, \beta/12\}/2$ contains at most three elements of $R$.  Therefore, (for sufficiently large $\beta$) \cref{one_path_enchilada}, there exists a path $P$ in $G^{\onesub}_k$ that contains every vertex of $R$, that goes straight at every straight vertex of $R$ and that bends at every bent vertex of $R$. These latter two conditions guarantee that $V(P)$ contains $P_x$ for each $x\in R$. For each colour $c\in\{1,\ldots,C\}$, there are at least two vertices $x_c,y_c\in R$ such that $P_{x_c}$ and $P_{y_c}$ each contain some vertex of colour $c$.  Therefore the path $P$ contains two vertices of each colour.  Therefore $P$ has no center. Therefore $\varphi$ is not a linear centered colouring of $H$.  Since $\varphi$ is an arbitrary $\epsilon k$-colouring of $H$, this implies that $\chilin(H)\ge \epsilon k$.
+  Conditions~(\ref{never_far}) and (\ref{three_in_ball}) of \cref{voronoi_mapping} imply that each any ball of radius $\min\{\beta/8-1, \beta/12\}/2$ contains at most three elements of $R$.  This condition is satisfied for $\beta= 12\cdot18 = 218$ (so the conditions on $\alpha$ are satisified for any $\alpha = r(7\beta/2+1)^2=2331729r$).  Therefore, by \cref{one_path_enchilada}, there exists a path $P$ in $G^{\onesub}_k$ that contains every vertex of $R$, that goes straight at every straight vertex of $R$ and that bends at every bent vertex of $R$. These latter two conditions guarantee that $V(P)$ contains $P_x$ for each $x\in R$. For each colour $c\in\{1,\ldots,C\}$, there are at least two vertices $x_c,y_c\in R$ such that $P_{x_c}$ and $P_{y_c}$ each contain some vertex of colour $c$.  Therefore the path $P$ contains two vertices of each colour, so $P$ has no center and therefore $\varphi$ is not a linear colouring of $H$.  Since $\varphi$ is an arbitrary $\epsilon k$-colouring of $H$, this implies that $\chilin(H)\ge \epsilon k = \Theta(k/\alpha)=\Theta(k/r)$.
 \end{proof}
 
 
