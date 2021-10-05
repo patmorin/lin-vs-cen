@@ -11,7 +11,7 @@
 
 \usepackage[normalem]{ulem}
 \usepackage{cancel}
-\usepackage{enumitem}
+%\usepackage{enumitem}
 
 \usepackage{todonotes}
 
@@ -122,36 +122,29 @@ For a graph $G$ and a vertex $v\in V(G)$, $\deg_G(v):=|\{vw\in E(G)\}|$ denotes 
 
 \section{The Linear Colouring Number of Pseudogrids}
 
-A \emph{subdivision} of a graph $G$ is any graph $G'$ that can be obtained from $G$ by replacing each edge $vw$ of $G$ with a path $v,s_1,s_2,\ldots,s_\ell,w$ in which each of the (newly introduced) internal vertices $s_1,\ldots,s_\ell$ have degree exactly $2$.  Each vertex in $V(G')\setminus V(G)$ is called a \emph{subdivision vertex}.  A $\ell$-subdivision of $G$ is a subdivision of $G$ in which each edge of $G$ is replaced by a path that has exactly $\ell$ internal vertices.  For a graph $G$, we use $G^{\onesub}$ to denote the $1$-subdivision of $G$.
+A \emph{subdivision} of a graph $G$ is any graph $G'$ that can be obtained from $G$ by replacing each edge $vw$ of $G$ with a path $v,s_1,s_2,\ldots,s_\ell,w$ in which each of the (newly introduced) internal vertices $s_1,\ldots,s_\ell$ have degree exactly $2$.  Each vertex in $V(G')\setminus V(G)$ is called a \emph{subdivision vertex}.  A $\ell$-subdivision of $G$ is a subdivision of $G$ in which each edge of $G$ is replaced by a path that has exactly $\ell$ internal vertices.  For any graph $G$, we use $G^{\onesub}$ to denote the $1$-subdivision of $G$.  Note that there is a natural bijection between the vertex set $V(G^{\onesub})$ and the vertex/edge set $V(G)\cup E(G)$.
 
 \subsection{Subdivided Grids}
 
-For positive integers $a$ and $b$, the \emph{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only if $|v-x|+|w-y|=1$.  For each $i\in\{1,\ldots,a\}$, the \emph{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  We define the \emph{boundary} of $G_{a\times b}$ as $\partial G_{a\times b}:=\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  We say that a path $P:=v_0,v_1,\ldots,v_\ell$ in $G_{a\times b}$ \emph{goes straight} at a vertex $v_i$, $i\in\{1,\ldots,k-1\}$ if $v_{i-1}$, $v_i$, and $v_{i+1}$ are contained in a single row or column.  Otherwise, we say that $P$ \emph{turns} at $v_i$.
+Refer to \cref{grid_figure}.  For positive integers $a$ and $b$, the \emph{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only if $|v-x|+|w-y|=1$.  For each $i\in\{1,\ldots,a\}$, the \emph{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  We define the \emph{boundary} of $G_{a\times b}$ as $\partial G_{a\times b}:=\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  We say that a path $P:=v_0,v_1,\ldots,v_\ell$ in $G_{a\times b}$ \emph{goes straight} at a vertex $v_i$, $i\in\{1,\ldots,k-1\}$ if $v_{i-1}$, $v_i$, and $v_{i+1}$ are contained in a single row or column.  Otherwise, we say that $P$ \emph{bends} at $v_i$.
 
 \begin{figure}
   \begin{center}
-    \begin{tabular}{cc}
+    \begin{tabular}{c@{\hspace{2cm}}c}
       \includegraphics{figs/grid-1} &
       \includegraphics{figs/grid-2}
     \end{tabular}
   \end{center}
-  \caption{The grid $G_{10}$ and its $1$-subdivision $G^{\onesub}_{10}$.}
+  \caption{The grid $G_{10}$ and its $1$-subdivision $G^{\onesub}_{10}$.}\
+  \label{grid_figure}
 \end{figure}
 
 % An $a'\times b'$ \emph{subgrid} of $G_{a\times b}$ is an induced graph of the form $G_{a\times b}[\{(v,w): v\in\{i,\ldots,i+a'-1\},\, w\in\{j,\ldots,j+b'-1\}$ for some $i\in\{1,\ldots,a-a'+1\}$ and $j\in\{1,\ldots,b-b'+1\}$.   The \emph{vertex boundary} of $G_{a\times b}$ is $\{1,a\}\times\{1,\ldots,b\}\cup \{1,\ldots,a\}\times\{1,b\}$.  The \emph{edge boundary} of $G_{a,b}$ consists of all edges incident to at least one vertex in the vertex boundary of $G_{a,b}$. The \emph{boundary} of $G_{a\times b}$ is the union of the edge and vertex boundaries.
 
-For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  We will work extensively with the $1$-subdivision $G^{\onesub}_k$ of $G_k$.  In this case, we define $\partial G^{\onesub}_k:=\{v\in V(G^{\onesub}_k):\dist_{G^{\onesub}_k}(v,\partial G_k)\le 1\}$.  That is, the boundary of $G^{\onesub}_k$ includes the vertex boundary of $G_k$ as well as any degree-$2$ vertex of $G^{\onesub}_k$ that is adjacent to at least one boundary vertex of $G_k$.
-
-\begin{figure}
-  \begin{center}
-    \includegraphics{figs/grid-3}
-  \end{center}
-  \caption{The ball $B_2(v)=B_2(s)$ in $G^{\onesub}_{10}$.}
-\end{figure}
-
+For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ grid.  We will work extensively with the $1$-subdivision $G^{\onesub}_k$ of $G_k$.  In this case, we define $\partial G^{\onesub}_k:= \partial G_k\cup N_{G^{\onesub}_k}[\partial G_k]$.\todo{Define open and closed neighbourhods $N_G(\cdot)$ and $N_G[\cdot]$.}  
 
 \begin{lem}\label{seven_by_seven}
-  Let $I,L,Q$ be disjoint subsets of $V(G^{\onesub}_{7})\setminus \partial G^{\onesub}_k$ with $|I\cup L\cup Q|\le 3$ that have the following properties:
+  Let $I,L,Q$ be disjoint subsets of $V(G^{\onesub}_{7})\setminus \partial G^{\onesub}_7$ with $|I\cup L\cup Q|\le 3$ that have the following properties:
   \begin{compactenum}[(i)]\setcounter{enumi}{0}
     \item Each vertex is $I\cup L$ has degree $4$ and each vertex in $Q$ has degree $2$.
     \item No vertex in $V(G^{\onesub}_{10})$ is adjacent to three vertices of $Q$.
@@ -162,7 +155,7 @@ For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ gr
     \item begins at $s$ and ends at $t$;
     \item contains every vertex in $I\cup L\cup Q$;
     \item goes straight through each vertex in $I$; and
-    \item turns at each vertex in $L$.\todo{Define turns and goes straight}
+    \item bends at each vertex in $L$.
     % \item contains no boundary vertices or edges except $s$ and $t$.
   \end{compactenum}
 \end{lem}
@@ -171,7 +164,18 @@ For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ gr
   I have no idea how to prove this.  Computer search?.
 \end{proof}
 
-It will be helpful to take some natural definitions for $G_k$ and extend them to $G^{\onesub}_k$.  To do this, we associate each vertex $v$ of $G^{\onesub}_k$ with a vertex $v^{\leftup}$ of $G_k$. For each vertex $v\in V(G_k)$, we define $v^{\leftup}:=v$. For each subdivision vertex $s$ in $G^{\onesub}_k$ with neighbours $v$ and $w$, we define $s^{\leftup}$ to be the lexicographically smaller of $v$ or $w$.  For two vertices $v_1,v_2\in V(G^{\onesub}_k)$, with $v^{\leftup}_1:=(x_1,y_1)$ and $v^{\leftup}_2:=(x_2,y_2)$ we define the $L_\infty$-distance between $v_1$ and $v_2$ as $\|v_1v_2\|_\infty = \max\{|x_1-x_2|, |y_1-y_2|\}$.  For any $v\in V(G^{\onesub}_k)$, the \emph{($L_\infty$) ball} of radius $r$ centered at $v$ is $B_{r}(v):=\{w\in V(G^{\onesub}_k):\|vw\|_\infty \le r\}$.\todo{Make a figure that illustrates this.}
+It will be helpful to take some natural definitions for $G_k$ and extend them to $G^{\onesub}_k$.  To do this, we associate each vertex $v$ of $G^{\onesub}_k$ with a vertex $v^{\leftup}$ of $G_k$. For each vertex $v\in V(G_k)$, we define $v^{\leftup}:=v$. For each subdivision vertex $s$ in $G^{\onesub}_k$ with neighbours $v$ and $w$, we define $s^{\leftup}$ to be the lexicographically smaller of $v$ or $w$. In other words, $s^{\leftup}$ is the vertex of $G_k$ that is directly below or the left of $s$.
+
+For two vertices $v_1,v_2\in V(G^{\onesub}_k)$, with $v^{\leftup}_1:=(x_1,y_1)$ and $v^{\leftup}_2:=(x_2,y_2)$ we define the $L_\infty$-distance between $v_1$ and $v_2$ as $\|v_1v_2\|_\infty = \max\{|x_1-x_2|, |y_1-y_2|\}$. Refer to \cref{ball_figure}.  For each $v\in V(G^{\onesub}_k)$, the \emph{($L_\infty$) ball} of radius $\beta$ centered at $v$ is $B_{\beta}(v):=\{w\in V(G^{\onesub}_k):\|vw\|_\infty \le \beta\}$.  Because it comes up in several places, it is worth noting that $|B_{\beta}(v)|\le 4(\beta+1)^2$, and this bound is tight for each $v\in\{\beta+1,\ldots,\beta-r-1\}\times\{\beta+1,\ldots,b-\beta-1\}$.
+
+\begin{figure}
+  \begin{center}
+    \includegraphics{figs/grid-3}
+  \end{center}
+  \caption{The ball $B_2(v)=B_2(s)$ in $G^{\onesub}_{10}$.}
+  \label{ball_figure}
+\end{figure}
+
 
 \begin{lem}\label{four_points}
   Let $P$ be a set of at most $3$ vertices of $G^{\onesub}_k$.  Then there exists a set $S$ of pairwise-disjoint balls, each of radius $3$, such that each vertex in $P$ is contained in the interior of some ball in $S$.\todo{Define the interior of a ball.}
@@ -215,34 +219,40 @@ It will be helpful to take some natural definitions for $G_k$ and extend them to
 
 \subsection{Approximate Voronoi Diagrams in $G^{\onesub}_k$}
 
-Here we explain the ranking trick that allows us to make approximate Voronoi diagrams.  If the minimum-distance between any two sites in these diagrams is $\beta$, then any four points in four different cells of the diagram contains a pair of points at distance $\Omega(\beta)$.  In particular, there exists a constant $a>0$ such that any ball of radius $a\beta$ contains points from at most $3$ grid cells.  We will then use this to find vertex sets $P\subseteq V(G^{\onesub}_k)$ that can be used with \cref{one_path_enchilada}.
-
 
 % \todo[inline]{This lemma is not true. Pick a center $x$ and place a point in each of the quadrants around $x$ where the $i$th point is at distance $10\beta - (ir)$ from $x$.  Then $x$ is incident on all four Voronoi regions.  We really have to use the fact that $\beta$ (or rather, $\beta+ar$) is also an upper bound on the distance we actually care about.}
-\begin{lem}
-  For any $\beta, k\in\N$ and any $P\subseteq V(G^{\onesub}_k)$ with $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$ the following statement is true:  Let $Q:=\bigcup_{p\in P} B_\beta(p)$. There exists a function $\vor_P:Q\to P$ such that
+\begin{lem}\label{voronoi_mapping}
+  Let $\beta, k\in\N$, let $P\subseteq V(G^{\onesub}_k)$ be such that $\min\{\|pq\|_\infty:p,q\in\binom{P}{2}\} \ge \beta$, and define  $Q:=\bigcup_{p\in P} B_\beta(p)$. Then there exists a function $\vor:Q\to P$ such that
   \begin{compactenum}[(i)]
-    \item for any $v\in Q$, $|\{\vor_P(v)\}\cup\{\vor_P(w):w\in Q\cap N_{G^{\onesub}_k}(v)\}|\le 2$.
-    \item for any ball $B$ of radius $\beta/12$, $|\{\vor_P(v):v\in B\cap Q\}|\le 3$;
+    \item \label{real_close} For each $p\in P$ and each $v\in B_{\beta/8-1}(p)$, $\vor(v)=p$.
+    \item \label{never_far} For each $v\in Q$, $\|v\vor(p)\|_\infty \le 7\beta/4$.
+    \item \label{three_in_ball} For any ball $B$ of radius $\beta/12$, $|\{\vor(v):v\in B\cap Q\}|\le 3$. 
+    \item \label{twocolour_neighbourhood} For any $v\in Q$, $|\{\vor(v)\}\cup\{\vor(w):w\in Q\cap N_{G^{\onesub}_k}(v)\}|\le 2$. 
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
-  % The idea behind this proof is to use the Voronoi diagram of $P$ to define the function $\vor$.  The problem is that the Voronoi diagram can have vertices of high degree and pairs of vertices that are close together, both of these violate the second requirement.  Instead, we construct an approximate Voronoi diagram in which each point is assigned to one of
-  We first define a function $\vor':Q\to P$ that satisfies the second condition and then show how local modifications can be used to obtain a function $\vor$ that satisfies both conditions.
+  We first define a function $\vor':Q\to P$ that satisfies (\ref{real_close})--(\ref{three_in_ball}) and then show how local modifications can be used to obtain a function $\vor$ that also satisfies (\ref{twocolour_neighbourhood}).
 
-  Arbitrarily order the vertices of $P$ as $p_1,\ldots,p_{|P|}$.  For each $v\in Q$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+3\beta/4\}$, and let $\vor'_P(v):=\min\{i:p_i\in S(v)\}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $\beta/12$), and $\vor_P'(v)$ is (the index of) the approximate nearest neighbour of $v$ of smallest index.
+  Arbitrarily order the vertices of $P$ as $p_1,\ldots,p_{|P|}$.  For each $v\in Q$, let $d(v):=\min\{\|vp\|_\infty:p\in P\}$, let $S(v):=\{p\in P:\|vp\|_\infty \le d(v)+3\beta/4\}$, let $i(v):=\min\{i:p_i\in S(v)\}$, and let $\vor'(v)=p_{i(v)}$.  In words, $d(v)$ represents the distance from $v$ to its nearest neighbour in $P$, $S(v)$ represents the set of approximate nearest neighbours of $v$ in $P$ (up to an additive error of $\beta/12$), and $\vor'(v)$ is the approximate nearest neighbour of $v$ of smallest index.
+  
+  To see that $\vor'$ satisfies (\ref{real_close}), observe that, for each distinct $p,q\in P$ and $v\in B_{\beta/8-1}(p)$, the triangle inequality implies that $\|vq\|_\infty \ge \|pq\|_\infty-\|vp\|_\infty \ge \beta-\beta/8+1 > 7\beta/8$.  On the other hand $d(v)\le \beta/8$, so $d(v)+3\beta/4\le 7\beta/8$.  Therefore, $q\not\in S(v)$ for any $q\in P\setminus\{p\}$, so $\vor'(v)=p$.
+  
+  That $\vor'$ satsifies (\ref{never_far}) follows immediately from the fact that each $v\in Q$, so $d(v)\le \beta$, and therefore $\|pv\|_\infty\le 7\beta/4$ for each $p\in S(v)$.
 
-  We now argue that $\vor'$ satisfies the second condition.  Let $v_1,\ldots,v_4\in Q$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor_P'(v_j)=i_j$ for each $j\in\{1,\ldots,4\}$.  Suppose, for the sake of contradiction, that $i_1,\ldots,i_4$ are all distinct and that $v_1,\ldots,v_4$ are contained in some ball $B_{\beta/12}(c)$.  By the triangle inequality $\|v_iv_j\|_\infty \le \|v_ic\|_\infty+\|cv_j\|_\infty \le \beta/6$ for each  $i,j\in\{1,\ldots,4\}$.
+  We now argue that $\vor'$ satisfies (\ref{three_in_ball}).  Let $v_1,\ldots,v_4\in Q$ and $1\le i_1<\cdots<i_4\le|P|$ be such that $\vor'(v_j)=p_{i_j}$ for each $j\in\{1,\ldots,4\}$.  Suppose, for the sake of contradiction, that $i_1,\ldots,i_4$ are all distinct and that $v_1,\ldots,v_4$ are contained in some ball $B_{\beta/12}(c)$.  By the triangle inequality $\|v_iv_j\|_\infty \le \|v_ic\|_\infty+\|cv_j\|_\infty \le \beta/6$ for each  $i,j\in\{1,\ldots,4\}$.
   Since $v_1\in Q$, $d(v)\le\beta$ so
-  \[ \|p_{i_1}v_1\|_\infty \le d(v_1) + 3\beta/4 \le \beta + 3\beta/4 \]
-  Since $\vor'(v_2)=i_2\neq i_1$,
-  \[ \|p_{i_2}v_2\|_\infty
+  \[ 
+    \|p_{i_1}v_1\|_\infty \le d(v_1) + 3\beta/4 \le \beta + 3\beta/4 \enspace .
+  \]
+  Since $\vor'(v_2)=p_{i_2}\neq p_{i_1}$,
+  \[ 
+    \|p_{i_2}v_2\|_\infty
      < \|p_{i_1}v_2\|_\infty - 3\beta/4
      \le \|p_{i_1}v_1\|_\infty + \beta/6 - 3\beta/4
      \le \beta + \beta/5 \enspace .
   \]
-  Since $\vor'(v_3)=i_3\neq i_2$,
+  Since $\vor'(v_3)=p_{i_3}\neq p_{i_2}$,
   \[
      \|p_{i_2}v_3\|_\infty
      < \|p_{i_2}v_3\|_\infty - 3\beta/4
@@ -256,12 +266,60 @@ Here we explain the ranking trick that allows us to make approximate Voronoi dia
     \le \|p_{i_3}v_3\|_\infty + \beta/5 - 3\beta/4
     < \beta + 3\beta/6 - 3\beta/2 = 0 \enspace ,
   \]
-  which is clearly a contradiction.  This establishes that $\vor'$ satisfies Condition~(ii).\todo{Optimize and cleanup. Finish proving (i)}\todo{Why not use $\beta$ (or $100\beta$) instead of $3\beta/4$?}
+  which is clearly a contradiction.  This establishes that $\vor'$ satisfies Condition~(\ref{three_in_ball}).\todo{Optimize and cleanup. Finish proving (iii)}\todo{Why not use $\beta$ (or $100\beta$) instead of $3\beta/4$?}
 \end{proof}
 
 \subsection{Pseudogrids}
 
-A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{P}$ of vertex-disjoint paths in $H$ such that the quotient graph $H':=H/\mathcal{P}$ is isomorphic to a subdivision of $G_{a\times b}$.  Since $G_{a\times b}$ has maximum degree $4$ any graph $G$ that contains a $G_{a\times b}$-minor contains a subgraph $H$ that is a $a\times b$ pseudogrid.\footnote{This comes from the fact that any tree $T$ with at most $4$ leaves contains at most two vertices of degree greater than $2$.  Contracting the path between these two vertices (if they exist) produces a tree with exactly one vertex of degree greater than $2$.}
+A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{P}$ of vertex-disjoint paths in $H$ such that the quotient graph $H':=H/\mathcal{P}$ is isomorphic to a subdivision of $G_{a\times b}$.  The following lemma connecting grid minors and pseudogrids is stated implicitly by \citet{kun.obrien.ea:polynomial}.  We give a proof here because some of the details of the connection are required in order to prove our results.
+
+
+\begin{lem}\label{pseudogrid_minor}
+  If a graph $G$ contains a $G_{a\times b}$ grid minor then $G$ contain a subgraph $H$ that is an $a\times b$ pseudogrid.
+\end{lem}
+
+\begin{proof}
+  (This proof only uses the fact that $G_{a\times b})$ has no vertex of degree greater than $4$.)  Since $G$ contains a $G_{a\times b}$ minor then, by definition, $G$ contains a subgraph $H$ and a partition $\mathcal{B}:=(B_x:x\in V(G_{a\times b}))\}$ of $V(H)$ such that
+  \begin{inparaenum}[(i)]
+    \item $B_x$ is non-empty and $H[B_x]$ is connected for each $x\in V(G_{a\times b})$;
+    \item $H/\mathcal{B}$ is isomorphic to $G_{a\times b}$ using the isomorphism given by $B_x\mapsto x$.
+  \end{inparaenum}
+  Let $(H,\mathcal{B})$ be chosen so that $H$ the minimum possible number of edges, over all choices $H$ and $\mathcal{B}$ that satisfy (i) and (ii).
+
+  An edge of $vw$ of $H$ is a \emph{border edge} if $v\in B_x$ and $w\in B_y$ for distinct $x,y\in V(G_{a\times b})$.  For each $x\in V(G_{a\times b})$, let $\partial B_x$ denote the set of border edges incident on one vertex of $B_x$.  Since $H$ is edge-minimal, $|\partial B_x|=\deg_{G_{a\times b}}(x)\le 4$, for each $x\in V(G_{a\times b})$.  For each $x\in V(G_{a\times b})$, let $T_x\subseteq H$ be a minimal tree contained in $H[B_x]\cup \partial B_x$ that contains all the border edges in $\partial B_x$.   We define the partition $\mathcal{P}:=(P_x:x\in V(G_{a\times b}))$ as follows:  
+\begin{compactenum}
+  \item If $T_x$ has a node $v$ of degree $4$, then $P_x:=\{v\}$.  
+  \item If $T_x$ has two nodes $v$ and $w$ of degree $3$ then $P_x$ contains all vertices on the path in $T_x$ from $v$ to $w$.
+  \item If $T_x$ has exactly one node $v$ of degree $3$ then $P_{x}:=\{v\}$
+  \item Otherwise $T_x$ is a path and $P_x$ contains exactly one node in $V(T_x)$.
+\end{compactenum}
+It is straightforward to verify that, with this assignment $\mathcal{P}:=(P_x:x\in V(G_{a\times b}))$, the quotient graph $H/\mathcal{P}$ is a subdivision of $G_{a\times b}$, so that $H$ is indeed an $a\times b$ pseudogrid.
+\end{proof}
+
+The second case (ii) in the proof of \cref{pseudogrid_minor} occurs when $\deg_{G_{a\times b}}(x)=4$, so $x=(i,j)$ for some $i\in\{2,\ldots,a-1\}$ and $j\in\{2,\ldots,b-1\}$.  This case is especially important in our proof because it corresponds to a case in which some of the vertices of $P_x$ are shared by the $i$th column and the $j$th row of the pseudogrid. However, a path in the pseudogrid that uses vertices of $B_x$ may or may not contain all the vertices of $P_x$ depending on whether or not the corresponding path in $G_{a\times b}$ bends at $x$.  This motivates the following definitions (see \cref{straight_or_bent}):
+\begin{compactenum}
+  \item We say that the $x$ is \emph{straight} if the path from $B_{(i-1,j)}$ to $B_{i+1,j}$ in $T_x$ contains all the vertices of $P_x$.
+  \item Otherwise, we say that $x$ is \emph{bent}.
+\end{compactenum}
+\begin{figure}
+  \begin{center}
+    \begin{tabular}{c@{\hspace{1cm}}c}
+      \includegraphics{figs/bx-paths-1.pdf} & \includegraphics{figs/bx-paths-3} \\
+      (a) & (b)
+    \end{tabular}
+  \end{center}
+  \caption{The vertex $x:=(i,j)$ is (a)~straight if the path from $B_{(i,j-1)}$ to $B_{(i+1,j)}$ uses all vertices of $P_x$ or (b)~bent otherwise.}
+  \label{straight_or_bent}
+\end{figure}
+Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in $T_x$ also contains all the vertices of $P_x$.  Furthermore, if $x$ is bent, then, for each $\overline\i,\overline\j\in\{-1,1\}$, the path from $B_{i,j+\overline\j}$ to $B_{i+\overline\i, j}$ in $T_x$ contains all the vertices of $P_x$.
+
+
+
+
+
+
+
+
 
 \begin{lem}
   For any $k\times k$ pseudogrid $H$, $\chilin(G)\in\Omega(k)$.
@@ -270,40 +328,55 @@ A graph $H$ is an $a\times b$ \emph{pseudogrid} if there exists a set $\mathcal{
 \begin{proof}
   This proof uses two large integer constants $\alpha$ and $\beta$ and two small positive real constants $\epsilon$ and $\delta$.  The relationships between these constants are that $\beta = \Theta(\alpha^{1/4})$ and $\epsilon=\Theta(1/\alpha)$.  Let $\varphi:V(H)\to\{1,\ldots,C\}$ be an arbitrarily $C$-colouring of some $k\times k$ pseudogrid $H$ for some $C\le \epsilon k$.  We will show that $H$ contains a path $P$ which has no centre with respect to $\varphi$.
 
-  First we introduce some notations for mapping edges and vertices of the grid $G_k$ to their corresponding paths in the pseudogrid $H$.  For each vertex $v$ of $G_k$ there is a path $P_v$ in $\mathcal{P}$ (possibly consisting of one vertex) such that the vertex $v$ appears in $H'$ as a result of contracting $P_v$ in $H$.  In this way, each vertex $v$ of $G_k$ is associated with a non-empty \emph{colour set} $\phi(v):=\{\varphi(w):w\in V(P_v)\}$.  Similarly, for each edge $e$ of $G_k$ there is a path $P_e$ in $H'$ that comes from subdividing $e$ (possibly zero times).  Thus, each edge $e$ of $G_k$ is associated with a (possibly empty) \emph{colour set} $\phi(e):=\{\varphi(w):w\in P^-_e\}$, where $P^-_e$ denotes the (possibly empty) set of internal vertices on the path $P_e$.
-
-  For each colour $c\in\{1,\ldots,C\}$, define the \emph{multiplicity} of $c$ as the number of vertices and edges of $G_k$ that include $c$ in their colour set.  Fix some large integer constant $\alpha$ and say that $\alpha$ is \emph{infrequent} if it has multiplicity less than $\alpha$ and \emph{frequent} otherwise.
+  First we introduce some notations for vertices of the subdivided grid $G^{\onesub}_k$ to their corresponding paths in the pseudogrid $H$.  For each vertex $v$ of $G_k$ there is a path $P_v$ in $\mathcal{P}$ (possibly consisting of one vertex) such that the vertex $v$ appears in $H'$ as a result of contracting $P_v$ in $H$.  In this way, each vertex $v$ of $G_k$ is associated with a non-empty \emph{colour set} $\Phi(v):=\{\varphi(w):w\in V(P_v)\}$.  Similarly, for each subdivision vertex $s$ of $G^{\onesub}_k$ that comes from subdividing an edge $e$ of $G_k$, there is a path $P_s$ in $H'$ that comes from subdividing $e$ (possibly zero times).  Thus, each subdivision vertex $s$ of $G^{\onesub}_k$ is associated with a (possibly empty) \emph{colour set} $\Phi(s):=\{\varphi(w):w\in P^-_e\}$, where $P^-_e$ denotes the (possibly empty) set of internal vertices on the path $P_e$.
+  
+  For each colour $c\in\{1,\ldots,C\}$, define the \emph{multiplicity} of $c$ as the number of vertices $G^{\onesub}_k$ that include $c$ in their colour set.  Fix some large integer constant $\alpha$ and say that $\alpha$ is \emph{infrequent} if it has multiplicity less than $\alpha$ and \emph{frequent} otherwise.
 
   \begin{clm}\label{all_frequent}
-    $H$ contains a $k'\times k'$ pseudogrid $H'$ in which every colour in $\{\varphi(v):v\in V(H')\}$ is frequent, for some $k'\ge (1-\epsilon \alpha)k$.
+    There exists an integer $k'\ge (1-\epsilon)k$ such that 
+    $H$ contains a $k'\times k'$ pseudogrid $H'$ in which every colour in $\{\varphi(v):v\in V(H')\}$ is frequent.
   \end{clm}
 
   \begin{proof}
-    This proof uses the notion of \emph{removing} a row or column of a pseudogrid.  Removing a row is defined as follows (removing a column is similar): For each edge $e$ of $G_k$ in the relevant row, remove all edges of $P_e$ from $H$. Next, remove any isolated vertices from $H$ and finally, repeatedly remove degree-$1$ vertices from $H$ until none remain.  The result is pseudogrid with one less row.
+    This proof uses the notion of \emph{removing} a row or column of a pseudogrid.  Removing a row is defined as follows (removing a column is similar): For each vertex $v$ of $G^{\onesub}_k$ in the relevant row, remove all edges of $P_v$ from $H$. Next, remove any isolated vertices from $H$ and finally, repeatedly remove degree-$1$ vertices from $H$ until none remain.  The result is pseudogrid with one less row.
 
-    While there exists some infrequent colour $c\in\{1,\ldots,C\}$, find a row or column of $G_k$ that contains an edge or vertex with $c$ in its colour set and remove that row or column.  Doing this exhaustively results in the removal of at most $(\alpha-1) C \le \epsilon\alpha k$ rows and at most $\epsilon\alpha k$ columns of $H$.  This leaves a pseudogrid $H'$ that contains a $k'\times k'$ pseudogrid for some $k'\ge (1-\epsilon \alpha)k$ for which every colour that appears colours at least one vertex of $H'$ is frequent.
+    While there exists some infrequent colour $c\in\{1,\ldots,C\}$, find a row or column of $G^{\onesub}_k$ that contains a vertex with $c$ in its colour set and remove that row or column.  Doing this exhaustively results in the removal of at most $(\alpha-1) C \le \epsilon\alpha k$ rows and at most $\epsilon\alpha k$ columns of $H$.  This leaves a pseudogrid $H'$ that contains a $k'\times k'$ pseudogrid for some $k'\ge (1-\epsilon \alpha)k$ for which every colour that appears in at least one vertex of $H'$ is frequent.
   \end{proof}
 
-  Because of \cref{all_frequent}, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$.  Next we run a two stage process that, for each $c\in\{1,\ldots,C\}$, will identify a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is an edge or vertex of $G_k$ that contains $c$ in its colour set.  These pairs are carefully chosen so that we will be able to construct a simple path $P_k$ in $G_k$ that contains $\bigcup_{c\in\{1,\ldots,C\}} \{x_c,y_c\}$ and has some additional nice properties.  Using these additional properties, we will then show how to convert $P_k$ into a simple path $P$ in $H$ that contains at least two vertices of each colour.
+  Because of \cref{all_frequent}, we now assume that there is no infrequent colour, i.e., each colour $c\in\{1,\ldots,C\}$ has multiplicity at least $\alpha$.  
+  
+  % Colour sets turn out to be problematic, so we would like to assign a single colour $c\in\Phi(v)$ to each $v\in G^{\onesub}_k$.  To do this, consider the bipartite graph $X$ with parts $A:=\{1,\ldots,C\}$ and $B:=V(G^{\onesub}_k)$ and which contains the edge $cv$ if and only if $c\in\Phi(v)$.  Since each colour in $A$ is frequent, $\deg_x(c)\ge a$ for each $c\in C$.  S
+  
+  Next we run a two stage process that, for each $c\in\{1,\ldots,C\}$, will identify a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is vertex of $G^{\onesub}_k$ that contains $c$ in its colour set.  These pairs are carefully chosen so that we will be able to construct a simple path $P_k$ in $G^{\onesub}_k$ that contains every vertex in $X:=\bigcup_{c\in\{1,\ldots,C\}} \{x_c,y_c\}$.  Furthermore, this path will bend at every bent vertex in $X$ and go straight at every straight vertex in $X$.  This will ensure that the corresponding path in $H$ contains at least two vertices of each colour.
 
-  \begin{compactenum}[{Stage} 1:]
-    \item We begin this stage by defining each vertex and edge of $G_k$ as being \emph{unmarked}.  Fix some integer constant $\beta>0$.  We iterate over each $c\in\{1,\ldots,C\}$ in turn.  If $G_k$ contain a pair $(x_c,y_c)$ where each of $x_c$ and $y_c$ is an unmarked vertex or unmarked edge of $G_k$ with $c$ in its colour set and the distance in $G_k$ between $x_c$ and $y_c$ is at least $B$ then Stage~1 \emph{succeeds} for $c$.\todo{Define distance, including between sets}  We then \emph{mark} each vertex and edge $z$ of $G_k$ such that $\dist_{G_k}(z, \{x,y\})\le \beta$.
+  \begin{enumerate}[{Stage} 1:]
+    \item We begin this stage by defining each vertex $G^{\onesub}_k$ as being \emph{unmarked}.  Next we consider each $c\in\{1,\ldots,C\}$ in turn.  If $G^{\onesub}_k$ contains a pair $(x_c,y_c)$ where
+    \begin{inparaenum}[(i)]
+      \item each of $x_c$ and $y_c$ is unmarked;
+      \item $\|x_cy_c\|_\infty \ge \beta$; and
+      \item $c\in \phi(x_c)$ and $c\in \phi(y_c)$;
+    \end{inparaenum}
+    then we say that Stage~1 \emph{succeeeds} for colour $c$ and we mark each vertex in $B_{\beta}(x_c)$ and $B_\beta(y_c)$.
 
-    If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $x_c$ and $y_c$ undefined for now and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G_k$ contains fewer than $3(\beta/2+1)^2$\todo{check precisely} unmarked vertices/edges with $c$ in their colour sets.\footnote{$G_{a\times a}$ contains fewer than $3a^2$ vertices and edges and contains pairs of vertices/edges at distance $2(a-1)$.}  In particular, for $\alpha > 3(\beta/2+1)^2$, Stage~1 succeeds for $c=1$.
+    If $G_k$ contains no such pair $(x_c,y_c)$, then we leave $x_c$ and $y_c$ undefined for now and say that Stage~1 \emph{fails} for colour $c$.  Note that Stage~1 can only fail for $c$ if $G^{\onesub}_k$ contains fewer than $(2\beta+1)^2$ unmarked vertices with $c$ in their colour sets.  In particular, for $\alpha > (2\beta+1)^2$, Stage~1 succeeds for $c=1$.
 
     \item Let $S\subset\{1,\ldots,C\}$ be the set of colours for which Stage~1 succeeds and let $\overline{S}:=\{1,\ldots,C\}\setminus S$ be the set of colours for which Stage~1 fails.  Let $R_1:=\bigcup_{c\in S}\{x_c,y_c\}$ be the set of vertices and edges chosen in $R_1$.
 
-    As mentioned above, for sufficiently large $\alpha$ (relative to $\beta$), the set $S$ is non-empty and therefore $R_1$ is non-empty. In the next paragraph, we will define a function $\nu$ that maps each marked vertex or edge of $G_k$ to some element of $R_1$.  We use to this to construct a bipartite graph $I$ with vertex parts $A:=\overline{S}$ and $R_1$. The edge set of $I$ contains an edge $cx$ precisely when there is a marked edge or vertex $z$ of $G_k$ such that $c\in\phi(z)$ and $\nu(z)=x$.
-
-    We now define the mapping $\nu$.  Fix some total order on $R_1$ by assigning each element of $R_1$ a distinct rank in $\{1,\ldots,|R_1|\}$.  For each marked element $z\in V(G_k)\cup E(G_k)$, let $\gamma(z):=\min\{\dist_{G_k}(z,x):x\in R_1\}$, let $\Gamma(z):=\{x\in R_1:\dist_{G_k}(z,x) \le (1+\delta)\gamma(z)$, and let $\nu(z)$ be the element in $\Gamma(z)$ of minimum rank.  In words, $\gamma(z)$ is the distance to $z$'s nearest neighbour in $R_1$, $\Gamma(z)$ is the set of all approximate nearest neighbours of $z$ in $R_1$ and $\nu(z)$ is the approximate nearest-neighbour of $z$ with smallest rank.
-
-    Note that for any marked element $z$, there exists $x\in R_1$ such that $\dist_{G_k}(z,x)\le\beta$.  Therefore $\gamma(z)\le\beta$.  Therefore, for any $x\in R_1$, the set $\nu{^-1}(x)$ only contains marked elements $z$ for which $\dist_{G_k}(x,z)\le (1+\delta)\beta$  Thus, $|\nu^{-1}(x)|\le \zeta\beta^2$ for some $\zeta$ depending only on $\delta$. This has two implications:
+    As mentioned above, for sufficiently large $\alpha$ (relative to $\beta$), the set $S$ is non-empty and therefore $R_1$ is non-empty.  Let $P:=R_1$ and let $Q:=\bigcup_{p\in P} B_\beta(p)$ and apply \cref{voronoi_mapping} to obtain the mapping $\vor:Q\to P$.  We use to this to construct a bipartite graph $I$ with vertex parts $\overline{S}$ and $R_1$. The edge set of $I$ contains an edge $cx$ precisely when there is a marked vertex $z$ of $G^{\onesub}_k$ such that $c\in\phi(z)$ and $\vor(z)=x$.
+    
+    First observe that, for each $p\in R_1$, \cref{voronoi_mapping}(\ref{never_far}) implies that $|\vor^{-1}(p)|\le|B_{7\beta/4}(p)|\le (7\beta/2+1)^2$.  
+    \todo[inline]{Fuck! We run into problems here with large colour sets.  The next line is not true, for example.   We get a $C$ in the denominator because the only degree bound we have on $R_1$ is $C(7\beta/2+1)^2$.}
+    This implies that, for any $A_0\subseteq\overline{S}$,
+    \[
+        |N_I(A_0)| \ge \frac{a|A_0|}{(7\beta/2+1)^2} \enspace .    
+    \]  
+    This has two implications:
     \begin{compactenum}
-      \item For each $x\in R_1$,  $\deg_{I}(x) \le \zeta\beta^2$.
-      \item Since each colour $c\in A$ is frequent, $\deg_I(c)\ge \alpha/\zeta beta^2$.
+      \item For each $p\in R_1$,  $\deg_{I}(x) \le C(7\beta/2+1)^2$.
+      \item Since each colour $c\in A$ is frequent, $\deg_I(c)\ge \alpha/(7\beta/2+1)^2$.
     \end{compactenum}
     These two conditions imply that, for each $A_0\subseteq A$, $|N_I(A_0)|\ge \alpha/\zeta^2\beta^4$.   In particular, for any $\alpha$ and $\beta$ with $\alpha > 2\zeta^2\beta^4$,  $|N_I(A_0)|\ge 2|A_0|$.  Therefore, by \cref{hall_vees}, there exists a subgraph $\Lambda$ of $I$ in which each vertex of $A$ has degree $2$ and each vertex of $B$ has degree at most one.  Therefore, each $c\in A=\overline{S}$ has two $\Lambda$-neighbours $p$ and $q$ in $B$.  The edge $cp$ is present in $I$ because $G_k$ contains a vertex $x_c$ with $s(x_c)=p$ and $c\in \phi(x_c)$.  Similarly, the edge $cq$ is present in $I$ because $G_k$ contains a vertex $y_c$ with $s(y_c)=q$ and $c\in\phi(y_c)$.  In this way, the graph $\Lambda$ defines the pairs $\{x_c,y_c\}$ for each $c\in\overline{S}$.
-  \end{compactenum}
+  \end{enumerate}
 
   Summarizing our work thus far, we have identified a subset  $R:=\bigcup_{c=1}^C\{x_c,y_c\}$ of at most $2c$ vertices and edges of $G_k$ where $c\in \phi(x_c)\cap \phi(y_c)$ for each $c\in\{1,\ldots,C\}$. Ultimately, we want to use these to find a path in $H$ that contains at least two vertices of each colour.  We start by first establishing some properties of $R\subseteq V(G_k)$.
 
