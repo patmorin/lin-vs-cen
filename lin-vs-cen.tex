@@ -100,7 +100,7 @@ Their proof of \cref{kun_obrien_general} has three steps:
 
 These notes are an attempt to improve the bound in \cref{kun_obrien_general} in the general case as well as for some special classes of graphs. First we point out that some new results can already reduce the exponent from $190$ to $39$ and eliminate the polylog factor:
 
-A recent result of \citet[Theorem~1.4]{czerwinski.nadara.ea:improved} shows that if $b$ is the maximum treedepth of any tree contained in $G$ then $\td(G)\le b\cdot\tw(G)$ (and the proof is easy).  If we take $\tw(G)=k^{38}$ and $b=k$ then, for any graph $G$ with $\td(G)\ge k^{39}$, one of the following cases applies:
+A recent result of \citet[Theorem~1.4]{czerwinski.nadara.ea:improved} shows that if $b$ is the maximum treedepth of any tree contained in $G$ then $\td(G)\le b\cdot\tw(G)$ (and the proof is easy).  Therefore, if $\td(G)\ge k^39$ then at least one of the following cases applies:
 \begin{enumerate}
     \item $\tw(G)\ge k^{38}$: In this case the proof follows Steps~2 and 3 as before to show that $\chilin(G)\in\Omega(k)$.
     \item $G$ contains a tree $T$ of treedepth $k$.  The same paper \cite[Lemma~1.6]{czerwinski.nadara.ea:improved} shows that any tree $T$ of treedepth $k$ contains a subcubic subtree of treedepth $\Omega(k)$.
@@ -114,7 +114,7 @@ This gives the following improvement to \cref{kun_obrien_general}
 
 
 
-As a next step, we would like to improve the third part of the argument to show that, if $G$ contains a $k\times k$ grid minor, then $\chilin(G)\in \Omega(k)$.  This, by itself, reduces the exponent in \cref{kun_obrien_general2} from $39$ to $20$.  We observe that the first two parts of the argument are both ``heavy hammers'' and that, for some special graph classes, much lighter hammers suffice.  For example, if we consider only planar graphs, then it is well known that any planar graph $G$ of treewidth $k$ contains an $\Omega(k\times k)$ grid minor.  This already reduces the exponent in \cref{kun_obrien_general2} further (for planar graphs) to $3$ ($2$ if we can prove the result for grid minors).  If one could prove a similar result for the first ``heavy hammer'' then this would show that, for any planar graph $G$, $\chicen(G)\in O(\chilin(G))$.
+As a next step, we would like to improve the third part of the argument to show that, if $G$ contains a $k\times k$ grid minor, then $\chilin(G)\in \Omega(k)$.  This, by itself, would reduce the exponent in \cref{kun_obrien_general2} from $39$ to $20$.  We observe that the first two parts of the argument are both ``heavy hammers'' and that, for some special graph classes, much lighter hammers suffice.  For example, if we consider only planar graphs, then it is well known that any planar graph $G$ of treewidth $k$ contains an $\Omega(k\times k)$ grid minor.  This already reduces the exponent in \cref{kun_obrien_general2} further (for planar graphs) to $3$ ($2$ if we can prove the result for grid minors).  If one could prove a similar result for the first ``heavy hammer'' then this would show that, for any planar graph $G$, $\chicen(G)\in O(\chilin(G))$.
 
 
 \section{Preliminaries}
@@ -190,7 +190,7 @@ For brevity, we use $G_{k}:=G_{k\times k}$ as a shorthand for the $k\times k$ gr
 \end{lem}
 
 \begin{proof}
-  I have no idea how to prove this.  Computer search?.
+  Case analysis(?).
 \end{proof}
 
 It will be helpful to take some natural definitions for $G_k$ and extend them to $G^{\onesub}_k$.  To do this, we associate each vertex $v$ of $G^{\onesub}_k$ with a vertex $v^{\leftup}$ of $G_k$. For each vertex $v\in V(G_k)$, we define $v^{\leftup}:=v$. For each subdivision vertex $s$ in $G^{\onesub}_k$ with neighbours $v$ and $w$, we define $s^{\leftup}$ to be the lexicographically smaller of $v$ or $w$. In other words, $s^{\leftup}$ is the vertex of $G_k$ that is directly below or the left of $s$.
@@ -342,7 +342,7 @@ The second case (\ref{two_degree_three}) in the proof of \cref{pseudogrid_minor}
 Note that, if $x$ is straight, then the path from $B_{i,j-1}$ to $B_{i,j+1}$ in $T_x$ also contains all the vertices of $P_x$.  Furthermore, if $x$ is bent, then, for each $\overline\i,\overline\j\in\{-1,1\}$, the path from $B_{i,j+\overline\j}$ to $B_{i+\overline\i, j}$ in $T_x$ contains all the vertices of $P_x$.
 
 
-\todo[inline]{I can't yet prove the full result, which is why the next lemma has some weird condition involving a newly introduced parameter $r$.}
+\todo[inline]{We can't yet prove the full result, which is why the next lemma has some weird condition involving a newly introduced parameter $r$.}
 
 \begin{lem}\label{pseudogrid_lower_bound}
   %For any $k\times k$ pseudogrid $H$
