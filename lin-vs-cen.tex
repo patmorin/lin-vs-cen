@@ -98,18 +98,19 @@ Their proof of \cref{kun_obrien_general} has three steps:
   \item A technical lemma \cite[Lemma~5]{kun.obrien.ea:polynomial} shows that, if $G$ contains a $k^2\times k^2$ grid minor, then $\chilin(G)\in\Omega(k)$.
 \end{enumerate}
 
-These notes are an attempt to improve the bound in \cref{kun_obrien_general} in the general case as well as for some special classes of graphs. First we point out that some new results can already reduce the exponent from $190$ to $39$ and eliminate the polylog factor:
+These notes are an attempt to improve the bound in \cref{kun_obrien_general} in the general case as well as for some special classes of graphs. First we point out that some new results can already reduce the exponent from $190$ to $39$ and eliminate the polylog factor.  (These improvements are already described by \citet[Theorem~1.9]{czerwinski.nadara.ea:improved}.)
 
-A recent result of \citet[Theorem~1.4]{czerwinski.nadara.ea:improved} shows that if $b$ is the maximum treedepth of any tree contained in $G$ then $\td(G)\le b\cdot\tw(G)$ (and the proof is easy).  Therefore, if $\td(G)\ge k^39$ then at least one of the following cases applies:
+First, \citet{chuzhoy.tan:towards} improved the exponent in the Excluded Grid Theorem:  There exists a constant $c$ such that any graph $G$ with $\tw(G)\ge k^{18}\log^c k$ has a $k\times k$ grid minor.  This already improves the bound from $k^{190}$ to $k^{90}$.
+Next, a recent result of \citet[Theorem~1.4]{czerwinski.nadara.ea:improved} shows that if $b$ is the maximum treedepth of any tree contained in $G$ then $\td(G)\le b\cdot\tw(G)$ (and the proof is easy).  Therefore, if $\td(G)\ge k^{19}$ then at least one of the following cases applies:
 \begin{enumerate}
-    \item $\tw(G)\ge k^{38}$: In this case the proof follows Steps~2 and 3 as before to show that $\chilin(G)\in\Omega(k)$.
+    \item $\tw(G)\ge k^{18}$: In this case the proof follows Steps~2 and 3 as before, but using the grid minor result of \citet{chuzhoy.tan:towards} to show that $\chilin(G)\in\Omega(k)$.
     \item $G$ contains a tree $T$ of treedepth $k$.  The same paper \cite[Lemma~1.6]{czerwinski.nadara.ea:improved} shows that any tree $T$ of treedepth $k$ contains a subcubic subtree of treedepth $\Omega(k)$.
     A theorem of \citet{kun.obrien.ea:polynomial} shows that, for any subcubic tree $T$, $\chicen(T) \le (\log_2 3)\cdot\chilin(T)$.  Therefore, in this case $\chilin(G)\ge\chilin(T)\ge \chicen(T)/\log_2 3 = \Omega(k)$.
 \end{enumerate}
 
 This gives the following improvement to \cref{kun_obrien_general}
-\begin{thm}[\citet{kun.obrien.ea:polynomial}]\label{kun_obrien_general2}
-  For any graph $G$, $\chicen(G)\in O(\chilin^{39}(G))$.
+\begin{thm}[\citet{czerwinski.nadara.ea:improved}]\label{kun_obrien_general2}
+  For any graph $G$, $\chicen(G)\in O(\chilin^{19}(G))$.
 \end{thm}
 
 
