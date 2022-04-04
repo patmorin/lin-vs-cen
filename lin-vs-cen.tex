@@ -297,6 +297,7 @@ For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 Next we show how, given a colouring like that guaranteed by \cref{only_frequent}, we can find a set of vertices that hit every colour at least twice and that are compatible with \cref{pick_up_everything}.
 
 \begin{lem}
+  For every integer $r\ge 1$ there exists $d\in O(r^4)$ such that the following is true.
   Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)|\ge d|A|$.\todo{Use a specific value of $d$}.
   Then there exists $S\subseteq V(G)$ such that
   \begin{compactenum}[(i)]
@@ -325,8 +326,6 @@ Next we show how, given a colouring like that guaranteed by \cref{only_frequent}
   \]
   contains some object $\nu$ of colour $\phi(\nu)=\alpha$.  We now want to use \cref{weighted_lovasz} to show that, with probability greater than zero, $\deg_H(\alpha)\in \Omega(d/r^2)$ for each $\alpha\in X$.
 
-  % To begin, define a supergraph $H^+\supseteq H$ that contains an edge $\alpha\mu$ if there exists at least one $\nu\in\VE(G_r(\mu))\cap X$ with $\phi(\nu)=\alpha$.
-
   For each $\alpha\in X$, let $Z_\alpha:=\{\nu\in\VE(G_k):\phi(\nu)=\alpha\}$ and recall that, since $\phi$ comes from \cref{one_colour_per_object}, $|Z_\alpha| \ge d$.  Furthermore all but at most one element of $Z_\alpha$ is contained in $\bigcup_{\mu\in Y}\VE(G_r(\mu))$ since, otherwise the first round would have succeeded for colour $\alpha$.  For each $\mu\in Y$, $|\VE(B_r(\mu))|\in O(r^2)$. Therefore, there are $\Omega(|Z_\alpha|/r^2)$ objects $\mu\in Y$ such that $B_r(\mu)\cap Z_\alpha\neq\emptyset$.
 
   We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\Omega(|Z_\alpha|/r^2),1/?)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 100r^2)$.
@@ -350,7 +349,7 @@ Next we show how, given a colouring like that guaranteed by \cref{only_frequent}
   \end{align*}
   for fixed positive $a,b>0$.
   \todo[inline]{Work the preceding calculation out}
-  We are now ready for an application of \cref{weighted_lovasz}.  For each $\alpha\in X$, let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 100r^2$.''  For each $\alpha\in X$, define $\Gamma_\alpha$ to be the set that contains every event $E_\beta$ such that $Z_\alpha$ contains an element $\nu$ with $B_{10r}(\nu)\cap Z_\beta\neq\emptyset$.  The event $X_\alpha$ is mutually independent of $\Gamma_\alpha$ since, for any $E_\beta\not\in \Gamma_\alpha$ the sets $Y_\alpha:=\{\mu\in Y:B_{2r}(\mu)\cap Z_\alpha\neq\emptyset\}$ and $Y_\beta:=\{\mu\in Y:B_{2r}(\mu)\cap Z_\beta\neq\emptyset\}$ are disjoint and the event $E_\alpha$ is entirely determined by the relative order of $Y_\alpha$ in the permutation while $E_\beta$ is entirely determined by the relative order of $Y_\beta$.\todo{Explain better}   Finally, observe that $|\Gamma_\alpha|\le ?|Z_\alpha|$.
+  We are now ready for an application of \cref{weighted_lovasz}.  For each $\alpha\in X$, let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 100r^2$.''  For each $\alpha\in X$, define $\Gamma_\alpha$ to be the set that contains every event $E_\beta$ such that $Z_\alpha$ contains an element $\nu$ with $B_{10r}(\nu)\cap Z_\beta\neq\emptyset$.  The event $X_\alpha$ is mutually independent of $\{X_\beta:\beta\in X\setminus\{\alpha\}\setminus\Gamma_\alpha\}$ since, for any $E_\beta\not\in \Gamma_\alpha$ the sets $Y_\alpha:=\{\mu\in Y:B_{2r}(\mu)\cap Z_\alpha\neq\emptyset\}$ and $Y_\beta:=\{\mu\in Y:B_{2r}(\mu)\cap Z_\beta\neq\emptyset\}$ are disjoint and the event $E_\alpha$ is entirely determined by the relative order of $Y_\alpha$ in the permutation while $E_\beta$ is entirely determined by the relative order of $Y_\beta$.\todo{Explain better}   Finally, observe that $|\Gamma_\alpha|\le ?|Z_\alpha|$.
 
   \begin{align*}
       \Pr(E_\alpha)
@@ -363,25 +362,13 @@ Next we show how, given a colouring like that guaranteed by \cref{only_frequent}
   For each $\alpha\in X$, define $w(E_\alpha)=c/2r^2$ and observe that
   \begin{align*}
     p(1-p)^{|\Gamma_\alpha|}
-    & \le  p(1-p)^{?|Z_\alpha|} = \exp(\log p + ?|Z_\alpha|\log(1-p))
+    & \ge  p(1-p)^{?|Z_\alpha|} = \exp(\log c/2r^2 + ?|Z_\alpha|\log(1-c/2r^2))
   \end{align*}
+  \todo[inline]{Sort out these calculations}
 
-  % (Think of $\nu$ as belonging to the first box that covers it.) Now, for each $\alpha\in X$, $\deg_H(\alpha)\ge d-1$ since, otherwise the first round would have been successful for $\alpha$.  Straightforward counting shows that, for each $\mu\in Y$,  $\deg_H(\mu)\le |\VE(G_r(\mu))|\le 2(6r^2+6r+1)=:C$.
+  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\alpha_1,\ldots,\alpha_{2|K|}$ such that $\deg_H(\alpha)\ge 100r^2$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le 8r^2$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge 100|A|/8 \ge 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
 
-  If $d$ and $r$ are chosen so that $(d-1)/C\ge 2$ then \cref{d_hall} guarantees that we can find a set $Q_2$ so that $Q_1\cup Q_2$ satisfies (\ref{hits_both}) and such that $|B_r(\mu)\cap Q_2|\le 1$ for each $u\in Q_1$, which comes very close to satisfying (\ref{spread_out}).  Unfortunately, this approach is too naïve: it can produce triples (and even $4$-tuples) of objects in $Q$ are all contained in a small box and therefore do not satisfy (\ref{spread_out}).  We will overcome this difficulty with an application of the Lovász Local Lemma.
-
-  Consider a (for now) random permutation $\mu_1,\ldots,\mu_{2|K|}$ of $Q_1$.  We remove any edge from $\alpha\mu_i$ from $H$ if
-  \[
-    \alpha\not\in \phi(\VE(G_r(\mu_i)\setminus(\bigcup_{j=1}^{i-1}\VE(G_{2r}(\mu_j))))
-  \]
-  contains no object $\nu$ with $\phi(\nu)=\alpha$.  (Note the extra factor of $2$ in the radii on the right hand side.)
-  The effect of this is that each $\mu_j\in Q_1$ defines a box of radius $2r$ around $\mu_j$ that is forbidden after the $j$th step of the second round.  We will now use \cref{weighted_lovasz} to prove that, with some positive probability, each vertex
-
-
-  find $2(r+1)^2$ elements $\mu\in S_1$ such that
-  \begin{compactenum}[(a)]
-    \item
-  \end{compactenum}
+  Now it is straightforward to verify that $Q:=Q_1\cup Q_2$ satisifies (\ref{hits_both}).  Furthermore, for each $\mu\in Q_1$, $B_r(\mu)$ contains no object in $Q_1\setminus\{\mu\}$ and contains at most one element of $Q_2$.  Similarly, for each $\mu\in Q_2$, $B_r(\mu)$ contains no element of $Q_2\setminus\{\mu\}$ and contains at most one element of $Q_1$.  Therefore $Q$ satisfies (\ref{spread_out}).
 \end{proof}
 
 
