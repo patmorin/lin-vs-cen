@@ -406,7 +406,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
     & \le \exp(-100r^2\log(2t)\log(1-1/?) + t\log(1-1/25)) \\
     & = \exp(ar^2 - bt)
   \end{align*}
-  for fixed positive $a,b>0$.  Recall that we are working in the regime in which $|\Phi_\alpha|\ge d\ge Cr^2$ and $t\in\Omega(d/r^2)$ so, for sufficiently large $C$,
+  for fixed positive $a,b>0$.  Recall that we are working in the regime in  $t\in\Omega(|\Phi_\alpha|/r^2)$ and $|\Phi_\alpha|\in\Omega(d/r^2)$ so, for any fixed $C>0$, there exists $d\in\Omega(r^4)$ such that 
   $\Pr(\deg_H(\alpha)< 100r^2)\le \exp(-\Omega(C|\Phi_\alpha|/r^2))$.
   \todo[inline]{Work the preceding calculation out}
   We are now ready for an application of \cref{weighted_lovasz}.\todo{Continue here}  For each $\alpha\in X$, let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 100r^2$.''  For each $\alpha\in X$, define $\Gamma_\alpha$ to be the set that contains every event $E_\beta$ such that $\Phi_\alpha$ contains an element $\nu$ with $B_{10r}(\nu)\cap Z_\beta\neq\emptyset$.  The event $X_\alpha$ is mutually independent of $\{X_\beta:\beta\in X\setminus\{\alpha\}\setminus\Gamma_\alpha\}$ since, for any $E_\beta\not\in \Gamma_\alpha$ the sets $Y_\alpha:=\{\mu\in Y:B_{2r}(\mu)\cap \Phi_\alpha\neq\emptyset\}$ and $Y_\beta:=\{\mu\in Y:B_{2r}(\mu)\cap Z_\beta\neq\emptyset\}$ are disjoint and the event $E_\alpha$ is entirely determined by the relative order of $Y_\alpha$ in the permutation while $E_\beta$ is entirely determined by the relative order of $Y_\beta$.\todo{Explain better}   Finally, observe that $|\Gamma_\alpha|\le 25|\Phi_\alpha|$.
