@@ -118,7 +118,7 @@ Finally, \citet{kun.obrien.ea:polynomial} boldly conjecture that, for any graph 
 
 \section{Preliminaries}
 
-In this paper, all graphs are simple and undirected. For a graph $G$, $V(G)$ denotes the vertex set of $G$, $E(G)$ denotes the edge set of $G$ and $\VE(G):=V(G)\cup E(G)$ denotes the set of vertices and edges of $G$. For a vertex $v\in V(G)$ we use the notations $N_G(v):=\{w\in V(G):vw\in E(G)\}$ and $N_G[H]:=N_G(H)\cup\{v\}$ to denote the open and close neighbourhoods of $v$ in $G$.  For a set $S\subseteq V(G)$, $N_G(S):=\{w\in V(G):vw\in E(G),\, v\in S,\, w\not\in S\}$ and $N_G[S]:=\bigcup_{v\in S} N_G[v]$.
+In this paper, all graphs are simple and undirected. For a graph $G$, $V(G)$ denotes the vertex set of $G$, $E(G)$ denotes the edge set of $G$ and $\VE(G):=V(G)\cup E(G)$ denotes the set of vertices and edges of $G$. For a vertex $v\in V(G)$ we use the notations $N_G(v):=\{w\in V(G):vw\in E(G)\}$  to denote the open neighbourhood of $v$ in $G$.  For a set $S\subseteq V(G)$, $N_G(S):=\{w\in V(G):vw\in E(G),\, v\in S,\, w\not\in S\}$.
 
 For a  bipartite graph $H$, the two parts of $V(H)$ are denoted by $L(H)$ and $R(H)$ and we use the convention of writing an edge $xy$ so that its first endpoint $x$ is in $L(H)$ and its second endpoint $y$ is in $R(H)$.  A \defin{matching} $M$ in a bipartite graph $H$ is a subgraph of $H$ in which each vertex has degree at most $M$.  We say that $M$ \defin{saturates} a set $S\subseteq V(H)$ if $\deg_M(v)=1$ for each $v\in S$.  We make use of (the difficult half of) Hall's Marriage Theorem (see, for example \citet[Theorem~2.1.2]{diestel:graph}):
 
@@ -166,7 +166,7 @@ In this work, we need to work with pseudogrids.  Refer to \cref{pseudogrid_fig}.
   \end{compactenum}
 \end{compactitem}
 
-Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths and the quotient graph $G/\mathcal{P}$ is isomorphic to $G_{a\times b}$.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.
+Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths is isomorphic to a $\le\! 1$-subdivision of $G_{a\times b}$.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.
 
 Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the rows and columns of $G$, which we will do next.
 
@@ -219,6 +219,8 @@ In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to 
 For convenience, let $G_k:=G_{k\times k}$.
 Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=(P_\mu:\mu\in\VE(G_{k}))$ and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$.  The partition $\mathcal{P}$ associates each vertex of $G$ with an edge or vertex $\mu$ of $G_k$, so $\varphi$ associates a colour set with each object in $\VE(G_k)$, as follows.  For each $\mu\in\VE(G_{k})$, we let $\varphi_{\mathcal{P}}(\mu):=\{\varphi(v):v\in V(P_\mu)\}$.  For each colour $\alpha\in\{1,\ldots,c\}$, define $\varphi^{-1}(\alpha):=\{v\in V(G):\varphi(v)=\alpha\}$ and define $\varphi_\mathcal{P}^{-1}(\alpha):=\{\mu\in \VE(G_{k\times k}):\alpha\in\varphi_\mathcal{P}(\mu)\}$.  For any colour set $A\subseteq\{1,\ldots,c\}$ define $\varphi^{-1}(A):=\bigcup_{\alpha\in A}\varphi^{-1}(\alpha)$ and $\varphi_\mathcal{P}^{-1}(A):=\bigcup_{\alpha\in A}\varphi_{\mathcal{P}}^{-1}(\alpha)$.  (Throughout this section, we will use the idiom $\varphi(V(G))$ to denote the set of all colours used by $\varphi$ to colour the vertices of $G$.)
 
+\todo[inline]{Consider constructing this set so that colours that appear on the boundary don't count.  This just makes the factor of $d$ jump to a $d+2$.}
+
 \begin{lem}\label{only_frequent}
   Let $d\ge 1$ and $k\ge 1$ be integers, let $G$ be a $k\times k$ pseudogrid and let $\varphi$ be a vertex colouring of $G$ that uses $|\varphi(V(G))|\le k/d$ colours.
   Then $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k - d|\varphi(V(G))|$ that has a grid-partition $\mathcal{P}':=\{V(P'_\mu):\mu\in \VE(G_{k})\}$ such that
@@ -239,6 +241,16 @@ Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=(P_\mu:\mu
   \[  k'\ge k_0-d|\varphi(V(G_0))|  \ge k-d|A|-d|\varphi(V(G_0))|\ge k - d|\varphi(V(G))|
   \]
   that satisfies the conditions of the lemma.
+\end{proof}
+
+\begin{lem}
+  Let $d\ge 1$ and $k\ge 1$ be integers, let $G$ be a $k\times k$ pseudogrid, let $X\subseteq V(G)$ denote the set of vertices in the first and last row and column of $G$, and let $\varphi$ be a vertex colouring of $G$ that uses $|\varphi(V(G))|\le k/d$ colours.
+  Then $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k - d|\varphi(V(G))|$ that has a grid-partition $\mathcal{P}':=\{V(P'_\mu):\mu\in \VE(G_{k})\}$ such that
+  for any $A\subseteq \varphi(V(G'))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\setminus X| \ge d|A|$.
+\end{lem}
+
+\begin{proof}
+  
 \end{proof}
 
 Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathcal{P}(\mu)$ of colours rather than a single colour will be problematic for what we want to to do next.  The following lemma allows us to choose one representative colour $\phi(\mu)$ from $\varphi_{\mathcal{P}}(\mu)$ for each $\mu\in \VE(G_k)$ while still ensuring that each colour appears frequently.
@@ -283,20 +295,17 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
 % For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 
 \begin{lem}\label{pick_up_two}
-  Let $v$ be any vertex of $G$, let $w$ be any vertex of $\tilde{G}_r(v)$, let $s$ be any vertex in the leftmost column of $\tilde{G}_r(v)$ and let $t$ be any vertex in the rightmost column of $\tilde{G}_r(v)$.  Then there exists an $st$-path\todo{define $st$-path} in $G_r(v)$ that contains $v$ and $w$.
+  Let $G$ be a $k\times k$ pseudogrid with $k\ge??$,  let $s,v,w,t$ be vertices of $G$ with $s$ in the first column of $G$, neither $v$ nor $w$ in the first or last column of $G$ and $t$ in the last column of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
 \end{lem}
 
 \begin{proof}
-  Let $i_s \le i_v \le i_w \le i_t$ be the columns of $\tilde{G}_r(v)$ that contain $s$, $v$, $w$, and $t$, respectively.  Note that the assumption that $i_v \le i_w$ is without loss of generality and that $i_s \le i_t - r -1$.\todo{finish up}
+  Let $\mathcal{P}:\{P_\mu:\mu\in \VE(G_k)\}$ be a grid partition of $G$ and let $\mu_v,\mu_w\in \VE(G_k)$ be such that $v\in V(P_{\mu_v})$ and $w\in V(P_{\mu_w})$.  
 \end{proof}
 
 \begin{lem}\label{pick_up_everything}
-  Let $r$ be an integer and let $S\subseteq V(G)$ be such that $|\tilde{B}_{r}(v)\cap S|=|\tilde{B}_{2r}\cap S|\le 2$ for each $v\in S$.  Then $G$ contains a path that contains every vertex in $S$. \todo{Set specific values for $r$}
+  Let $r\ge 12$ be divisible by $3$ and let $S\subseteq V(G)$ be such that $|\tilde{B}_{r}(v)\cap S|=|\tilde{B}_{2r}\cap S|\le 2$ for each $v\in S$.  Then $G$ contains a path that contains every vertex in $S$. 
 \end{lem}
 
-\begin{proof}[Proof sketch]
-  Choose $S'\subseteq S$ so that, if $B_r(v)\cap S=\{v,w\}$ then exactly one of $v$ or $w$ is in $S'$. Now do some scan-line thing with a distance of $2r+1$ between consecutive rows.  When this scan encounters a box $B_r(v)$ for some $v\in S'$, use \cref{pick_up_two} to detour through the box to pick up the (at most two) vertices in $B_r(v)\cap S$.
-\end{proof}
 
 
 \subsection{A Packing Lemma}
@@ -305,9 +314,23 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
 We will make use of the following fairly standard looking packing lemma.
 
 \begin{lem}\label{packing_lemma}
-  Let $Q\subseteq \VE(G_k)$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
+  Let $r\ge 114$ be an even integer and let $Q\subseteq \VE(G_k)$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
   $|\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu))\}| \le 25$.
 \end{lem}
+
+\begin{proof}
+  The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $B_{r/2-1}(\mu_1)\cap B_{r/2-1}(\mu_2)=\emptyset$ for each $\mu_1,\mu_2\in Q$.
+  
+  For simplicity, assume that $G_k$ is embedded in $G_{k+2r+1}$ with the elements of $Q$ at distance at least $G_{2r}$ from the first and last row and column.  In particular, for each $\mu_1\in Q$, $|B_{\rho}(\nu)| = 3(2\rho+1)^2$ for any $\rho\in\{0,\ldots,2r\}$.  
+  
+  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu))\}$.  For any $\mu_1\in Q'$, 
+  $\mu_1\in\VE(G_{2r+1}(\mu))$ and consequently, $\VE(G_{r/2-1}(\mu_1))\subseteq \VE(G_{5r/2}(\mu))$.  
+  Since this is true for all $\mu_1\in Q$ we have
+  \[  3(5r+1)^2 \ge |\VE(G_{3r/2}(\mu))| \ge \sum_{\mu_1\in Q} B_{r/2}(\mu_1)
+  = 3|Q'|(r-2)^2 \enspace .
+  \]
+  which implies that $|Q'|\le (5r+1)^2/(r-2)^2$.  For $r > 2$, this bound is decreasing in $r$ and is less than $26$ for any $r> 11\sqrt{26} + 57$.  In particular, $|Q'|< 26$ for any $r\ge 114$.
+\end{proof}
 
 
 \subsection{Finding a Well-Separated Set}
@@ -356,7 +379,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 
   We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\ceil{|\Phi_\alpha|/3(20r+1)^2},1/25)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 6(2r+1)^2)$.  (We make no attempt to optimize the constants here.)  Suppose that, for some $\mu\in Y$, $B_r(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$. Then, by \cref{packing_lemma}, the set
   \[
-     Y_\nu := \{\tau\in Y:\nu\in\VE(G_{2r}(\tau))\}
+     Y_\nu := \{\xi\in Y:\nu\in\VE(G_{2r}(\xi))\}
   \]
   has size at most $25$. Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/25$.
    % This already establishes that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$.
