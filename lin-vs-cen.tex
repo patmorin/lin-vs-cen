@@ -370,7 +370,7 @@ We will make use of the following fairly standard looking packing lemma.
 Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only_frequent}, we can find a set of vertices in $G$ that contain two vertices of each colour and that is compatible with \cref{pick_up_everything}.
 
 \begin{lem}\label{doubled_colour_set}
-  For every integer $r\ge 1$\todo{Really no lower bound on $r$?} there exists an integer $d\in O(r^4)$ such that the following is true, for every integer $k\ge 1$.
+  For every integer $r\ge 1$ there exists an integer $d\in O(r^4)$ such that the following is true, for every integer $k\ge 1$.
   Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)\setminus\partial G|\ge d|A|$.
   Then there exists $S\subseteq V(G)$ such that
   \begin{compactenum}[(i)]
@@ -404,7 +404,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   \]
   contains some object $\nu$ of colour $\phi(\nu)=\alpha$.  Note the asymmetry here: In the first round, each element $\mu_j$ that takes part in $Q_1$ prevents elements in $\VE(G_r(\mu))$ from also being part of $Q_1$.  In the second round, $\mu_j$ defines a larger box $\VE(G_{2r}(\mu_j))$ that must be avoided when choosing a second element from $\VE(G_r(\mu_i))$, for $i>j$.
 
-  We now want to use the Local Lemma (\cref{weighted_lovasz}) to show that, with probability greater than zero, $\deg_H(\alpha)\ge 2\vol{r}$ for each $\alpha\in X$.\todo{Constants are going change everywhere now...}
+  We now want to use the Local Lemma (\cref{weighted_lovasz}) to show that, with probability greater than zero, $\deg_H(\alpha)\ge 2\vol{r}$ for each $\alpha\in X$.
   For each $\alpha\in X$, let $\Phi_\alpha:=\{\nu\in\VE(G_k):\phi(\nu)=\alpha\}$ and recall that, since $\phi$ comes from \cref{one_colour_per_object}, $|\Phi_\alpha| \ge d$.  Furthermore all but at most one element of $\Phi_\alpha$ is contained in $\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu))$ since, otherwise the first round would have been an $\alpha$-success.
   % For each $\mu\in Y$, $|\VE(G_{r+1}(\mu))|\in O(r^2)$. Therefore, there are $\Omega(|\Phi_\alpha|/r^2)$ objects $\mu\in Y$ such that $\VE(G_{r+1}(\mu))\cap \Phi_\alpha\neq\emptyset$.
 
