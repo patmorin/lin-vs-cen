@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage[noend]{algorithmic}
 \usepackage{bbm}  % needed for \mathbbm{1}
+\usepackage{listings}
 
 \usepackage[normalem]{ulem}
 \usepackage{cancel}
@@ -45,6 +46,8 @@
 \patchBothAmsMathEnvironmentsForLineno{gather}%
 \patchBothAmsMathEnvironmentsForLineno{multline}%
 }
+
+\newcommand{\vol}[1]{\boxplus_{#1}}
 
 
 % Taken from
@@ -84,43 +87,42 @@
 \renewcommand{\Pr}{\mathbb{P}}
 
 \begin{abstract}
-  We prove that linear colouring number of any $k\times k$ pseudogrid is $\Omega(k)$.  By an argument of Kun et al, this result gives a tighter upper bound on the treedepth of a graph as a function of its linear colouring number and gives further evidence in support of their conjecture that the treedepth of any graph is upper bounded by a linear function of its linear colouring number.
+  We prove that the linear colouring number of any $k\times k$ pseudogrid is $\Omega(k)$.  By an argument of Kun et al, this result gives a tighter upper bound on the treedepth of a graph as a function of its linear colouring number and gives further evidence in support of their conjecture that the treedepth of any graph is upper bounded by a linear function of its linear colouring number.
 \end{abstract}
 
 \section{Introduction}
 
-Let $G$ be a simple undirected graph.  A \defin{$k$-colouring} of $G$ is any function $\varphi:V(G)\to S$ where $S$ is a set of size $k$.  A vertex $v$ of $G$ is a \defin{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \defin{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \defin{linear} if every simple path in $G$ has a centre with respect to $\varphi$.
+Let $G$ be a simple undirected graph.  A \defin{$k$-colouring} of $G$ is any function $\varphi:V(G)\to C$ where $C$ is a set of size $k$.  A vertex $v$ of $G$ is a \defin{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \defin{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \defin{linear} if every simple path in $G$ has a centre with respect to $\varphi$.
 
-The \defin{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring.  We note that an easy argument shows that centred chromatic number and treedepth are equivalent, i.e., $\td(G)=\chicen(G)$ for every graph $G$. The \defin{linear chromatic number} of $G$ is the minimum integer $\ell$ such that $G$ has a linear $\ell$-colouring.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$.
+The \defin{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring.  An easy argument shows that centred chromatic number and treedepth are equivalent, i.e., $\td(G)=\chicen(G)$ for every graph $G$ \cite{nesetril.ossona:sparsity}. The \defin{linear chromatic number} of $G$ is the minimum integer $\ell$ such that $G$ has a linear $\ell$-colouring.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$.
 
-The question of upper bounding $\chicen(G)$ by some function of $\chilin(G)$ was considered by \citet{kun.obrien.ea:polynomial} who showed the following result:
+The question of upper bounding $\chicen(G)$ by some function of $\chilin(G)$ was considered by \citet{kun.obrien.ea:polynomial,czerwinski.nadara.ea:improved} who prove:
 
-\begin{thm}[\citet{kun.obrien.ea:polynomial}]\label{kun_obrien_general}
-  For any graph $G$, $\chicen(G)\le \chilin^{19}(G)\cdot\log^{O(1)}(\chilin(G))$.
+\begin{thm}[\cite{kun.obrien.ea:polynomial,czerwinski.nadara.ea:improved}]\label{kun_obrien_general}
+  For any graph $G$, $\chicen(G)\le (\chilin(G))^{19}\cdot(\log(\chilin(G)))^{O(1)}$.
 \end{thm}
 
 Their proof of \cref{kun_obrien_general} has three steps:
 \begin{enumerate}
-  \item A theorem of \citet{kawarabayashi.rossman:polynomial} shows that, if $\chicen(G)\ge k^{19}\log^{O(1)} k$ then $G$ contains a subcubic tree of treedepth $\Omega(k)$, or $\tw(G)\in\Omega(k^{18})$.  In the former case, an asymptotically optimal result of \citet{kun.obrien.ea:polynomial} on subcubic trees completes the proof, so we are left with the case where $\tw(G)\in\Omega(k^{18})$.
-  \item The current-best version of the Excluded Grid Theorem due to \citet{chuzhoy:improved} shows that, if $\tw(G)\ge k^{18}$, then $G$ contains an $\Omega(k^2\times k^2)$ grid minor.\todo{Update reference}
-  \item A technical lemma \cite[Lemma~5]{kun.obrien.ea:polynomial} shows that, if $G$ contains a $k^2\times k^2$ grid minor, then $\chilin(G)\in\Omega(k)$.\todo{Update reference}
+  \item A theorem of \citet{czerwinski.nadara.ea:improved} shows that, if $\chicen(G)\ge k^{19}\log^{q} k$ then $G$ contains a subcubic tree of treedepth $\Omega(k)$, or $\tw(G)\in\Omega(k^{18}\log^q k)$.\footnote{The result of \citet{czerwinski.nadara.ea:improved} is, of course, more general:  If $\chicen(G)\ge a\times b$, then $G$ contains an $\Omega(a)\times\Omega(a)$ grid minor or $G$ contains a subcubic tree of treedepth $\Omega(b)$. This is just an application of their result with $a=k^{18}\log^q k$ and $b=k$.}  In the former case, an asymptotically optimal result of \citet{kun.obrien.ea:polynomial} on subcubic trees completes the proof, so we are left with the case where $\tw(G)\in\Omega(k^{18}\log^q k)$.
+  \item The current-best version of the Excluded Grid Theorem due to \citet{chuzhoy.tan:towards} shows that, if $\tw(G)\in\Omega(k^{18}\log^q k)$ (for a particular fixed positive $q$), then $G$ contains an $\Omega(k^2)\times \Omega(k^2)$ grid minor.
+  \item A technical lemma \cite[Lemma~5]{kun.obrien.ea:polynomial} shows that, if $G$ contains a $\Omega(k^2)\times \Omega(k^2)$ grid minor, then $\chilin(G)\in\Omega(k)$.
 \end{enumerate}
 
-In the current work, we improve the technical lemma in Point~3 to show that a $k\times k$ grid minor is sufficient to guarantee that $\chilin(G)\in\Omega(k)$. This improves the exponent in \cref{kun_obrien_general} from $19$ to $10$.
-
-This gives the following improvement to \cref{kun_obrien_general}
+In the current work, we spend considerable effort to improve the technical lemma in Point~3 to show that a $\Omega(k)\times\Omega(k)$ grid minor is sufficient to guarantee that $\chilin(G)\in\Omega(k)$. This improves the exponent in \cref{kun_obrien_general} from $19$ to $10$, yielding the following improvement to \cref{kun_obrien_general}:
 \begin{thm}\label{kun_obrien_general2}
   For any graph $G$, $\chicen(G)\in O(\chilin^{10}(G))$.
 \end{thm}
 
+\todo[inline]{Open problem here: Is there anything special about the relationship between treedepth and grid minors in planar graphs or product structured graphs?  It's probably worth reading \citet{czerwinski.nadara.ea:improved} to see how their proof works.}
 
-In addition to the improvement to \cref{kun_obrien_general}, this results in considerably better bounds for some specific graph classes.  For example, the Excluded Grid Theorem for planar graphs asserts that any planar graph of treewidth $k$ contains a $\Omega(k)\times \Omega(k)$ grid minor.  Using this result instead of Point~2, above, implies that for any planar graph $G$, $\chicen(G)\in O(\chilin^2(G))$.
+% In addition to the improvement to \cref{kun_obrien_general}, this results in considerably better bounds for some specific graph classes.  For example, the Excluded Grid Theorem for planar graphs asserts that any planar graph of treewidth $k$ contains a $\Omega(k)\times \Omega(k)$ grid minor.  Using this result instead of Point~2, above, implies that for any planar graph $G$, $\chicen(G)\in O(\chilin^2(G))$.
 
-Finally, \citet{kun.obrien.ea:polynomial} boldly conjecture that, for any graph $G$, $\chicen(G)\le 2\chilin(G)$.  However, before the current work, the only class of graphs for which centred chromatic number was known to be bounded by a linear function of linear chromatic number was bounded degree trees.  The current result adds further evidence for this conjecture by establishing that, when $G$ is a $k\times k$ grid (or even a pseudogrid), then $\chicen(G)\in\Theta(\chilin(G))$.
+\citet{kun.obrien.ea:polynomial} boldly conjecture that, for any graph $G$, $\chicen(G)\le 2\chilin(G)$.  However, before the current work, the only class of graphs for which centred chromatic number was known to be bounded by a linear function of linear chromatic number was bounded degree trees \cite[Theorem~4]{kun.obrien.ea:polynomial}.  The current result adds further evidence in support of this conjecture by establishing that, when $G$ is a $k\times k$ grid (or even a pseudogrid), then $\chicen(G)\in\Theta(\chilin(G))$.
 
 \section{Preliminaries}
 
-In this paper, all graphs are simple and undirected. For a graph $G$, $V(G)$ denotes the vertex set of $G$, $E(G)$ denotes the edge set of $G$ and $\VE(G):=V(G)\cup E(G)$ denotes the set of vertices and edges of $G$. For a vertex $v\in V(G)$ we use the notations $N_G(v):=\{w\in V(G):vw\in E(G)\}$  to denote the open neighbourhood of $v$ in $G$.  For a set $S\subseteq V(G)$, $N_G(S):=\{w\in V(G):vw\in E(G),\, v\in S,\, w\not\in S\}$.
+In this paper, all graphs are simple and undirected. For a graph $G$, $V(G)$ denotes the vertex set of $G$, $E(G)$ denotes the edge set of $G$ and $\VE(G):=V(G)\cup E(G)$ denotes the set of vertices and edges of $G$. For a vertex $v\in V(G)$,  $N_G(v):=\{w\in V(G):vw\in E(G)\}$  denotes the open neighbourhood of $v$ in $G$ and for any set $S\subseteq V(G)$, $N_G(S):=\{w\in V(G):vw\in E(G),\, v\in S,\, w\not\in S\}$.
 
 For a  bipartite graph $H$, the two parts of $V(H)$ are denoted by $L(H)$ and $R(H)$ and we use the convention of writing an edge $xy$ so that its first endpoint $x$ is in $L(H)$ and its second endpoint $y$ is in $R(H)$.  A \defin{matching} $M$ in a bipartite graph $H$ is a subgraph of $H$ in which each vertex has degree at most $M$.  We say that $M$ \defin{saturates} a set $S\subseteq V(H)$ if $\deg_M(v)=1$ for each $v\in S$.  We make use of (the difficult half of) Hall's Marriage Theorem (see, for example \citet[Theorem~2.1.2]{diestel:graph}):
 
@@ -128,26 +130,29 @@ For a  bipartite graph $H$, the two parts of $V(H)$ are denoted by $L(H)$ and $R
   Let $H$ be a bipartite graph with the property that $|N_H(A)|\ge |A|$ for each $A\subseteq L(H)$.  Then $H$ contains a matching that saturates $L(H)$.
 \end{thm}
 
-More specifically, we make use of the following (polygamous) version of the Marriage Theorem, which is obtained by replacing each vertex $x\in L(H)$ with $d$ vertices $x_1,\ldots,x_d$ each having the same neighbourhood as $x$.  More precisely, we apply \cref{hall} on the graph $H':=H-\{x\}\cup\{x_iy:i\in\{1,\ldots,d\},\, y\in N_H(x)\}$.
-
+We make use of the following (polygamous) version of the Marriage Theorem:
 \begin{cor}\label{d_hall}
   Let $d\ge 1$ be an integer and let $H$ be a bipartite graph with the property that $|N_H(A)|\ge d|A|$ for each $A\subseteq L(H)$.  Then $H$ contains a subgraph $M$ such that $\deg_M(v)=d$ for each $x\in L(H)$ and $\deg_M(y)\le 1$ for each $y\in R(H)$.
 \end{cor}
 
+\cref{d_hall} can be deduced by applying adding $d-1$ twins $x_2,\ldots,x_d$ for each vertex $x\in L(H)$, i.e., by applying \cref{hall} on the graph $H':=H\cup\{x_iy:x\in L(H),\, i\in\{2,\ldots,d\},\, y\in N_H(x)\}$.
+
+
 Late in the game, we will make use of the following asymmetric version of the Lovász Local Lemma (see, for example, \citet[Lemma~5.1.1]{alon.spencer:probabilistic}):
 
 \begin{lem}\label{weighted_lovasz}
-  Let $\mathcal{E}:=\{E_1,\ldots,E_n\}$ be a set of events in some probability space $(\Omega,\Pr)$.  For each $i\in\{1,\ldots,n\}$, let $\Gamma_i\subseteq \mathcal{E}$ be such that the event $E_i$ is mutually independent of $\mathcal{E}\setminus \Gamma_i$,\footnote{An event $A$ is mutually independent of a set $\{B_1,\ldots,B_r\}$ of events if, for any disjoint sets $I,J\subseteq\{1,\ldots,r\}$, $\Pr(A\cap\bigcap_{i\in I} B_i\cap\bigcap_{j\in J} \overline{B}_j=\Pr(A)\Pr(\bigcap_{i\in I} B_i\cap\bigcap_{j\in J} \overline{B}_j)$.} and let $w:E\to[0,1)$ be such that
+  Let $\mathcal{E}:=\{E_1,\ldots,E_n\}$ be a set of events in some probability space $(\Omega,\Pr)$.  For each $i\in\{1,\ldots,n\}$, let $\Gamma_i\subseteq \mathcal{E}$ be such that the event $E_i$ is mutually independent of $\mathcal{E}\setminus \Gamma_i$,\footnote{An event $A$ is mutually independent of a set $\{B_1,\ldots,B_r\}$ of events if, for any disjoint sets $I,J\subseteq\{1,\ldots,r\}$, $\Pr(A\cap\bigcap_{i\in I} B_i\cap\bigcap_{j\in J} \overline{B}_j=\Pr(A)\Pr(\bigcap_{i\in I} B_i\cap\bigcap_{j\in J} \overline{B}_j)$.} and let $w:\mathcal{E}\to[0,1)$ be such that
   \[
-      \Pr(E_i) \le w(E_i)\cdot\prod_{E_j\in\Gamma_i}(1-w(E_j))  \enspace .
+      \Pr(E_i) \le w(E_i)\cdot\prod_{E_j\in\Gamma_i}(1-w(E_j))  \enspace ,
   \]
+  for each $i\in\{1,\ldots,n\}$.
   Then $\Pr(\overline{E}_1\cap\cdots\cap\overline{E}_n) > 0$.
 \end{lem}
 
 
 \section{The Linear Colouring Number of Pseudogrids}
 
-For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(v,w)$ and $(x,y)$ if and only if $|v-x|+|w-y|=1$.  Such an edge is \defin{vertical} if $v=x$ and \defin{horizontal} if $w=y$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  The \defin{boundary} $\partial G_{a\times b}$ of $G_{a\times b}$ a the set of vertices in the first and last row and column and all edges incident to these vertices.
+For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  The \defin{boundary} $\partial G_{a\times b}$ of $G_{a\times b}$ a the set of vertices in the first and last row and column and all edges incident to these vertices.
 
 \begin{figure}
   \begin{center}
@@ -160,29 +165,29 @@ For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ 
 In this work, we need to work with pseudogrids.  Refer to \cref{pseudogrid_fig}.  An \defin{$a\times b$-pseudogrid} is any graph that can be obtained from $G_{a\times b}$ in the following way:
 \begin{compactitem}
   \item Replace each edge $vw$ of $G_{a\times b}$ with a path $\overline{P}_{vw}$ whose endpoints are $v$ and $w$.  (In other words, $\overline{P}_{vw}$ is a path obtained by subdividing the edge $vw$ zero or more times.)
-  \item Replace each degree-$4$ vertex $(x,y)$ of $G_{a\times b}$ with a path $P_v$. If $P_v$ has only one vertex then the unique vertex of $P_v$ is adjacent to each of $(x\pm 1,y\pm 1)$ and this has effect.  Otherwise, $P_v$ has two endpoints $p$ and $q$, each of which is adjacent to two vertices among $(x\pm 1,y\pm 1)$.  It is useful to consider three possible cases:
+  \item Replace each degree-$4$ vertex $(i,j)$ of $G_{a\times b}$ with a path $P_v$. If $P_v$ has only one vertex then the unique vertex of $P_v$ is adjacent to each of $(i\pm 1,j\pm 1)$ and this has no effect on the underlying graph.  Otherwise, $P_v$ has two endpoints $p$ and $q$, each of which is adjacent to two vertices among $(i\pm 1,j\pm 1)$.  It is useful to consider three possible cases:
   \begin{compactenum}[(Q1)]
-    \item \label{q_i} $p$ is adjacent to $\{(x-1,y), (x,y-1)\}$ and $q$ is adjacent to $(x+1,y),(x,y+1)$;
-    \item \label{q_ii} $p$ is adjacent to $\{(x,y+1), (x-1,y)\}$ and $q$ is adjacent to $(x,y-1),(x+1,y)$; or
-    \item \label{q_iii} $p$ is adjacent to $\{(x-1,y),(x+1,y)\}$ and $q$ is adjacent to $\{(x,y-1),(x,y+1)\}$.
+    \item \label{q_i} $p$ is adjacent to $\{(i-1,j), (i,j-1)\}$ and $q$ is adjacent to $(i+1,j),(i,j+1)$;
+    \item \label{q_ii} $p$ is adjacent to $\{(i,j+1), (i-1,j)\}$ and $q$ is adjacent to $(i,j-1),(i+1,j)$; or
+    \item \label{q_iii} $p$ is adjacent to $\{(i-1,j),(i+1,j)\}$ and $q$ is adjacent to $\{(i,j-1),(i,j+1)\}$.
   \end{compactenum}
 \end{compactitem}
 
-Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths is isomorphic to a $\le\! 1$-subdivision of $G_{a\times b}$.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.  The \defin{boundary} of $G$ is defined as $\partial G:=\bigcup_{\mu\in\partial G_{a\times b}} V(P_\mu)$.
+Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.  The \defin{boundary} of $G$ is defined as $\partial G:=\bigcup_{\mu\in\partial G_{a\times b}} V(P_\mu)$.  The \defin{interior} of $G$ is $G-\partial G$.
 
-Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the rows and columns of $G$, which we will do next.
+Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the rows and columns of $G$, which we will do immediately.
 
 As part of our proof, we use the operation of \defin{deleting} a row (or column) $R$ of $G$, which works as follows:  We remove all edges of $R$ from $G$ and eliminate any isolated vertices.  If this produces vertices of degree $1$ (which happens when $R$ is the first or last row of $G$ or when $R=v_1,\ldots,v_a$ does not contains $P_{v_i}$ for some $i\in\{1,\ldots,r\}$) then we repeatedly remove degree-$1$ vertices until none remain.  If $G$ is an $a\times b$ pseudogrid and we delete some row $R$, then the resulting graph is an $a\times (b-1)$ pseudogrid.  Similarly, if we delete column $C$ of $G$, then the resulting graph is a $(a-1)\times b$ pseudogrid.
 
 \subsection{Proof Outline}
 
-If some graph contains a $k\times k$ grid minor then it contains a $k\times k$ pseudogrid as a subgraph.  Therefore to prove \cref{kun_obrien_general2}, it suffices to prove:
+If some graph contains a $k\times k$ grid minor then it contains a $k\times k$ pseudogrid as a subgraph \cite{kun.obrien.ea:polynomial}.  Therefore to prove \cref{kun_obrien_general2}, it suffices to prove:
 
 \begin{lem}\label{pseudogrid_lower_bound}
   For any $k\times k$ pseudogrid $G$, $\chilin(G)\in\Omega(k)$.
 \end{lem}
 
-We do this by showing that for sufficiently small $\epsilon >0$,  any $\epsilon k$-colouring of any $k\times k$ pseudogrid $G$ contains an uncentred path $P$. We will do this in several steps (see \cref{outline}):
+We do this by showing that for sufficiently small $\epsilon >0$,  any $\epsilon k$-colouring of any $k\times k$ pseudogrid $G$ contains an uncentred path $P$. We will prove the existence of $P$ in several steps (see \cref{outline}):
 
 \begin{figure}
   \begin{center}
@@ -200,7 +205,7 @@ We do this by showing that for sufficiently small $\epsilon >0$,  any $\epsilon 
 
   \item We first delete rows and columns from $G$ so that each colour that appears in $G$ appears at least $d$ times in the interior of $G$, for some large constant $d$.  From this point on the goal is to construct $P$ so that it contains each colour at least twice.
 
-  \item We do our best to find a set $S_1$ of vertices in $G$ that contains two vertices of each colour and that is `well-separated' in the sense that the corresponding set of vertices/edges in $G_{k\times k}$ have a minimum distance between them.  In \cref{outline} this minimum distance corresponds to the fact that the box drawn centered at each vertex in $S_1$ contains no other vertices of $S_1$.
+  \item We greedily choose a set $S_1$ of vertices in $G$ that contains two vertices of each colour and that is `well-separated' in the sense that the corresponding set of vertices/edges in $G_{k\times k}$ have a minimum distance between them.  In \cref{outline} this minimum distance corresponds to the fact that the box drawn centered at each vertex in $S_1$ contains no other vertices of $S_1$.
   % This makes it easy to find a single path in $G$ that contains each of these vertices.
   Unfortunately, this process will fail for some subset of the colours that appear in $G$.
 
@@ -209,7 +214,7 @@ We do this by showing that for sufficiently small $\epsilon >0$,  any $\epsilon 
   \item We construct a path $P$ that contains each vertex in $S_1\cup S_2$.  This is possible (easy, even) because each vertex in $S_1$ is `close to' at most one vertex of $S_2$ and vice-versa.
 \end{compactenum}
 
-The most challenging aspect of this proof is the construction of $S_2$, which requires the use of the Local Lemma to ensure that no vertex chosen to take part in $S_2$ is close to any other vertex in $S_2$.  The difficulty is illustrated in \cref{outline} by the cluster of three points of $S_1$ in the top right corner.  These three points of $S_1$ are well-separated, but choosing one point from each of the three boxes to take part in $S_2$ could result in three points of $S_2$ being very close to each other.  The local lemma is used to show that, in situations like this, we can still obtain two vertices of $S_2$ from each missing colour class while avoiding taking two vertices of $S_2$ from these three boxes.
+The most challenging aspect of this proof is the construction of $S_2$, which requires the use of the Local Lemma (\cref{weighted_lovasz}) to ensure that no vertex chosen to take part in $S_2$ is close to any other vertex in $S_2$.  The difficulty is illustrated in \cref{outline} by the cluster of three points of $S_1$ in the top right corner whose boxes overlap.  These three points of $S_1$ are well-separated, but choosing one point from each of the three boxes to take part in $S_2$ could result in three points of $S_2$ being very close to each other.  The local lemma is used to show that, in situations like this, we can still obtain two vertices of $S_2$ from each missing colour class while avoiding taking more than one vertex of $S_2$ from these three boxes.
 
 In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to obtain a sub-pseudogrid in which every colour appears frequently.  In \cref{path_finding} we explain how, given a well-separated set $S$ of vertices in $G$, to find a path that contains every vertex in $S$.  In \cref{packing_lemma_sec} we introduce fairly standard-looking packing lemma that is needed in several places later.  In \cref{well_separated} we explain how find a well-separated set $S$ that contains two vertices of each colour. Finally \cref{wrapping_up} shows how to assemble these various pieces to prove \cref{pseudogrid_lower_bound}.
 
@@ -219,7 +224,7 @@ In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to 
 \label{only_frequent_sec}
 
 For convenience, let $G_k:=G_{k\times k}$.
-Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=(P_\mu:\mu\in\VE(G_{k}))$ and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$.  The partition $\mathcal{P}$ associates each vertex of $G$ with an edge or vertex $\mu$ of $G_k$, so $\varphi$ associates a colour set with each object in $\VE(G_k)$, as follows.  For each $\mu\in\VE(G_{k})$, we let $\varphi_{\mathcal{P}}(\mu):=\{\varphi(v):v\in V(P_\mu)\}$.  For each colour $\alpha\in\{1,\ldots,c\}$, define $\varphi^{-1}(\alpha):=\{v\in V(G):\varphi(v)=\alpha\}$ and define $\varphi_\mathcal{P}^{-1}(\alpha):=\{\mu\in \VE(G_{k\times k}):\alpha\in\varphi_\mathcal{P}(\mu)\}$.  For any colour set $A\subseteq\{1,\ldots,c\}$ define $\varphi^{-1}(A):=\bigcup_{\alpha\in A}\varphi^{-1}(\alpha)$ and $\varphi_\mathcal{P}^{-1}(A):=\bigcup_{\alpha\in A}\varphi_{\mathcal{P}}^{-1}(\alpha)$.  (Throughout this section, we will use the idiom $\varphi(V(G))$ to denote the set of all colours used by $\varphi$ to colour the vertices of $G$.)
+Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=\{P_\mu:\mu\in\VE(G_{k})\}$ and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$.  The partition $\mathcal{P}$ associates each vertex of $G$ with an edge or vertex $\mu$ of $G_k$, so $\varphi$ associates a colour set with each object in $\VE(G_k)$, as follows.  For each $\mu\in\VE(G_{k})$, we let $\varphi_{\mathcal{P}}(\mu):=\{\varphi(v):v\in V(P_\mu)\}$.  For each colour $\alpha\in\{1,\ldots,c\}$, define $\varphi^{-1}(\alpha):=\{v\in V(G):\varphi(v)=\alpha\}$ and define $\varphi_\mathcal{P}^{-1}(\alpha):=\{\mu\in \VE(G_{k\times k}):\alpha\in\varphi_\mathcal{P}(\mu)\}$.  For any colour set $A\subseteq\{1,\ldots,c\}$ define $\varphi^{-1}(A):=\bigcup_{\alpha\in A}\varphi^{-1}(\alpha)$ and $\varphi_\mathcal{P}^{-1}(A):=\bigcup_{\alpha\in A}\varphi_{\mathcal{P}}^{-1}(\alpha)$.  (Throughout this section, we will use the idiom $\varphi(V(G))$ to denote the set of all colours used by $\varphi$ to colour the vertices of $G$.)
 
 
 \begin{lem}\label{only_frequent}
@@ -229,7 +234,7 @@ Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=(P_\mu:\mu
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $|\varphi(V(G))|$, the number of colours used by the colouring $\varphi$.  If there exists no $A\subseteq \varphi(V(G))$ with $|\varphi_{\mathcal{P}}^{-1}(A)\setminus\partial G_k| < d|A|$ then taking $G':=G$ and $\mathcal{P}':=\mathcal{P}$ satisfies the requirements of the lemma.  Otherwise, we will remove a set $R$ of rows and a set $C$ of columns from $G$ with $|R|=|C|\le (d+2)|A|$ to eliminate all vertices with colours in $A$, as follows:
+  The proof is by induction on $|\varphi(V(G))|$, the number of colours used by the colouring $\varphi$.  If there exists no $A\subseteq \varphi(V(G))$ with $|\varphi_{\mathcal{P}}^{-1}(A)\setminus\partial G_k| < d|A|$ then taking $G':=G$ and $\mathcal{P}':=\mathcal{P}$ satisfies the requirements of the lemma.  Otherwise, we will remove a set $R$ of rows and a set $C$ of columns from $G$ with $|R|=|C|\le d|A|+2 \le (d+2)|A|$ to eliminate all vertices with colours in $A$, as follows:
   \begin{compactitem}
     \item For each $v:=(i,j)\in V(G_{k})\setminus \partial G_k$ with $A\cap\varphi_\mathcal{P}(v)\neq\emptyset$, we include row $j$ in $R$ and column $i$ in $C$.
     \item For each horizontal edge $vw\in E(G_{k\times k})\setminus \partial G_k$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
@@ -249,7 +254,7 @@ Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=(P_\mu:\mu
 \end{proof}
 
 
-Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathcal{P}(\mu)$ of colours rather than a single colour will be problematic for what we want to to do next.  The following lemma allows us to choose one representative colour $\phi(\mu)$ from $\varphi_{\mathcal{P}}(\mu)$ for each $\mu\in \VE(G_k)$ while still ensuring that each colour appears frequently.
+Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathcal{P}(\mu)$ of colours rather than a single colour is problematic for what we want to to do next.  The following lemma allows us to choose one representative colour $\phi(\mu)$ from $\varphi_{\mathcal{P}}(\mu)$ for each $\mu\in \VE(G_k)$ while still ensuring that each colour appears frequently.
 
 \begin{lem}\label{one_colour_per_object}
   Let $d>1$ be an integer, let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}$, and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$ such that, for any $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\setminus \partial G_k| \ge d\cdot|A|$. Then there exists a colouring $\phi:\VE(G_{k})\to\{1,\ldots,c,\perp\}$ with the following properties:
@@ -267,7 +272,7 @@ Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathca
   \[
     E(H) := \{ (\alpha,\mu)\in X\times Y: \alpha\in\varphi_\mathcal{P}(\mu) \}
   \]
-  By \cref{d_hall}, $H$ contains a subgraph $M$ with $\deg_M(x)=d$ for each $\alpha\in X$ and $\deg_M(y)\le 1$ for each $\mu\in Y$.  For each edge $\alpha\mu$ in $M$, set $\phi(\mu):=\alpha$.  This defines $\phi(\mu)$ for any $\mu\in Y$ with $\deg_M(\mu)=1$.  For each $\mu\in Y$ with $\deg_M(\mu)=0$ set $\phi(\mu):=\perp$.
+  By \cref{d_hall}, $H$ contains a subgraph $M$ with $\deg_M(\alpha)=d$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$.  For each edge $\alpha\mu$ in $M$, set $\phi(\mu):=\alpha$.  This defines $\phi(\mu)$ for any $\mu\in Y$ with $\deg_M(\mu)=1$.  For each $\mu\in Y$ with $\deg_M(\mu)=0$ set $\phi(\mu):=\perp$.
 \end{proof}
 
 \subsection{Finding Paths Through Well-Separated Pairs}
@@ -281,16 +286,30 @@ The \defin{$r$-box} centred at a vertex $v:=(i,j)$ of $G_{k}$ is defined as
 \]
 The \defin{$r$-box} centred at an edge $vw$ of $G_{k}$ is $B_r(vw):=B_r(v)\cup B_r(w)$.
 % Observe that, for any $\mu\in V(G_{k})\cup E(G_{a\times b})$,  $v\in B_r(u)$ if and only if $u\in B_r(v)$.
-Any $r$-box $B_r(\mu)$ defines an induced subgraph that we denote by $G_r(\mu):=G_{k}[B_r(\mu)]$.  Straightforward counting shows that, for any $\mu\in\VE(G_k)$,
+For any $\mu\in\VE(G_k)$, the $r$-box $B_r(\mu)$ defines an induced subgraph that we denote by $G_r(\mu):=G_{k}[B_r(\mu)]$.  Straightforward counting shows that, for any $\mu\in\VE(G_k)$,
 \begin{equation}
-   |\VE(G_r(\mu))| \le 3(2r+1)^2 \enspace . \label{rbox_size} % rbox size
+   |\VE(G_r(\mu))| \le |\VE(G_r)| = (2r+1)(6r+1) \enspace . \label{rbox_size} 
 \end{equation}
+For convenience, we define $\vol{r}:=(2r+1)(6r+1)$ and the reader should keep in mind that $\vol{r} \in\Theta(r^2)$.
+
+\begin{lstlisting}[frame=single,language=python]
+  # Sage Code
+  f(r)= (2*r+1)^2 + 4*r*(2*r+1)
+  show("f: ", f)
+  show("f(1): ", f(1))
+  show("f(2): ", f(2))
+  show("f(3): ", f(3))
+  show("f.full_simplify(): ", f.full_simplify())
+  show("f.factor(): ", f.factor())
+  f = f.factor()
+\end{lstlisting}
+
 We extend these definitions to vertices of a $k\times k$ pseudogrid $G$ with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ as follows. For any $\mu\in V(G_k)$, define
 \[
    \tilde{B}_r(\mu) := \bigcup_{\nu\in \VE(G_r(\mu))} V(P_\nu)
 \]
 and, for any $v\in V(G)$, let $\tilde{B}_r(v):=\tilde{B}_r(\mu_v)$
-where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}$.\footnote{Technically, the notation for $\tilde{B}_r(v)$ should include the partition $\mathcal{P}$, but we omit this since there will never any ambiguity as to which partition is being used.}
+where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}$.\footnote{Technically, the notation for $\tilde{B}_r(v)$ should include the partition $\mathcal{P}$, but we omit this since there will never be any ambiguity as to which partition is being used.}
 % For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 
 \begin{lem}\label{pick_up_two}
@@ -299,11 +318,11 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
 
 \begin{proof}
   Let $\mathcal{P}:\{P_\mu:\mu\in \VE(G_k)\}$ be a grid partition of $G$ and let $\mu_v,\mu_w\in \VE(G_k)$ be such that $v\in V(P_{\mu_v})$ and $w\in V(P_{\mu_w})$.
-  todo[inline]{Finish this.}
+  \todo[inline]{Finish this.}
 \end{proof}
 
 \begin{lem}\label{pick_up_everything}
-  Let $r\ge ??$, let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:\{P_\mu:\mu\in\VE(G_k)\}$ and let $S\subseteq V(G)\setminus \partial G$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$\todo{Set constraint on $R$} for each $v\in S$. Then $G$ contains a path that contains every vertex in $S$.
+  Let $r\ge ??$, let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:\{P_\mu:\mu\in\VE(G_k)\}$ and let $S\subseteq V(G)\setminus \partial G$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$\todo{Set constraint on $r$} for each $v\in S$. Then $G$ contains a path that contains every vertex in $S$.
 \end{lem}
 
 \begin{proof}[Proof Sketch]
@@ -319,22 +338,29 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
 We will make use of the following fairly standard looking packing lemma.
 
 \begin{lem}\label{packing_lemma}
-  Let $r\ge 114$ be an even integer and let $Q\subseteq \VE(G_k)$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
+  Let $r\ge 2$ be an even integer and let $Q\subseteq \VE(G_k)$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
   $|\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu))\}| \le 25$.
 \end{lem}
 
 \begin{proof}
-  The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $B_{r/2-1}(\mu_1)\cap B_{r/2-1}(\mu_2)=\emptyset$ for each $\mu_1,\mu_2\in Q$.
-
-  For simplicity, assume that $G_k$ is embedded in $G_{k+2r+1}$ with the elements of $Q$ at distance at least $G_{2r}$ from the first and last row and column.  In particular, for each $\mu_1\in Q$, $|B_{\rho}(\nu)| = 3(2\rho+1)^2$ for any $\rho\in\{0,\ldots,2r\}$.
-
-  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu_1))\}$.  For any $\mu_1\in Q'$,
+  For simplicity, assume that $G_k$ is embedded in $G_{k+2r+1}$ with the elements of $Q$ at distance at least $G_{2r}$ from the first and last row and column.  In particular, for each $\mu_1\in Q$, $|B_{\rho}(\nu)| =\vol{\rho}$ for any $\rho\in\{0,\ldots,2r\}$.
+  
+  The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $\VE(G_{r/2-1}(\mu_1))\cap \VE(G_{r/2-1}(\mu_2))=\emptyset$ for each $\mu_1,\mu_2\in Q$.  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu_1))\}$ so that our task is to show that $|Q'|\le 25$.  For any $\mu_1\in Q'$,
   $\mu_1\in\VE(G_{2r+1}(\mu))$ and consequently, $\VE(G_{r/2-1}(\mu_1))\subseteq \VE(G_{5r/2}(\mu))$.
   Since this is true for all $\mu_1\in Q$ we have
-  \[  3(5r+1)^2 \ge |\VE(G_{5r/2}(\mu))| \ge \sum_{\mu_1\in Q'} |\VE(G_{r/2}(\mu_1))|
-  = 3|Q'|(r-2)^2 \enspace .
+  \[  \vol{5r/2} \ge |\VE(G_{5r/2}(\mu))| \ge \sum_{\mu_1\in Q'} |\VE(G_{r/2}(\mu_1))|
+  = |Q'|\cdot \vol{r/2} \enspace .
   \]
-  which implies that $|Q'|\le (5r+1)^2/(r-2)^2$.  For $r > 2$, this bound is decreasing in $r$ and is less than $26$ for any $r> 11\sqrt{26} + 57$.  In particular, $|Q'|< 26$ for any $r\ge 114$.
+  \begin{lstlisting}[frame=single,language=python]
+    # Sage Code
+    g(r) = f(5*r/2)/f(r/2)
+    show("g: ", g)
+    show("g.full_simplify(): ", g.full_simplify())
+    show("limit(g, r=oo): ", limit(g, r=oo))
+    show(plot(g, r, 1, 200))
+    show(solve(g(r)==25, r))
+  \end{lstlisting}
+  which implies that $|Q'|\le \vol{5r/2}/\vol{r/2}$.  For $r > 2$, this bound is increasing in $r$ and is less than $25$ for any even $r\ge 2$.
 \end{proof}
 
 
@@ -344,20 +370,20 @@ We will make use of the following fairly standard looking packing lemma.
 Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only_frequent}, we can find a set of vertices in $G$ that contain two vertices of each colour and that is compatible with \cref{pick_up_everything}.
 
 \begin{lem}\label{doubled_colour_set}
-  For every integer $r\ge 1$ there exists an integer $d\in O(r^4)$ such that the following is true, for every integer $k\ge 1$.
-  Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)|\ge d|A|$.
+  For every integer $r\ge 1$\todo{Really no lower bound on $r$?} there exists an integer $d\in O(r^4)$ such that the following is true, for every integer $k\ge 1$.
+  Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)\setminus\partial G|\ge d|A|$.
   Then there exists $S\subseteq V(G)$ such that
   \begin{compactenum}[(i)]
-    \item \label{hits_both} for each $\alpha\in\varphi(V(G))$, $|\{v\in S:\varphi(v)=\alpha\}|= 2$; and
-    \item \label{spread_out} $|\tilde{B}_r(v)\cap S|\le 2$ for each $v\in S$.
+    \item \label{hits_both} for each $\alpha\in\varphi(V(G))$, $|\varphi^{-1}(\alpha)\cap S|= 2$; and
+    \item \label{spread_out} for each $v\in S$, $|\tilde{B}_r(v)\cap S|\le 2$ for each $v\in S$.
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
-  We begin by applying \cref{one_colour_per_object} to obtain the colouring $\phi$ of $\VE(G_k)$.  Observe that it is now sufficient to find a $2|\varphi(V(G))|$-object subset $Q\subseteq\VE(G_k)$ such that
+  We begin by applying \cref{one_colour_per_object} to obtain the colouring $\phi$ of $\VE(G_k)$.  Observe that it is now sufficient to find a $2|\varphi(V(G))|$-element subset $Q\subseteq\VE(G_k)$ such that
   \begin{compactenum}[(i)]
-    \item $|\{\mu\in Q:\phi(v)=\alpha\}|= 2$ and
-    \item $|\VE(G_r(\mu))\cap Q|\le 2$ for each $\alpha\in\varphi(V(G))$ and each $\mu\in Q$.
+    \item $|\phi^{-1}(\alpha)\cap Q|= 2$ for each $\alpha\in\varphi(V(G))$ and
+    \item $|\VE(G_r(\mu))\cap Q|\le 2$ for each $\mu\in Q$.
   \end{compactenum}
   Indeed, with such a $Q$ we can obtain $S$ by taking one vertex of colour $\phi(\mu)$ from $P_\mu$ for each $\mu\in Q$.
 
@@ -365,42 +391,40 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   If there exists distinct $\mu_1,\mu_2\in\VE(G_k)$ such that
   \begin{compactenum}[(a)]
     \item $\phi(\mu_1)=\phi(\mu_2)=\alpha$; and\label{hits_both_q}
-    \item for each $b\in\{1,2\}$, $\mu_b\not\in \VE(G_r(\mu_{3-b})) \cup \bigcup_{\mu\in Q_1} \VE(G_r(\mu))$.\label{spread_out_q}
+    \item for each $b\in\{1,2\}$, $\mu_b\not\in \VE(G_r(\mu_{3-b})) \cup \bigcup_{\mu\in Q_1} \VE(G_r(\mu))$,\label{spread_out_q}
   \end{compactenum}
-  then we include $\mu_1$ and $\mu_2$ in $Q_1$ and declare the first round \defin{$\alpha$-successful}.  Otherwise, we declare the first round an \defin{$\alpha$-failure}.
+  then we include $\mu_1$ and $\mu_2$ in $Q_1$ and declare the first round an \defin{$\alpha$-success}.  Otherwise, we declare the first round an \defin{$\alpha$-failure}.
 
-  Let $K\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was $\alpha$-successful. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}) since (\ref{spread_out_q}) implies that $\VE(G_r(\mu))\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$.  However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $K$.  We now use the second round to create a set $Q_2$ to fix this.
+  Let $\overline{X}\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was an $\alpha$-success. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}) since (\ref{spread_out_q}) implies that $\VE(G_r(\mu))\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$.  However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $\overline{X}$.  We now use the second round to create a set $Q_2$ to fix this.
   % Our strategy is to use \cref{d_hall} to find two matchings between the colours in $X$ and the boxes in $\{\tilde{B}_r(\mu):\mu\in Q_1\}$ that contain those colours.
 
-  Define a bipartite graph $H$ with parts $X:=\varphi(V(G))\setminus K$ and $Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{2|K|}$ be a random permutation of the elements of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
+  Define a bipartite graph $H$ with parts $X:=\varphi(V(G))\setminus \overline{X}$ and $Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{2|K|}$ be a random permutation of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
   \[
     \VE(G_r(\mu_i))\setminus\left(\bigcup_{j=1}^{i-1}\VE(G_{2r}(\mu_j))\right)
   \]
-  contains some object $\nu$ of colour $\phi(\nu)=\alpha$.  Note the asymmetry here: In the first round, each element $\mu_j$ that takes part in $Q_1$ prevents elements in $\VE(G_r(\mu))$ from also being part of $Q_1$.  In the second round, $\mu_j$ defines a larger box $\VE(G_{2r}(\mu_j))$ that must be avoided when choosing an element from $\VE(G_r(\mu_i))$, for $i>j$.
+  contains some object $\nu$ of colour $\phi(\nu)=\alpha$.  Note the asymmetry here: In the first round, each element $\mu_j$ that takes part in $Q_1$ prevents elements in $\VE(G_r(\mu))$ from also being part of $Q_1$.  In the second round, $\mu_j$ defines a larger box $\VE(G_{2r}(\mu_j))$ that must be avoided when choosing a second element from $\VE(G_r(\mu_i))$, for $i>j$.
 
-  We now want to use the Local Lemma (\cref{weighted_lovasz}) to show that, with probability greater than zero, $\deg_H(\alpha)\ge 6(2r+1)^2$ for each $\alpha\in X$.
-  For each $\alpha\in X$, let $\Phi_\alpha:=\{\nu\in\VE(G_k):\phi(\nu)=\alpha\}$ and recall that, since $\phi$ comes from \cref{one_colour_per_object}, $|\Phi_\alpha| \ge d$.  Furthermore all but at most one element of $\Phi_\alpha$ is contained in $\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu))$ since, otherwise the first round would have succeeded for colour $\alpha$.
+  We now want to use the Local Lemma (\cref{weighted_lovasz}) to show that, with probability greater than zero, $\deg_H(\alpha)\ge 2\vol{r}$ for each $\alpha\in X$.\todo{Constants are going change everywhere now...}
+  For each $\alpha\in X$, let $\Phi_\alpha:=\{\nu\in\VE(G_k):\phi(\nu)=\alpha\}$ and recall that, since $\phi$ comes from \cref{one_colour_per_object}, $|\Phi_\alpha| \ge d$.  Furthermore all but at most one element of $\Phi_\alpha$ is contained in $\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu))$ since, otherwise the first round would have been an $\alpha$-success.
   % For each $\mu\in Y$, $|\VE(G_{r+1}(\mu))|\in O(r^2)$. Therefore, there are $\Omega(|\Phi_\alpha|/r^2)$ objects $\mu\in Y$ such that $\VE(G_{r+1}(\mu))\cap \Phi_\alpha\neq\emptyset$.
 
-  We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\ceil{|\Phi_\alpha|/3(20r+1)^2},1/25)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 6(2r+1)^2)$.  (We make no attempt to optimize the constants here.)  Suppose that, for some $\mu\in Y$, $B_r(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$. Then, by \cref{packing_lemma}, the set
+  We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\ceil{|\Phi_\alpha|/\vol{10r}},1/25)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{r})$.  (We make no attempt to optimize constants here.)  Suppose that, for some $\mu\in Y$, $B_r(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$. Then, by \cref{packing_lemma}, the set
   \[
      Y_\nu := \{\xi\in Y:\nu\in\VE(G_{2r}(\xi))\}
   \]
-  has size at most $25$. Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/25$.
-   % This already establishes that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$.
+  has size at most $25$. Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/25$. This already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$.
 
-  In order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_r(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J-\VE(G_{10r}(\mu))$.\footnote{The constant $10$ is overkill here and is only used for simplicity; $8r+O(1)$ would be sufficient.}  This process continues until $B_r(\mu)\cap J=\emptyset$ for each $\mu\in Y$. Since $|\VE(G_{10r}(\mu))|\le 3(20r+1)^2$, each step in this process eliminates at most $3(20r+1)^2$ objects from $J$ so the number $t$ of iterations is at least $\ceil{|\Phi_\alpha|/3(20r+1)^2}$
-
+  In order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_r(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J-\VE(G_{10r}(\mu))$.\footnote{The constant $10$ is overkill here and is only used for simplicity; $8r+O(1)$ would be sufficient.}  This process continues until $\VE(G_r(\mu))\cap J=\emptyset$ for each $\mu\in Y$. Since $|\VE(G_{10r}(\mu))|\le \vol{10r}$, each step in this process eliminates at most $\vol{10r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{10r}}$
 
   Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_r\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are disjoint.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_k$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of $Y_{\nu_i}$ in the  permutation $\pi$.  For each $i\in\{1,\ldots,k\}$, $\Pr(U_i)\ge 1/25$.  Therefore, $\sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/25)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
   \begin{align}
-    \Pr\left(\deg_H(\alpha)< 6(2r+1)^2\right)
-    & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 6(2r+1)^2\right) \notag \\
-    & \le \Pr(\binomial(t,1/25)\le 6(2r+1)^2) \notag \\
-    & \le (2t)^{6(2r+1)^2}(1/25)^{r^2}(1-1/25)^{t-6(2r+1)^2} \notag \\
+    \Pr\left(\deg_H(\alpha)< 2\vol{r}\right)
+    & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{r}\right) \notag \\
+    & \le \Pr(\binomial(t,1/25)\le 2\vol{r}) \notag \\
+    & \le (2t)^{2\vol{r}}(1/25)^{r^2}(1-1/25)^{t-2\vol{r}} \notag \\
     % & \le \exp(6(2r+1)^2\log(2t)+(t-6(2r+1)^2)\log(1-1/25)) \\
-    & \le \exp(6(2r+1)^2(1+\log(2t))-t/25) \notag \\
-    & \le \exp(6(2r+1)^2(1+\log(2|\Phi_\alpha|))-|\Phi_\alpha|/75(20r+1)^2) \label{probability}
+    & \le \exp({2\vol{r}}(1+\log(2t))-t/25) \notag \\
+    & \le \exp({2\vol{r}}(1+\log(2|\Phi_\alpha|))-|\Phi_\alpha|/25\vol{10r}) \label{probability}
     % & \le \exp(-6(2r+1)^2\log(2t)\log(1-1/?) + t\log(1-1/25)) \\
     % & = \exp(ar^2 - bt)
   \end{align}
@@ -408,11 +432,11 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % $\Pr(\deg_H(\alpha)< 6(2r+1)^2)\le \exp(-C|\Phi_\alpha|/r^2)$.\todo{This could be done better.}   By the preceding discussion, $\Pr(E_\alpha)\le \exp(-C|\Phi_\alpha|/r^2)$.
 
 
-  We are now ready for an application of \cref{weighted_lovasz}.  For each $\alpha\in X$, let Let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 6(2r+1)^2$'' and let $\mathcal{E}:=\{E_\alpha:\alpha\in X\}$. For each $\alpha\in X$, define
+  We are now ready for an application of \cref{weighted_lovasz}.  For each $\alpha\in X$, let Let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 2\vol{r}$'' and let $\mathcal{E}:=\{E_\alpha:\alpha\in X\}$. For each $\alpha\in X$, define
   \[
      \Gamma_\alpha := \left\{E_\beta \in \mathcal{E}: \Phi_\beta\cap \bigcup_{\nu\in \Phi_\alpha} \VE(G_{10r}(\nu))\neq\emptyset\right\}
   \]
-  and observe that, by \ref{rbox_size}, $|\Gamma_\alpha|\le 3(20r+1)^2|\Phi_\alpha$.
+  and observe that $|\Gamma_\alpha|\le \vol{10r}\cdot|\Phi_\alpha|$.
   The event $E_\alpha$ is mutually independent of $\mathcal{E}\setminus\Gamma_\alpha$ since, for any $E_\beta\in\mathcal{E}\setminus\Gamma_\alpha$ the sets $Y_\alpha:=\{\mu\in Y:B_{2r}(\mu)\cap \Phi_\alpha\neq\emptyset\}$ and $Y_\beta:=\{\mu\in Y:B_{2r}(\mu)\cap \Phi_\beta\neq\emptyset\}$ are disjoint and $\deg_H(\alpha)$ and $\deg_H(\beta)$ are each determined by the relative orders of $Y_\alpha$ and $Y_\beta$ in $\pi$, respectively.
 
   For each $\alpha\in X$, let $w(E_\alpha):=1/\tau$, for some $\tau>0$ to be determined shortly.  Then
@@ -420,18 +444,18 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
     w(E_\alpha)\prod_{E_\beta\in\Gamma_\alpha} (1-w(E_\beta))
     & = \tfrac{1}{\tau}\left(1-\tfrac{1}{\tau}\right)^{|\Gamma_\alpha|-1} \notag \\
     & \ge \exp\left(-\log\tau - |\Gamma_\alpha|/(\tau-1)\right) & \text{(Since $(1-1/\tau)^{\tau-1} > 1/e$)} \notag \\
-    & \ge \exp\left(-\log\tau - 3(20r+1)^2|\Phi_\alpha|/(\tau-1)\right) \enspace . \label{weight_product}
+    & \ge \exp\left(-\log\tau - \vol{10r}\cdot|\Phi_\alpha|/(\tau-1)\right) \enspace . \label{weight_product}
   \end{align}
 
   Comparing \cref{weight_product,probability} we see that both quantities decrease exponentially in $|\Phi_\alpha|$ but \cref{weight_product} does so at a rate that can be controlled with $\tau$.
-  Taking $\tau = 450(20r+1)^4+1$, and using \cref{weight_product,probability}, we find that
+  Taking $\tau = {50\vol{10r}}+1$, and using \cref{weight_product,probability}, we find that
   \[
      \Pr\left(E_\alpha\right) \le w(E_\alpha)\prod_{\beta\in\Gamma_\alpha}(1-w(\Gamma_\alpha))
   \]
   provided that
-  \[   |\Phi_\alpha| \ge 150(20r+1)^2\left(\log\left(450(20r+1)^4+1\right) + 6(2r+1)^2(1+\log(2|\Phi_\alpha|)) \right) \enspace .
+  \[   |\Phi_\alpha| \ge {50\vol{10r}}\left(\log({50\vol{10r}}+1) + {2\vol{r}}(1+\log(2|\Phi_\alpha|))\right) \enspace .
   \]
-  The right hand side of this last equation is of the form $O(r^4\log|\Phi_\alpha|)$.  Since $|\Phi_\alpha|\ge d$, this can therefore be satisfied for some $d\in O(r^4)$.
+  The right hand side of this last equation is of the form $O(r^4+r^2\log|\Phi_\alpha|)$.  Since $|\Phi_\alpha|\ge d$, this can therefore be satisfied for some $d\in O(r^4)$.
 
 
   % Taking the ratio of \cref{ratioo} and $\Pr(E_\alpha)$ we obtain
@@ -456,7 +480,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % \end{align*}
   % \todo[inline]{Sort out these calculations}
 
-  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\alpha_1,\ldots,\alpha_{2|K|}$ such that $\deg_H(\alpha)\ge 6(2r+1)^2$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le |\VE(G_r(y))|-1 \le 3(2r+1)^2$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge 6(r+1)^2|A|/3(2r+1)^2 = 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
+  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\alpha_1,\ldots,\alpha_{2|K|}$ such that $\deg_H(\alpha)\ge {2\vol{r}}$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le |\VE(G_r(y))|-1 \le {\vol{r}}$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge {2\vol{r}}|A|/{\vol{r}} = 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
 
   Now it is straightforward to verify that $Q:=Q_1\cup Q_2$ satisifies (\ref{hits_both}).  Furthermore, for each $\mu\in Q_1$, $B_r(\mu)$ contains no object in $Q_1\setminus\{\mu\}$ and contains at most one element of $Q_2$.  Similarly, for each $\nu\in Q_2$, $B_r(\nu)$ contains no element of $Q_2\setminus\{\nu\}$ and contains at most one element of $Q_1$.  Therefore $Q$ satisfies (\ref{spread_out}).
 \end{proof}
