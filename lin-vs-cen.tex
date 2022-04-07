@@ -50,6 +50,8 @@
 \newcommand{\vol}[1]{\boxplus_{#1}}
 
 
+\DeclareMathOperator{\interior}{Int}
+
 % Taken from
 % https://tex.stackexchange.com/questions/42726/align-but-show-one-equation-number-at-the-end
 \newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
@@ -152,7 +154,7 @@ Late in the game, we will make use of the following asymmetric version of the Lo
 
 \section{The Linear Colouring Number of Pseudogrids}
 
-For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  The \defin{boundary} $\partial G_{a\times b}$ of $G_{a\times b}$ a the set of vertices in the first and last row and column and all edges incident to these vertices.
+For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the $j$th row is the vertex set $\{(1,j),\ldots,(a,j)\}$.  For any integer $0\le r\le\min\{a,b\}/2$, the \defin{r-interior} of $G_{a\times b}$ defined as $\interior_r(G_{a\times b}):=G_{a\times b}[\{1+r,\ldots,a-r\}\times\{1+r,\ldots,b-r\}]$.  For $r\ge\min\{a,b\}/2$, $\interior_r(G_{a\times b})$ is the empty graph.
 
 \begin{figure}
   \begin{center}
@@ -173,7 +175,10 @@ In this work, we need to work with pseudogrids.  Refer to \cref{pseudogrid_fig}.
   \end{compactenum}
 \end{compactitem}
 
-Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.  The \defin{boundary} of $G$ is defined as $\partial G:=\bigcup_{\mu\in\partial G_{a\times b}} V(P_\mu)$.  The \defin{interior} of $G$ is $G-\partial G$.
+Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.
+The \defin{$r$-interior} of $G$ is $\interior_r(G):=\bigcup_{\mu\in\VE(\interior_r(G_{a\times b}))} V(P_\mu)$.
+
+ % The \defin{boundary} of $G$ is defined as $\partial G:=\bigcup_{\mu\in\partial G_{a\times b}} V(P_\mu)$.  The \defin{interior} of $G$ is $G-\partial G$.
 
 Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the rows and columns of $G$, which we will do immediately.
 
@@ -228,27 +233,27 @@ Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=\{P_\mu:\m
 
 
 \begin{lem}\label{only_frequent}
-  Let $d\ge 1$ and $k\ge 1$ be integers, let $G$ be a $k\times k$ pseudogrid and let $\varphi$ be a vertex colouring of $G$ that uses $|\varphi(V(G))|\le k/(d+2)$ colours.
-  Then $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k - (d+2)|\varphi(V(G))|$ that has a grid-partition $\mathcal{P}':=\{V(P'_\mu):\mu\in \VE(G_{k})\}$ such that
-  for any $A\subseteq \varphi(V(G'))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\setminus \partial G_k| \ge d|A|$.
+  Let $d,k,r\ge 1$ be integers, let $G$ be a $k\times k$ pseudogrid and let $\varphi$ be a vertex colouring of $G$ that uses $|\varphi(V(G))|\le k/(d+2r)$ colours.
+  Then $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k - (d+2r)|\varphi(V(G))|$ that has a grid-partition $\mathcal{P}':=\{V(P'_\mu):\mu\in \VE(G_{k})\}$ such that
+  for any $A\subseteq \varphi(V(G'))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\cap \interior_r(G')| \ge d|A|$.
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $|\varphi(V(G))|$, the number of colours used by the colouring $\varphi$.  If there exists no $A\subseteq \varphi(V(G))$ with $|\varphi_{\mathcal{P}}^{-1}(A)\setminus\partial G_k| < d|A|$ then taking $G':=G$ and $\mathcal{P}':=\mathcal{P}$ satisfies the requirements of the lemma.  Otherwise, we will remove a set $R$ of rows and a set $C$ of columns from $G$ with $|R|=|C|\le d|A|+2 \le (d+2)|A|$ to eliminate all vertices with colours in $A$, as follows:
+  The proof is by induction on $|\varphi(V(G))|$, the number of colours used by the colouring $\varphi$.  If there exists no $A\subseteq \varphi(V(G))$ with $|\varphi_{\mathcal{P}}^{-1}(A)\cap\interior_r(G_k)| < d|A|$ then taking $G':=G$ and $\mathcal{P}':=\mathcal{P}$ satisfies the requirements of the lemma.  Otherwise, we will remove a set $R$ of rows and a set $C$ of columns from $G$ with $|R|=|C|\le d|A|+2r \le (d+2r)|A|$ to eliminate all vertices with colours in $A$, as follows:
   \begin{compactitem}
-    \item For each $v:=(i,j)\in V(G_{k})\setminus \partial G_k$ with $A\cap\varphi_\mathcal{P}(v)\neq\emptyset$, we include row $j$ in $R$ and column $i$ in $C$.
-    \item For each horizontal edge $vw\in E(G_{k\times k})\setminus \partial G_k$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
-    \item For each vertical edge $vw\in E(G_{k\times k})\setminus\partial G_k$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
-    \item We add the first and last row to $R$ and the first and last column to $C$.
+    \item For each $v:=(i,j)\in V(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(v)\neq\emptyset$, we include row $j$ in $R$ and column $i$ in $C$.
+    \item For each horizontal edge $vw\in E(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
+    \item For each vertical edge $vw\in E(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
+    \item We add the first and last $r$ rows to $R$ and the first and last $r$ columns to $C$.
     \item Finally, we add arbitrary rows to $R$ or columns to $C$ to ensure that $|R|=|C|$.
   \end{compactitem}
-  At this point $|R|=|C|\le (d+2)|A|$ and we remove all rows in $R$ and all columns in $C$ from $G$ to obtain a $k_0\times k_0$ pseudogrid $G_0$ with $k_0\ge k-d|A|$ and such that $\varphi(V(G_0))\cap A=\emptyset$.  In particular, $|\varphi(V(G_0))|\le |\varphi(V(G))|-|A|$.
+  At this point $|R|=|C|\le (d+2r)|A|$ and we remove all rows in $R$ and all columns in $C$ from $G$ to obtain a $k_0\times k_0$ pseudogrid $G_0$ with $k_0\ge k-d|A|$ and such that $\varphi(V(G_0))\cap A=\emptyset$.  In particular, $|\varphi(V(G_0))|\le |\varphi(V(G))|-|A|$.
 
   Now apply induction on $G_0$ to get a $k'\times k'$ pseudogrid with
   \[
-    k'\ge k_0-(d+2)|\varphi(V(G_0))|
-      \ge k-(d+2)|A|-(d+2)|\varphi(V(G_0))|
-      \ge k - (d+2)|\varphi(V(G))|
+    k'\ge k_0-(d+2r)|\varphi(V(G_0))|
+      \ge k-(d+2r)|A|-(d+2r)|\varphi(V(G_0))|
+      \ge k - (d+2r)|\varphi(V(G))|
   \]
   that satisfies the conditions of the lemma.
 \end{proof}
@@ -257,9 +262,9 @@ Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=\{P_\mu:\m
 Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathcal{P}(\mu)$ of colours rather than a single colour is problematic for what we want to to do next.  The following lemma allows us to choose one representative colour $\phi(\mu)$ from $\varphi_{\mathcal{P}}(\mu)$ for each $\mu\in \VE(G_k)$ while still ensuring that each colour appears frequently.
 
 \begin{lem}\label{one_colour_per_object}
-  Let $d>1$ be an integer, let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}$, and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$ such that, for any $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\setminus \partial G_k| \ge d\cdot|A|$. Then there exists a colouring $\phi:\VE(G_{k})\to\{1,\ldots,c,\perp\}$ with the following properties:
+  Let $d,r>1$ be integers, let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}$, and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$ such that, for any $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\cap\interior_r(G_k)| \ge d\cdot|A|$. Then there exists a colouring $\phi:\VE(G_{k})\to\{1,\ldots,c,\perp\}$ with the following properties:
   \begin{compactenum}[(i)]
-    \item For each $\mu\in\partial G_{k}$, $\phi(\mu)=\perp$.
+    \item For each $\mu\not\in\interior_r(G_{k})$, $\phi(\mu)=\perp$.
     \item For each $\mu\in\VE(G_{k})$, $\phi(\mu)=\perp$ or $\phi(\mu)\in\varphi_\mathcal{P}(\mu)$.
     \item For each $\alpha\in\varphi(V(G))$,
     $|\phi^{-1}(\alpha)|\ge d$.
@@ -268,7 +273,7 @@ Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathca
 \end{lem}
 
 \begin{proof}
-  Consider the bipartite graph $H$ with parts $X:=\{1,\ldots,c\}$ and $Y:=\VE(G_k)\setminus\partial G_k$ and edge set
+  Consider the bipartite graph $H$ with parts $X:=\{1,\ldots,c\}$ and $Y:=\VE(\interior_r(G_k))$ and edge set
   \[
     E(H) := \{ (\alpha,\mu)\in X\times Y: \alpha\in\varphi_\mathcal{P}(\mu) \}
   \]
@@ -290,7 +295,7 @@ For any $\mu\in\VE(G_k)$, the $r$-box $B_r(\mu)$ defines an induced subgraph tha
 \begin{equation}
    |\VE(G_r(\mu))| \le |\VE(G_r)| = (2r+1)(6r+1) \enspace . \label{rbox_size} 
 \end{equation}
-For convenience, we define $\vol{r}:=(2r+1)(6r+1)$ and the reader should keep in mind that $\vol{r} \in\Theta(r^2)$.
+For convenience, we define $\vol{r}:=(2r+1)(6r+1)$ and the important thing to  keep in mind is that $\vol{r} \in\Theta(r^2)$.
 
 \begin{lstlisting}[frame=single,language=python]
   # Sage Code
@@ -321,13 +326,42 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
   \todo[inline]{Finish this.}
 \end{proof}
 
-\begin{lem}\label{pick_up_everything}
-  Let $r\ge ??$, let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:\{P_\mu:\mu\in\VE(G_k)\}$ and let $S\subseteq V(G)\setminus \partial G$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$\todo{Set constraint on $r$} for each $v\in S$. Then $G$ contains a path that contains every vertex in $S$.
+\begin{lem}\label{make_disjoint}
+  Let $r\ge 10$ be an integer divisible by $10$, let $G$ be a $k\times k$ pseudogrid and let $S\subseteq V(\interior_r(G))$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$ for each $v\in S$.
+  Then there exists a set $X\subseteq V(G)$ such that
+  \begin{compactenum}[(i)]
+    \item \label{covers_s} $S\subseteq\bigcup_{x\in X}\tilde{B}_{r/10-1}(x)$;
+    \item \label{two_per_box} $|\tilde{B}_{r/10-1}(x)\cap S|\le 2$ for each $x\in X$; and
+    \item \label{disjoint_boxes} $\tilde{B}_{r/10}(x)\cap \tilde{B}_{r/10}(y)=\emptyset$ for each distinct $x,y\in X$.
+  \end{compactenum}
 \end{lem}
 
-\begin{proof}[Proof Sketch]
-  We adjust things so that we get a set of disjoint boxes, each of which contains one or two points of $S$ in its interior.
-  We do the scan-line thing depicted in \cref{outline}.
+\begin{proof} 
+  For any integer $q$, say that two elements $v,w\in S$ are a \defin{$q$-pair} if $v\in B_{q}(w)$ or $w\in B_q(v)$.  First observe that any $v\in S$ takes part in at most one $(r-1)$-pair since, otherwise, $|\tilde{B}_{r}(v)\cap S|\ge 3$. 
+  
+  Let $S_1$ be the subset of $S$ containing only those vertices that do not take part in any $(r-1)$-pair.  Let $X_1:= S_1$.  Of course $S_1\subseteq \bigcup_{x\in X_1}\tilde{B}_{r/10-1}(x)$.
+  
+  Let $S_2$ be the subset of $S\setminus S_1$ containing those vertices that take part in a $(r/5-2)$-pair.  We now define a set $X_2$ to handle vertices in $S_2$.  For each $(r/5-2)$-pair $v,w\in S_2$, there exists a $x\in V(\interior_r(G))$ such that $v,w\in \tilde{B}_{r/10-1}(x)$, and we include $x$ in $X_2$.
+  
+  All that remains are the vertices in $S_3:=S\setminus (S_1\cup S_2)$ which take part in some $(r-1)$-pair but do not take part in any $(r/5-2)$ pair.  For each $(r-1)$-pair $v,w\in S_3$, there exists two vertices $x,y\in V(G)$ such that $v\in \tilde{B}_{r/10-1}(x)$, $w\in\tilde{B}_{r/10-1}(y)$ and $B_{r/10}(x)\cap B_{r/10}(y)=\emptyset$.\todo{Give details or a figure.}, and we include these in $X_3$.
+  
+  Let $X:=X_1\cup X_2\cup X_3$.  By construction, $X$ satisfies (\ref{covers_s}), so it only remains to show that $X$ satisfies (\ref{two_per_box}) and (\ref{disjoint_boxes}).  By construction, for any $x\in X$, $B_{r/10}(x)$ contains at least one element of $S$.   That $X$ satisfies (\ref{two_per_box}) follows easily from (\ref{covers_s}) and (\ref{disjoint_boxes}) since our construction associates each $x\in X$ with at most two elements of $S$ that are contained in $B_{r/3-1}(x)$. By (\ref{disjoint_boxes}) $B_{r/3-1}(x)$ does not intersect $B_{r/3-1}(y)$ for any $y\in X\setminus\{x\}$ so $B_{r/3-1}(x)$ does contain any elements of $S$ other than the at most two elements associated with it.  Thus, we need only argue that $X$ satisfies (\ref{disjoint_boxes}):
+  \begin{compactenum}
+    \item For each $x\in X_1$, $B_{r-1}(x)\cap S=\{x\}$.  Therefore, for any $v\in S\setminus\{x\}$, any box $B_{r/10}(v')$ that contains $v$ does not intersect $B_{r/10}(x)$.
+    
+    \item For each $x\in X_2$, $B_{r/10}(x)\cap S=\{v,w\}$ for some $(r/5-2)$-pair $v,w\in S_2$.  Furthermore, with an appropriate choice of $x$, $B_{7r/10}(x)\subseteq B_{r-1}(v)\cup B_{r-1}(w)$.  Since $(B_{r-1}(v)\cup B_{r-1}(w))\cap S=\{v,w\}$ this again implies that, for any $u\in S\setminus\{v,w\}$, any box $B_{r/10}(z)$ that contains $u$ does not intersect $B_{r/10}(x)$.
+    
+    \item For each $(r-1)$-pair $v,w\in S_3$, there is a corresponding pair of vertices $x,y\in X_3$. By choice, $B_{r/10}(x)$ and $B_{r/10}(y)$ do not intersect each other. $B_{r/10}(x)$ contains $v$ and $B_{r-1}(v)\cap S=\{v,w\}$.  Again, for any $u\in S\setminus\{v,w\}$, any box $B_{r/10}(z)$ that contains $u$ does not intersect $B_{r/10}(x)$.  The same argument, applied to $w$ and $y$ shows that no such box intersects $B_{r/10}(y)$. \qedhere
+  \end{compactenum} 
+\end{proof}
+
+
+\begin{lem}\label{pick_up_everything}
+  Let $r\ge 10$, let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:\{P_\mu:\mu\in\VE(G_k)\}$ and let $S\subseteq V(\interior_r(G))$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$\todo{Set constraint on $r$} for each $v\in S$. Then $G$ contains a path that contains every vertex in $S$.
+\end{lem}
+
+\begin{proof}
+  Apply \cref{make_disjoint} with $r:=10\floor{r/10}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod 2r/3+1$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $B_{r/3}(x)$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{r/3}(x)$ with a path that is contained in $B_{r/3}(x)$ and contains the (at most two) vertices of $B_{r/3}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$. 
 \end{proof}
 
 
@@ -338,12 +372,12 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
 We will make use of the following fairly standard looking packing lemma.
 
 \begin{lem}\label{packing_lemma}
-  Let $r\ge 2$ be an even integer and let $Q\subseteq \VE(G_k)$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
+  Let $r\ge 2$ be an even integer and let $Q\subseteq \VE(\interior_r(G_k))$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
   $|\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu))\}| \le 25$.
 \end{lem}
 
 \begin{proof}
-  For simplicity, assume that $G_k$ is embedded in $G_{k+2r+1}$ with the elements of $Q$ at distance at least $G_{2r}$ from the first and last row and column.  In particular, for each $\mu_1\in Q$, $|B_{\rho}(\nu)| =\vol{\rho}$ for any $\rho\in\{0,\ldots,2r\}$.
+  For simplicity, assume that $G_k$ is embedded in $G_{k+2r}$ with the elements of $Q$ all contained in $\VE(\interior_{2r}(G_{k+2r})$.  In particular, for each $\mu_1\in Q$, this implies that $|B_{\rho}(\nu)| =\vol{\rho}$ for any $\rho\in\{0,\ldots,2r\}$.
   
   The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $\VE(G_{r/2-1}(\mu_1))\cap \VE(G_{r/2-1}(\mu_2))=\emptyset$ for each $\mu_1,\mu_2\in Q$.  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu_1))\}$ so that our task is to show that $|Q'|\le 25$.  For any $\mu_1\in Q'$,
   $\mu_1\in\VE(G_{2r+1}(\mu))$ and consequently, $\VE(G_{r/2-1}(\mu_1))\subseteq \VE(G_{5r/2}(\mu))$.
@@ -371,7 +405,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 
 \begin{lem}\label{doubled_colour_set}
   For every integer $r\ge 1$ there exists an integer $d\in O(r^4)$ such that the following is true, for every integer $k\ge 1$.
-  Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)\setminus\partial G|\ge d|A|$.
+  Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)\cap\interior_r(G)|\ge d|A|$.
   Then there exists $S\subseteq V(G)$ such that
   \begin{compactenum}[(i)]
     \item \label{hits_both} for each $\alpha\in\varphi(V(G))$, $|\varphi^{-1}(\alpha)\cap S|= 2$; and
