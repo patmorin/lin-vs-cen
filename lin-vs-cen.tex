@@ -296,18 +296,18 @@ For any $\mu\in\VE(G_k)$, the $r$-box $B_r(\mu)$ defines an induced subgraph tha
    |\VE(G_r(\mu))| \le |\VE(G_r)| = (2r+1)(6r+1) \enspace . \label{rbox_size} 
 \end{equation}
 For convenience, we define $\vol{r}:=(2r+1)(6r+1)$ and the important thing to  keep in mind is that $\vol{r} \in\Theta(r^2)$.
-
-\begin{lstlisting}[frame=single,language=python]
-  # Sage Code
-  f(r)= (2*r+1)^2 + 4*r*(2*r+1)
-  show("f: ", f)
-  show("f(1): ", f(1))
-  show("f(2): ", f(2))
-  show("f(3): ", f(3))
-  show("f.full_simplify(): ", f.full_simplify())
-  show("f.factor(): ", f.factor())
-  f = f.factor()
-\end{lstlisting}
+% 
+% \begin{lstlisting}[frame=single,language=python]
+%   # Sage Code
+%   f(r)= (2*r+1)^2 + 4*r*(2*r+1)
+%   show("f: ", f)
+%   show("f(1): ", f(1))
+%   show("f(2): ", f(2))
+%   show("f(3): ", f(3))
+%   show("f.full_simplify(): ", f.full_simplify())
+%   show("f.factor(): ", f.factor())
+%   f = f.factor()
+% \end{lstlisting}
 
 We extend these definitions to vertices of a $k\times k$ pseudogrid $G$ with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ as follows. For any $\mu\in V(G_k)$, define
 \[
@@ -327,41 +327,49 @@ where $\mu_v$ denotes the unique element in $\VE(G_k)$ such that $v\in P_{\mu_v}
 \end{proof}
 
 \begin{lem}\label{make_disjoint}
-  Let $r\ge 10$ be an integer divisible by $10$, let $G$ be a $k\times k$ pseudogrid and let $S\subseteq V(\interior_r(G))$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$ for each $v\in S$.
+  Let $r,p$ be positive integers with $r-1\ge 4p+4$, let $G$ be a $k\times k$ pseudogrid and let $S\subseteq V(\interior_r(G))$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$ for each $v\in S$.
   Then there exists a set $X\subseteq V(G)$ such that
   \begin{compactenum}[(i)]
-    \item \label{covers_s} $S\subseteq\bigcup_{x\in X}\tilde{B}_{r/10-1}(x)$;
-    \item \label{two_per_box} $|\tilde{B}_{r/10-1}(x)\cap S|\le 2$ for each $x\in X$; and
-    \item \label{disjoint_boxes} $\tilde{B}_{r/10}(x)\cap \tilde{B}_{r/10}(y)=\emptyset$ for each distinct $x,y\in X$.
+    \item \label{covers_s} $S\subseteq\bigcup_{x\in X}\tilde{B}_{p}(x)$;
+    \item \label{two_per_box} $|\tilde{B}_{p}(x)\cap S|\le 2$ for each $x\in X$; and
+    \item \label{disjoint_boxes} $\tilde{B}_{p+1}(x)\cap \tilde{B}_{p+1}(y)=\emptyset$ for each distinct $x,y\in X$.
   \end{compactenum}
 \end{lem}
 
 \begin{proof} 
   For any integer $q$, say that two elements $v,w\in S$ are a \defin{$q$-pair} if $v\in B_{q}(w)$ or $w\in B_q(v)$.  First observe that any $v\in S$ takes part in at most one $(r-1)$-pair since, otherwise, $|\tilde{B}_{r}(v)\cap S|\ge 3$. 
   
-  Let $S_1$ be the subset of $S$ containing only those vertices that do not take part in any $(r-1)$-pair.  Let $X_1:= S_1$.  Of course $S_1\subseteq \bigcup_{x\in X_1}\tilde{B}_{r/10-1}(x)$.
+  Refer to \cref{make_disjoint_fig}.  We will define the set $X$ so that it satisfies (\ref{covers_s}) and for each $x\in X$ we will choose $1$ or $2$ elements of $B_{p}(x)\cap S$ and say that $x$ \defin{covers} those elements.
+  Let $S_1$ be the subset of $S$ containing only those elements that do not take part in any $(r-1)$-pair.  Let $X_1:= S_1$ and we say that each $x\in X_1$ covers itself.
   
-  Let $S_2$ be the subset of $S\setminus S_1$ containing those vertices that take part in a $(r/5-2)$-pair.  We now define a set $X_2$ to handle vertices in $S_2$.  For each $(r/5-2)$-pair $v,w\in S_2$, there exists a $x\in V(\interior_r(G))$ such that $v,w\in \tilde{B}_{r/10-1}(x)$, and we include $x$ in $X_2$.
+  \begin{figure}
+    \begin{center}
+      \begin{tabular}{ccc}
+        \includegraphics[width=.3\textwidth]{figs/make_disjoint-1} &
+        \includegraphics[width=.3\textwidth]{figs/make_disjoint-2} &
+        \includegraphics[width=.3\textwidth]{figs/make_disjoint-3} \\
+        $X_1$ & $X_2$ & $X_3$
+      \end{tabular}
+    \end{center}
+    \caption{The proof of \cref{make_disjoint}. Disks are points in $S$ and crosses are points the resulting elements of $X$. The large yellow boxes are $B_{r-1}(v)$ for some $v\in S$ and the small mauve and green boxes are $B_{p+1}(x)$ and $B_{p}(x)$, respectively, for some $x\in X$.}
+    \label{make_disjoint_fig}
+  \end{figure}
+  Let $S_2$ be the subset of $S\setminus S_1$ containing those vertices that take part in a $2p$-pair.  For each $2p$-pair $v,w\in S_2$, there exists a $x\in V(\interior_r(G))$ such that $v,w\in \tilde{B}_{p}(x)$. We include $x$ in $X_2$ and say that $x$ covers $v$ and $w$.
   
-  All that remains are the vertices in $S_3:=S\setminus (S_1\cup S_2)$ which take part in some $(r-1)$-pair but do not take part in any $(r/5-2)$ pair.  For each $(r-1)$-pair $v,w\in S_3$, there exists two vertices $x,y\in V(G)$ such that $v\in \tilde{B}_{r/10-1}(x)$, $w\in\tilde{B}_{r/10-1}(y)$ and $B_{r/10}(x)\cap B_{r/10}(y)=\emptyset$.\todo{Give details or a figure.}, and we include these in $X_3$.
+  All that remains are the vertices in $S_3:=S\setminus (S_1\cup S_2)$ which take part in some $(r-1)$-pair but do not take part in any $2p$ pair.  For each $(r-1)$-pair $v,w\in S_3$, there exists two vertices $x,y\in V(G)$ such that $v\in \tilde{B}_{p}(x)$, $w\in\tilde{B}_{p}(y)$ and $B_{p+1}(x)\cap B_{p+1}(y)=\emptyset$.  We include $x$ and $y$ in $X_3$ and say that $x$ covers $v$ and $y$ covers $w$.
   
-  Let $X:=X_1\cup X_2\cup X_3$.  By construction, $X$ satisfies (\ref{covers_s}), so it only remains to show that $X$ satisfies (\ref{two_per_box}) and (\ref{disjoint_boxes}).  By construction, for any $x\in X$, $B_{r/10}(x)$ contains at least one element of $S$.   That $X$ satisfies (\ref{two_per_box}) follows easily from (\ref{covers_s}) and (\ref{disjoint_boxes}) since our construction associates each $x\in X$ with at most two elements of $S$ that are contained in $B_{r/3-1}(x)$. By (\ref{disjoint_boxes}) $B_{r/3-1}(x)$ does not intersect $B_{r/3-1}(y)$ for any $y\in X\setminus\{x\}$ so $B_{r/3-1}(x)$ does contain any elements of $S$ other than the at most two elements associated with it.  Thus, we need only argue that $X$ satisfies (\ref{disjoint_boxes}):
-  \begin{compactenum}
-    \item For each $x\in X_1$, $B_{r-1}(x)\cap S=\{x\}$.  Therefore, for any $v\in S\setminus\{x\}$, any box $B_{r/10}(v')$ that contains $v$ does not intersect $B_{r/10}(x)$.
-    
-    \item For each $x\in X_2$, $B_{r/10}(x)\cap S=\{v,w\}$ for some $(r/5-2)$-pair $v,w\in S_2$.  Furthermore, with an appropriate choice of $x$, $B_{7r/10}(x)\subseteq B_{r-1}(v)\cup B_{r-1}(w)$.  Since $(B_{r-1}(v)\cup B_{r-1}(w))\cap S=\{v,w\}$ this again implies that, for any $u\in S\setminus\{v,w\}$, any box $B_{r/10}(z)$ that contains $u$ does not intersect $B_{r/10}(x)$.
-    
-    \item For each $(r-1)$-pair $v,w\in S_3$, there is a corresponding pair of vertices $x,y\in X_3$. By choice, $B_{r/10}(x)$ and $B_{r/10}(y)$ do not intersect each other. $B_{r/10}(x)$ contains $v$ and $B_{r-1}(v)\cap S=\{v,w\}$.  Again, for any $u\in S\setminus\{v,w\}$, any box $B_{r/10}(z)$ that contains $u$ does not intersect $B_{r/10}(x)$.  The same argument, applied to $w$ and $y$ shows that no such box intersects $B_{r/10}(y)$. \qedhere
-  \end{compactenum} 
+  Let $X:=X_1\cup X_2\cup X_3$.  By construction, $X$ satisfies (\ref{covers_s}), so it only remains to show that $X$ satisfies (\ref{two_per_box}) and (\ref{disjoint_boxes}).  That $X$ satisfies (\ref{two_per_box}) follows easily from (\ref{covers_s}) and the fact that each $x\in X$ covers at most two elements of $S$.
+  
+  To see that $X$ satisifies (\ref{disjoint_boxes}), observe that if $x\in X$ covers $v\in S$ then $B_{p+1}(x)\subseteq B_{2p+2}(v)$. Therefore, if $x\in X$ covers $v\in S$ and $y\in X$ covers $w\in S$ and $B_{p+1}(x)\cap B_{p+1}(y)\neq\emptyset$ then $w\in B_{4p+4}(v)$ or $v\in B_{4p+4}(w)$.  Since $r-1 \ge 4p+4$, this implies that $v=w$ or $v$ and $w$ are an $(r-1)$-pair.  In the later case, $x=y$ and there is nothing to prove. Otherwise $v,w\in S_2$ or $v,w\in S_3$.  If $v,w\in S_2$ then, again $x=y$ and there is nothing to prove.  If $v,w\in S_3$ then $x$ and $y$ are specifically chosen so that $B_{p+1}(x)$ and $B_{p+1}(y)$ are disjoint.
 \end{proof}
 
 
 \begin{lem}\label{pick_up_everything}
-  Let $r\ge 10$, let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:\{P_\mu:\mu\in\VE(G_k)\}$ and let $S\subseteq V(\interior_r(G))$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$\todo{Set constraint on $r$} for each $v\in S$. Then $G$ contains a path that contains every vertex in $S$.
+  Let $r\ge 9$, let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:\{P_\mu:\mu\in\VE(G_k)\}$ and let $S\subseteq V(\interior_r(G))$ be such that $|\tilde{B}_{r}(v)\cap S|\le 2$ for each $v\in S$. Then $G$ contains a path that contains every vertex in $S$.
 \end{lem}
 
 \begin{proof}
-  Apply \cref{make_disjoint} with $r:=10\floor{r/10}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod 2r/3+1$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $B_{r/3}(x)$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{r/3}(x)$ with a path that is contained in $B_{r/3}(x)$ and contains the (at most two) vertices of $B_{r/3}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$. 
+  Apply \cref{make_disjoint} with $p=\floor{(r-5)/4}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod 2p+1$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $B_{p+1}(x)$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{p+1}(x)$ with a path that is contained in $B_{p+1}(x)$ and contains the (at most two) vertices of $B_{p+1}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$. 
 \end{proof}
 
 
@@ -385,15 +393,15 @@ We will make use of the following fairly standard looking packing lemma.
   \[  \vol{5r/2} \ge |\VE(G_{5r/2}(\mu))| \ge \sum_{\mu_1\in Q'} |\VE(G_{r/2}(\mu_1))|
   = |Q'|\cdot \vol{r/2} \enspace .
   \]
-  \begin{lstlisting}[frame=single,language=python]
-    # Sage Code
-    g(r) = f(5*r/2)/f(r/2)
-    show("g: ", g)
-    show("g.full_simplify(): ", g.full_simplify())
-    show("limit(g, r=oo): ", limit(g, r=oo))
-    show(plot(g, r, 1, 200))
-    show(solve(g(r)==25, r))
-  \end{lstlisting}
+%   /* \begin{lstlisting}[frame=single,language=python]
+%     # Sage Code
+%     g(r) = f(5*r/2)/f(r/2)
+%     show("g: ", g)
+%     show("g.full_simplify(): ", g.full_simplify())
+%     show("limit(g, r=oo): ", limit(g, r=oo))
+%     show(plot(g, r, 1, 200))
+%     show(solve(g(r)==25, r))
+%   \end{lstlisting}
   which implies that $|Q'|\le \vol{5r/2}/\vol{r/2}$.  For $r > 2$, this bound is increasing in $r$ and is less than $25$ for any even $r\ge 2$.
 \end{proof}
 
