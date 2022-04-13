@@ -293,10 +293,10 @@ The \defin{$r$-box} centred at an edge $vw$ of $G_{k}$ is $B_r(vw):=B_r(v)\cup B
 % Observe that, for any $\mu\in V(G_{k})\cup E(G_{a\times b})$,  $v\in B_r(u)$ if and only if $u\in B_r(v)$.
 For any $\mu\in\VE(G_k)$, the $r$-box $B_r(\mu)$ defines an induced subgraph that we denote by $G_r(\mu):=G_{k}[B_r(\mu)]$.  Straightforward counting shows that, for any $\mu\in\VE(G_k)$,
 \begin{equation}
-   |\VE(G_r(\mu))| \le |\VE(G_r)| = (2r+1)(6r+1) \enspace . \label{rbox_size} 
+   |\VE(G_r(\mu))| \le |\VE(G_r)| = (2r+1)(6r+1) \enspace . \label{rbox_size}
 \end{equation}
 For convenience, we define $\vol{r}:=(2r+1)(6r+1)$ and the important thing to  keep in mind is that $\vol{r} \in\Theta(r^2)$.
-% 
+%
 % \begin{lstlisting}[frame=single,language=python]
 %   # Sage Code
 %   f(r)= (2*r+1)^2 + 4*r*(2*r+1)
@@ -333,12 +333,12 @@ The proof of \cref{pick_up_two} is a tedious case analysis that appears in \cref
   \end{compactenum}
 \end{lem}
 
-\begin{proof} 
-  For any integer $q$, say that two elements $v,w\in S$ are a \defin{$q$-pair} if $v\in B_{q}(w)$ or $w\in B_q(v)$.  First observe that any $v\in S$ takes part in at most one $(r-1)$-pair since, otherwise, $|\tilde{B}_{r}(v)\cap S|\ge 3$. 
-  
+\begin{proof}
+  For any integer $q$, say that two elements $v,w\in S$ are a \defin{$q$-pair} if $v\in B_{q}(w)$ or $w\in B_q(v)$.  First observe that any $v\in S$ takes part in at most one $(r-1)$-pair since, otherwise, $|\tilde{B}_{r}(v)\cap S|\ge 3$.
+
   Refer to \cref{make_disjoint_fig}.  We will define the set $X$ so that it satisfies (\ref{covers_s}) and for each $x\in X$ we will choose $1$ or $2$ elements of $B_{p}(x)\cap S$ and say that $x$ \defin{covers} those elements.
   Let $S_1$ be the subset of $S$ containing only those elements that do not take part in any $(r-1)$-pair.  Let $X_1:= S_1$ and we say that each $x\in X_1$ covers itself.
-  
+
   \begin{figure}
     \begin{center}
       \begin{tabular}{ccc}
@@ -352,11 +352,11 @@ The proof of \cref{pick_up_two} is a tedious case analysis that appears in \cref
     \label{make_disjoint_fig}
   \end{figure}
   Let $S_2$ be the subset of $S\setminus S_1$ containing those vertices that take part in a $2p$-pair.  For each $2p$-pair $v,w\in S_2$, there exists a $x\in V(\interior_r(G))$ such that $v,w\in \tilde{B}_{p}(x)$. We include $x$ in $X_2$ and say that $x$ covers $v$ and $w$.
-  
+
   All that remains are the vertices in $S_3:=S\setminus (S_1\cup S_2)$ which take part in some $(r-1)$-pair but do not take part in any $2p$ pair.  For each $(r-1)$-pair $v,w\in S_3$, there exists two vertices $x,y\in V(G)$ such that $v\in \tilde{B}_{p}(x)$, $w\in\tilde{B}_{p}(y)$ and $B_{p+1}(x)\cap B_{p+1}(y)=\emptyset$.  We include $x$ and $y$ in $X_3$ and say that $x$ covers $v$ and $y$ covers $w$.
-  
+
   Let $X:=X_1\cup X_2\cup X_3$.  By construction, $X$ satisfies (\ref{covers_s}), so it only remains to show that $X$ satisfies (\ref{two_per_box}) and (\ref{disjoint_boxes}).  That $X$ satisfies (\ref{two_per_box}) follows easily from (\ref{disjoint_boxes}), the fact that each element of $S$ is covered by some $x\in X$, and the fact that each $x\in X$ covers at most two elements of $S$.
-  
+
   To see that $X$ satisifies (\ref{disjoint_boxes}), observe that if $x\in X$ covers $v\in S$ then $B_{p+1}(x)\subseteq B_{2p+2}(v)$. Therefore, if $x\in X$ covers $v\in S$ and $y\in X$ covers $w\in S$ and $B_{p+1}(x)\cap B_{p+1}(y)\neq\emptyset$ then $w\in B_{4p+4}(v)$ or $v\in B_{4p+4}(w)$.  Since $r-1 \ge 4p+4$, this implies that $v=w$ or $v$ and $w$ are an $(r-1)$-pair.  In the former case, $x=y$ and there is nothing to prove. In the latter case, $v,w\in S_2$ or $v,w\in S_3$.  If $v,w\in S_2$ then, again $x=y$ and there is nothing to prove.  If $v,w\in S_3$ then $x$ and $y$ are specifically chosen so that $B_{p+1}(x)$ and $B_{p+1}(y)$ are disjoint.
 \end{proof}
 
@@ -366,7 +366,7 @@ The proof of \cref{pick_up_two} is a tedious case analysis that appears in \cref
 \end{lem}
 
 \begin{proof}
-  Apply \cref{make_disjoint} with $p=\floor{(r-5)/4}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod{2p+1}$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $B_{p+1}(x)$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{p+1}(x)$ with a path that is contained in $B_{p+1}(x)$ and contains the (at most two) vertices of $B_{p+1}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$. 
+  Apply \cref{make_disjoint} with $p=\floor{(r-5)/4}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod{2p+1}$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $B_{p+1}(x)$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{p+1}(x)$ with a path that is contained in $B_{p+1}(x)$ and contains the (at most two) vertices of $B_{p+1}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$.
 \end{proof}
 
 \todo[inline]{A bunch of $B$'s should be $\tilde{B}$'s}
@@ -384,7 +384,7 @@ We will make use of the following fairly standard looking packing lemma.
 
 \begin{proof}
   For simplicity, assume that $G_k$ is embedded in $G_{k+2r}$ with the elements of $Q$ all contained in $\VE(\interior_{2r}(G_{k+2r})$.  In particular, for each $\mu_1\in Q$, this implies that $|B_{\rho}(\nu)| =\vol{\rho}$ for any $\rho\in\{0,\ldots,2r\}$.  (This assumption is not critical, but eliminates the need to discuss boundary conditions that have no effect on the final result.)
-  
+
   The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $\VE(G_{r/2-1}(\mu_1))\cap \VE(G_{r/2-1}(\mu_2))=\emptyset$ for each $\mu_1,\mu_2\in Q$.  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu_1))\}$ so that our task is to show that $|Q'|\le 25$.  For any $\mu_1\in Q'$,
   $\mu_1\in\VE(G_{2r+1}(\mu))$ and consequently, $\VE(G_{r/2-1}(\mu_1))\subseteq \VE(G_{5r/2}(\mu))$.
   Since this is true for all $\mu_1\in Q$ we have
@@ -535,9 +535,10 @@ We now have all the pieces needed to complete our lower bound on the linear chro
 \end{proof}
 
 
-\section*{Acknowledgement}
-
-The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment. Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace.
+% \section*{Acknowledgement}
+%
+% The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment.
+% Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace.
 
 
 \bibliographystyle{plainurlnat}
@@ -550,28 +551,28 @@ The main subject of this paper was posed as an open problem at the 9th Annual Be
 
 
 \begin{proof}[Proof of \cref{pick_up_two}]
-  Let $\mathcal{P}:\{P_\mu:\mu\in \VE(G_k)\}$ be a grid partition of $G$ and let $\mu_v,\mu_w\in \VE(G_a)$ be such that $v\in V(P_{\mu_v})$ and $w\in V(P_{\mu_w})$.  Define $\mu_s$ and $\mu_t$ similarly, with respect to $s$ and $t$.  Very roughly, this lemma says that the grid $G_a$ contains a path $P_a$ with $\mu_v,\mu_w\in\VE(P_a)$ whose first edge/vertex is $\mu_s$, and whose last edge/vertex is $\mu_t$.  
-  
+  Let $\mathcal{P}:\{P_\mu:\mu\in \VE(G_k)\}$ be a grid partition of $G$ and let $\mu_v,\mu_w\in \VE(G_a)$ be such that $v\in V(P_{\mu_v})$ and $w\in V(P_{\mu_w})$.  Define $\mu_s$ and $\mu_t$ similarly, with respect to $s$ and $t$.  Very roughly, this lemma says that the grid $G_a$ contains a path $P_a$ with $\mu_v,\mu_w\in\VE(P_a)$ whose first edge/vertex is $\mu_s$, and whose last edge/vertex is $\mu_t$.
+
   Although this is a simplification of the problem, we first describe how to solve it.  For this simpler problem, we may assume that each of $\mu_s$, $\mu_v$, $\mu_w$, and $\mu_t$ is an edge of $G_a$ since we can replace any vertex of $G_a$ with one of its incident edges. Refer to \cref{generic_path}. Beginning at $\mu_s$, $P_a$ can traverse the boundary of $G_a$ until reaching the first column $i$ that contains an endpoint of $\mu_v$ or $\mu_w$, then vertically in this column to collect $\mu_v$ (say). What happens next depends on whether or not $\mu_w$ also intersects column $i$.
   \begin{figure}[htbp]
     \begin{center}
       \begin{tabular}{cc}
         \includegraphics{figs/generic_path-1} &
-        \includegraphics{figs/generic_path-2} 
+        \includegraphics{figs/generic_path-2}
       \end{tabular}
     \end{center}
     \caption{A simplification of \cref{pick_up_two}}
     \label{generic_path}
   \end{figure}
   \begin{compactitem}
-    \item If $\mu_w$ also intersects column $i$, then $P_a$ can immediately return to column $i$ if necessary (if $\mu_v$ was a horizontal edge) and collect $\mu_w$. The only care that needs to be taken in this case occurs when $\mu_v$ and $\mu_w$ are a pair of horizontal and vertical edges that share an endpoint.  When this happens, the initial traversal on the boundary should be done (clockwise or counterclockwise) so that the vertical edge appears first in $P_a$.  
-    
-    \item If $\mu_w$ does not intersect column $i$, then after collecting $\mu_v$, $P_a$ can proceed horizontally to the first column $j$ that intersects $\mu_w$ and then vertically in column $j$ to collect $\mu_w$. 
+    \item If $\mu_w$ also intersects column $i$, then $P_a$ can immediately return to column $i$ if necessary (if $\mu_v$ was a horizontal edge) and collect $\mu_w$. The only care that needs to be taken in this case occurs when $\mu_v$ and $\mu_w$ are a pair of horizontal and vertical edges that share an endpoint.  When this happens, the initial traversal on the boundary should be done (clockwise or counterclockwise) so that the vertical edge appears first in $P_a$.
+
+    \item If $\mu_w$ does not intersect column $i$, then after collecting $\mu_v$, $P_a$ can proceed horizontally to the first column $j$ that intersects $\mu_w$ and then vertically in column $j$ to collect $\mu_w$.
   \end{compactitem}
-  In either case, after collecting $\mu_w$, $P_a$ can then proceed vertically to return to the boundary and then traverse the boundary to finish at $\mu_t$. 
-  
+  In either case, after collecting $\mu_w$, $P_a$ can then proceed vertically to return to the boundary and then traverse the boundary to finish at $\mu_t$.
+
   The rough description given above works perfectly when $\mu_v$ and $\mu_w$ are each edges of $G_a$.  However, some mild complications arise when one or both of $\mu_v$ or $\mu_w$ are vertices of $G_a$.  This is due to the fact that a path $P_a$ in $G_a$ that contains a vertex $\nu$ may not correspond to a path $P$ in $G$ that contains $P_\nu$.  Indeed, this depends on whether $P_a$ `turns' at $\nu$ and whether $P_\nu$ was created using (Q\ref{q_i}), (Q\ref{q_ii}), or (Q\ref{q_iii}).  We say that a $\mu_v$ or $\mu_w$ is \defin{straight} if it was created using (Q\ref{q_i}) or (Q\ref{q_ii}) and $\mu_v$ or $\mu_w$ is \defin{bent} if it was created using (Q\ref{q_iii}).  Without loss of generality, assume that $\mu_v$ is a vertex in column $i$ of $G_a$ and that $\mu_w$ does not intersect columns $2,\ldots,i-1$.  Our strategy is to replace $\mu_v$ (and possibly also $\mu_w$) with a pair of edges incident on $\mu_v$ in such a way that the algorithm described above is able to construct a path $P_a$ that contains the resulting collection of $3$ or $4$ edges.  What follows is a (boring) case analysis (see \cref{cases}):
-  
+
   \begin{figure}
     \begin{center}
       \includegraphics{figs/dumdum}
@@ -579,7 +580,7 @@ The main subject of this paper was posed as an open problem at the 9th Annual Be
     \caption{Cases in the proof of \cref{pick_up_two}}
     \label{cases}
   \end{figure}
-    
+
   \begin{compactenum}
     \item If $\mu_w$ is a vertical edge incident on $\mu_v$ then there are two possibilities:
     \begin{compactitem}
@@ -592,27 +593,27 @@ The main subject of this paper was posed as an open problem at the 9th Annual Be
       \item If $\mu_v$ is bent then we replace it with one of the vertical edges incident to it.
     \end{compactitem}
     \item If $\mu_w$ intersects column $i$ but is not an edge incident to $\mu_v$ then we may assume, without loss of generality, that $\mu_w$ is above $\mu_v$.  There are two cases to consider:
-    \begin{compactitem} 
+    \begin{compactitem}
       \item If $\mu_v$ is straight, then we replace $\mu_v$ with the two vertical edges incident on $\mu_v$.
       \item If $\mu_v$ is bent, then we replace $\mu_v$ with the horizontal edge joining $\mu_v$ to a vertex in column $i-1$ and the vertical edge incident to $\mu_v$ and above $\mu_v$.
     \end{compactitem}
     If $\mu_w$ is an edge of $G_a$ then there is nothing else to. If $\mu_w$ is a vertex of $G_a$ then there are two cases to consider:
-    \begin{compactitem} 
+    \begin{compactitem}
       \item If $\mu_w$ is straight, then we replace $\mu_w$ with the two vertical edges incident on $\mu_w$.
       \item If $\mu_w$ is bent, then we replace $\mu_w$ with the horizontal edge joining $\mu_v$ to a vertex in column $i+1$ and the vertical edge incident to $\mu_w$ and below $\mu_w$.
     \end{compactitem}
     \item If $\mu_w$ does not intersect column $i$ there are two possibilities:
-    \begin{compactitem} 
+    \begin{compactitem}
       \item If $\mu_v$ is straight, then we replace $\mu_v$ with the two vertical edges incident on $\mu_v$.
       \item If $\mu_v$ is bent, then we replace $\mu_v$ with the horizontal edge joining $\mu_v$ to a vertex in column $i-1$ and a vertical edge in column $i$.
     \end{compactitem}
     If $\mu_w$ is an edge of $G_a$ then there is nothing further to do. If $\mu_w$ is a vertex of $G_a$ in column $j>i$ then there are again two possibilities:
-    \begin{compactitem} 
+    \begin{compactitem}
       \item If $\mu_w$ is straight, then we replace $\mu_w$ with the two vertical edges incident on $\mu_w$.
       \item If $\mu_w$ is bent, then we replace $\mu_w$ with the horizontal edge joining $\mu_v$ to a vertex in column $j+1$ and a vertical edge in column $j$.
     \end{compactitem}
   \end{compactenum}
-  Now, exactly the same strategy used above can be used to construct a path $P_a$ that contains the (up to four) required edges of $G_a$ and the corresponding path $P$ in $G$ satisfies the requirements of the lemma. 
+  Now, exactly the same strategy used above can be used to construct a path $P_a$ that contains the (up to four) required edges of $G_a$ and the corresponding path $P$ in $G$ satisfies the requirements of the lemma.
 \end{proof}
 
 \end{document}
