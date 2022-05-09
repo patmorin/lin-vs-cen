@@ -232,9 +232,12 @@ The most challenging aspect of this proof is the construction of $S_2$, which re
     \end{tabular}
   \end{center}
   \caption{Some examples of $3$- and $4$-element vertex subsets that cannot all be contained in a single path (that must also contain other vertices not pictured).}
+  \label{bad_examples}
 \end{figure}
 
-In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to obtain a sub-pseudogrid in which every colour appears frequently.  In \cref{path_finding} we explain how, given a well-separated set $S$ of vertices in $G$, to find a path that contains every vertex in $S$.  In \cref{packing_lemma_sec} we introduce a fairly standard-looking packing lemma that is needed in several places later.  In \cref{well_separated} we explain how find a well-separated set $S$ that contains two vertices of each colour. Finally \cref{wrapping_up} shows how to assemble these various pieces to prove \cref{pseudogrid_lower_bound}.
+In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to obtain a sub-pseudogrid in which every colour appears frequently.  In \cref{path_finding} we explain how, given a well-separated set $S$ of vertices in $G$, to find a path that contains every vertex in $S$.
+% In \cref{packing_lemma_sec} we introduce a fairly standard-looking packing lemma that is needed in several places later.
+In \cref{well_separated} we explain how find a well-separated set $S$ that contains two vertices of each colour. Finally \cref{wrapping_up} shows how to assemble these various pieces to prove \cref{pseudogrid_lower_bound}.
 
 
 
@@ -325,7 +328,12 @@ For convenience, we define $\vol{r}:=12r^2+14r+3$ and the important thing to  ke
 %   show(f.factor())
 % \end{lstlisting}
 
-We extend these definitions to vertices of a $k\times k$ pseudogrid $G$ with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ as follows. For any $\mu\in\VE(G_k)$, define
+Later, we will make use of the following observation about sets of boxes, none of which contains the center of any other.  (Intuitively, each of the four quadrants surrounding $\nu$ can contain at most one element $\mu\in Q$ with $\nu\in \VE(G_r(\mu))$.)
+\begin{obs}\label{packing_lemma}
+  Let $r,k\ge 1$ be integers and let $Q\subseteq\VE(G_k)$ be such that $\VE(G_r(\mu))\cap Q=\{\mu\}$ for each $\mu\in Q$.  Then, for each $\nu\in\VE(G_k)$, $|\{\mu\in Q:\nu\in \VE(G_r(\mu))\}|\le 4$.
+\end{obs}
+
+We extend the definition of boxes to vertices of a $k\times k$ pseudogrid $G$ with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ as follows. For any $\mu\in\VE(G_k)$, define
 \[
    \tilde{B}_r(\mu) := \bigcup_{\nu\in \VE(G_r(\mu))} V(P_\nu)
 \]
@@ -385,40 +393,31 @@ The next lemma shows how to take a well separated collection of pairs and cover 
   Apply \cref{make_disjoint} with $p=\floor{(r-5)/4}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod{2p+1}$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $\tilde{B}_{p+1}(x)$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{p+1}(x)$ with a path that is contained in $\tilde{B}_{p+1}(x)$ and contains the (at most two) vertices of $\tilde{B}_{p+1}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$.
 \end{proof}
 
-\subsection{A Packing Lemma}
-\label{packing_lemma_sec}
 
-We will make use of the following fairly standard looking packing lemma.
-
-\begin{lem}\label{packing_lemma}
-  Let $r\ge 2$ be an even integer and let $Q\subseteq \VE(\interior_r(G_k))$ be such that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$.  Then, for any $\mu\in \VE(G_k)$,
-  $|\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu))\}| \le 25$.
-\end{lem}
-
-\begin{proof}
-  The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $\VE(G_{r/2-1}(\mu_1))\cap \VE(G_{r/2-1}(\mu_2))=\emptyset$ for each $\mu_1,\mu_2\in Q$.  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu_1))\}$ so that our task is to show that $|Q'|\le 25$.  For any $\mu_1\in Q'$,
-  $\mu_1\in\VE(G_{2r+1}(\mu))$ and consequently, $\VE(G_{r/2-1}(\mu_1))\subseteq \VE(G_{5r/2}(\mu))$.
-  Since this is true for all $\mu_1\in Q$ we have
-  \[  \vol{5r/2} \ge |\VE(G_{5r/2}(\mu))| \ge \sum_{\mu_1\in Q'} |\VE(G_{r/2}(\mu_1))|
-  = |Q'|\cdot \vol{r/2} \enspace .
-  \]
-%   /* \begin{lstlisting}[frame=single,language=python]
-%     # Sage Code
-%   g(r)=2*(r+1)*(2*r+1)  # |B_r(mu)|
-%   show(g)
-%   show(g.factor())
-%   show(g.full_simplify())
-%   f(r)=2*(r+1)*(2*r+1 + 2*r) + (2*r+1)^2  # |VE(G[B_r(mu)])
-%   show(f)
-%   show(f.factor())
-%   vol = f
-%   ratio(r) = vol(5*r/2) / vol(r/2)  # ratio that appears in packing lemma
-%   show(plot(ratio, r, 1, 10))
-%   show(limit(ratio(r), r=oo))
-%   \end{lstlisting}
-  which implies that $|Q'|\le \vol{5r/2}/\vol{r/2}$.  For $r > 2$, this bound is increasing in $r$ and is less than $25$ for any $r\ge 2$.
-\end{proof}
-
+% \begin{proof}
+%   The packing condition that $\mu_1\not\in \VE(G_r(\mu_2))$ for each distinct $\mu_1,\mu_2\in Q$ implies that $\VE(G_{r/2-1}(\mu_1))\cap \VE(G_{r/2-1}(\mu_2))=\emptyset$ for each $\mu_1,\mu_2\in Q$.  Let $Q':=\{\mu_1\in Q: \mu\in \VE(G_{2r}(\mu_1))\}$ so that our task is to show that $|Q'|\le 25$.  For any $\mu_1\in Q'$,
+%   $\mu_1\in\VE(G_{2r+1}(\mu))$ and consequently, $\VE(G_{r/2-1}(\mu_1))\subseteq \VE(G_{5r/2}(\mu))$.
+%   Since this is true for all $\mu_1\in Q$ we have
+%   \[  \vol{5r/2} \ge |\VE(G_{5r/2}(\mu))| \ge \sum_{\mu_1\in Q'} |\VE(G_{r/2}(\mu_1))|
+%   = |Q'|\cdot \vol{r/2} \enspace .
+%   \]
+% %   /* \begin{lstlisting}[frame=single,language=python]
+% %     # Sage Code
+% %   g(r)=2*(r+1)*(2*r+1)  # |B_r(mu)|
+% %   show(g)
+% %   show(g.factor())
+% %   show(g.full_simplify())
+% %   f(r)=2*(r+1)*(2*r+1 + 2*r) + (2*r+1)^2  # |VE(G[B_r(mu)])
+% %   show(f)
+% %   show(f.factor())
+% %   vol = f
+% %   ratio(r) = vol(5*r/2) / vol(r/2)  # ratio that appears in packing lemma
+% %   show(plot(ratio, r, 1, 10))
+% %   show(limit(ratio(r), r=oo))
+% %   \end{lstlisting}
+%   which implies that $|Q'|\le \vol{5r/2}/\vol{r/2}$.  For $r > 2$, this bound is increasing in $r$ and is less than $25$ for any $r\ge 2$.
+% \end{proof}
+%
 
 \subsection{Finding a Well-Separated Set}
 \label{well_separated}
@@ -426,7 +425,7 @@ We will make use of the following fairly standard looking packing lemma.
 Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only_frequent}, we can find a set of vertices in $G$ that contain two vertices of each colour and that is compatible with \cref{pick_up_everything}.
 
 \begin{lem}\label{doubled_colour_set}
-  For every integer $r\ge 1$ there exists an integer $d\in O(r^4)$ such that the following is true, for every integer $k\ge 1$.\newline
+  For every integer $r\ge 1$ there exists an integer $d\in O(r^4\log r)$ such that the following is true, for every integer $k\ge 1$.\newline
   Let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}:=\{V(P_\mu):\mu\in\VE(G_k)\}$ and let $\varphi$ be a vertex colouring of $G$ with the property that, for each $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)\cap\interior_r(G_k)|\ge d|A|$.
   Then there exists $S\subseteq V(\interior_r(G))$ such that
   \begin{compactenum}[(i)]
@@ -454,7 +453,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   Let $\overline{X}\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was an $\alpha$-success. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}) since (\ref{spread_out_q}) implies that $\VE(G_r(\mu))\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$.  However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $\overline{X}$.  We now use the second round to create a set $Q_2$ to fix this.
   % Our strategy is to use \cref{d_hall} to find two matchings between the colours in $X$ and the boxes in $\{\tilde{B}_r(\mu):\mu\in Q_1\}$ that contain those colours.
 
-  Define a bipartite graph $H$ with parts $L(H):=X:=\varphi(V(G))\setminus \overline{X}$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{2|K|}$ be a random permutation of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
+  Define a bipartite graph $H$ with parts $L(H):=X:=\varphi(V(G))\setminus \overline{X}$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{|Y|}$ be a random permutation of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
   \[
     \VE(G_{2r+2}(\mu_i))\setminus\left(\bigcup_{j=1}^{i-1}\VE(G_{2r+2}(\mu_j))\right)
   \]
@@ -470,18 +469,21 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   \[
      Y_\nu := \{\xi\in Y:\nu\in\VE(G_{2r+2}(\xi))\}
   \]
-  has size at most $4$.\todo{Update \cref{packing_lemma}} Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/4$. This already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$, but in order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_{2r+2}(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J\setminus\VE(G_{5r}(\mu))$.\footnote{The constant $10$ is overkill here and is only used for simplicity; $4r+O(1)$ would be sufficient.}  This process continues until $\VE(G_{2r+2}(\mu))\cap J=\emptyset$ for each $\mu\in Y$. Since $|\VE(G_{5r}(\mu))|\le \vol{5r}$, each step in this process eliminates at most $\vol{5r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{5r}}$
+  has size at most $4$.\todo{Update \cref{packing_lemma}} Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/4$. This already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$, but in order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_{2r+2}(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J\setminus\VE(G_{5r}(\mu))$.\footnote{The constant $5$ is overkill here and is only used for simplicity; $4r+O(1)$ would be sufficient.}  This process continues until $\VE(G_{2r+2}(\mu))\cap J=\emptyset$ for each $\mu\in Y$. Since $|\VE(G_{5r}(\mu))|\le \vol{5r}$, each step in this process eliminates at most $\vol{5r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{5r}}$
 
-  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are disjoint.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of $Y_{\nu_i}$ in the  permutation $\pi$.  For each $i\in\{1,\ldots,t\}$, $\Pr(U_i)\ge 1/4$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/4)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
+  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are disjoint.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of $Y_{\nu_i}$ in the  permutation $\pi$.  For each $i\in\{1,\ldots,t\}$, $\Pr(U_i)\ge 1/4$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/4)$ random variable.\footnote{A random variable $X$ \defin{dominates} a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
   \begin{align}
     \Pr\left(\deg_H(\alpha)< 2\vol{2r+2}\right)
     & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{2r+2}\right) \notag \\
     & \le \Pr(\binomial(t,1/4)\le 2\vol{2r+2}) \notag \\
-    & = \sum_{x=0}^{2\vol{2r+2}-1} \binom{t}{x}\cdot (1/4)^x \cdot (3/4)^{t-x} \\
-    & \le (2t)^{2\vol{2r+2}}(1/4)^{2\vol{2r+2}}(3/4)^{t-2\vol{2r+2}} \notag \\
+    & = \sum_{x=0}^{2\vol{2r+2}} \binom{t}{x}\cdot (1/4)^x \cdot (3/4)^{t-x} \notag \\
+    & \le \sum_{x=0}^{2\vol{2r+2}} \binom{t}{x}\cdot (3/4)^{t} \notag  \\
+    & \le (2t)^{2\vol{2r+2}}\cdot (3/4)^{t} \notag \\
     % & \le \exp(6(2r+1)^2\log(2t)+(t-6(2r+1)^2)\log(1-1/25)) \\
-    & \le \exp({2\vol{2r+2}}(1+\log(2t))-t/4) \notag \\
-    & \le \exp({2\vol{2r+2}}(1+\log(2|\Phi_\alpha|))-|\Phi_\alpha|/4\vol{5r}) \label{probability}
+    & < \exp\left({2\vol{2r+2}}\ln(2t)- t/4\right)
+      & \text{(since $\ln(3/4) < -1/4$)}\notag \\
+    & \le \exp\left({2\vol{2r+2}}\ln(2|\Phi_\alpha|) -|\Phi_\alpha|/4\vol{5r}\right)
+      & \text{(since $|\Phi_\alpha|/\vol{5r}\le t\le |\Phi_\alpha|$)}\label{probability}
     % & \le \exp(-6(2r+1)^2\log(2t)\log(1-1/?) + t\log(1-1/25)) \\
     % & = \exp(ar^2 - bt)
   \end{align}
@@ -489,30 +491,30 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % $\Pr(\deg_H(\alpha)< 6(2r+1)^2)\le \exp(-C|\Phi_\alpha|/r^2)$.\todo{This could be done better.}   By the preceding discussion, $\Pr(E_\alpha)\le \exp(-C|\Phi_\alpha|/r^2)$.
 
 
-  We are now ready for an application of \cref{weighted_lovasz}.  For each $\alpha\in X$, let Let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 2\vol{r}$'' and let $\mathcal{E}:=\{E_\alpha:\alpha\in X\}$. For each $\alpha\in X$, define
+  We are now ready for an application of \cref{weighted_lovasz}.  For each $\alpha\in X$, let Let $E_\alpha$ denote the event ``$\deg_H(\alpha)\le 2\vol{2r+2}$'' and let $\mathcal{E}:=\{E_\alpha:\alpha\in X\}$. For each $\alpha\in X$, define
   \[
-     \Gamma_\alpha := \left\{E_\beta \in \mathcal{E}: \Phi_\beta\cap \bigcup_{\nu\in \Phi_\alpha} \VE(G_{10r}(\nu))\neq\emptyset\right\}
+     \Gamma_\alpha := \left\{E_\beta \in \mathcal{E}: \Phi_\beta\cap \bigcup_{\nu\in \Phi_\alpha} \VE(G_{5r}(\nu))\neq\emptyset\right\}
   \]
-  and observe that $|\Gamma_\alpha|\le \vol{10r}\cdot|\Phi_\alpha|$.
-  The event $E_\alpha$ is mutually independent of $\mathcal{E}\setminus\Gamma_\alpha$ since, for any $E_\beta\in\mathcal{E}\setminus\Gamma_\alpha$ the sets $Y_\alpha:=\{\mu\in Y:B_{2r}(\mu)\cap \Phi_\alpha\neq\emptyset\}$ and $Y_\beta:=\{\mu\in Y:B_{2r}(\mu)\cap \Phi_\beta\neq\emptyset\}$ are disjoint and $\deg_H(\alpha)$ and $\deg_H(\beta)$ are each determined by the relative orders of $Y_\alpha$ and $Y_\beta$ in $\pi$, respectively.
+  and observe that $|\Gamma_\alpha|\le \vol{5r}\cdot|\Phi_\alpha|$.
+  The event $E_\alpha$ is mutually independent of $\mathcal{E}\setminus\Gamma_\alpha$ since, for any $E_\beta\in\mathcal{E}\setminus\Gamma_\alpha$ the sets $Y_\alpha:=\{\mu\in Y:B_{2r+2}(\mu)\cap \Phi_\alpha\neq\emptyset\}$ and $Y_\beta:=\{\mu\in Y:B_{2r+2}(\mu)\cap \Phi_\beta\neq\emptyset\}$ are disjoint and $\deg_H(\alpha)$ and $\deg_H(\beta)$ are each determined by the relative orders of $Y_\alpha$ and $Y_\beta$ in $\pi$, respectively.
 
-  For each $\alpha\in X$, let $w(E_\alpha):=1/\tau$, for some $\tau>0$ to be determined shortly.  Then
+  For each $\alpha\in X$, let $w(E_\alpha):=1/\tau$, for some $\tau>1$ to be determined shortly.  Then
   \begin{align}
     w(E_\alpha)\prod_{E_\beta\in\Gamma_\alpha} (1-w(E_\beta))
     & = \tfrac{1}{\tau}\left(1-\tfrac{1}{\tau}\right)^{|\Gamma_\alpha|-1} \notag \\
     & \ge \exp\left(-\log\tau - |\Gamma_\alpha|/(\tau-1)\right) & \text{(Since $(1-1/\tau)^{\tau-1} > 1/e$)} \notag \\
-    & \ge \exp\left(-\log\tau - \vol{10r}\cdot|\Phi_\alpha|/(\tau-1)\right) \enspace . \label{weight_product}
+    & \ge \exp\left(-\log\tau - \vol{5r}\cdot|\Phi_\alpha|/(\tau-1)\right) \enspace . \label{weight_product}
   \end{align}
 
   Comparing \cref{weight_product,probability} we see that both quantities decrease exponentially in $|\Phi_\alpha|$ but \cref{weight_product} does so at a rate that can be controlled with $\tau$.
-  Taking $\tau = {50\vol{10r}}+1$, and using \cref{weight_product,probability}, we find that
+  Taking $\tau = {8\vol{5r}}+1$, and using \cref{weight_product,probability}, we find that
   \[
      \Pr\left(E_\alpha\right) \le w(E_\alpha)\prod_{\beta\in\Gamma_\alpha}(1-w(\Gamma_\alpha))
   \]
   provided that
-  \[   |\Phi_\alpha| \ge {50\vol{10r}}\left(\log({50\vol{10r}}+1) + {2\vol{r}}(1+\log(2|\Phi_\alpha|))\right) \enspace .
+  \[   |\Phi_\alpha| \ge {8\vol{5r}}\big(\log({8\vol{5r}}+1) + {2\vol{2r+2}}\log(2|\Phi_\alpha|)\big) \enspace .
   \]
-  The right hand side of this last equation is of the form $O(r^4+r^2\log|\Phi_\alpha|)$.  Since $|\Phi_\alpha|\ge d$, this can therefore be satisfied for some $d\in O(r^4)$.
+  The right hand side of this last equation is of the form $O(r^2\log r+r^4\log|\Phi_\alpha|)$.  Since $|\Phi_\alpha|\ge d-\vol{2r+2}$, this can therefore be satisfied for some $d\in O(r^4\log r)$.
 
 
   % Taking the ratio of \cref{ratioo} and $\Pr(E_\alpha)$ we obtain
@@ -537,7 +539,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % \end{align*}
   % \todo[inline]{Sort out these calculations}
 
-  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\alpha_1,\ldots,\alpha_{2|K|}$ such that $\deg_H(\alpha)\ge {2\vol{r}}$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le |\VE(G_r(y))|-1 < {\vol{r}}$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge {2\vol{r}}|A|/{\vol{r}} = 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
+  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\pi$ of $Y$ that produces a bipartite graph $H$ such that $\deg_H(\alpha)\ge {2\vol{2r+2}}$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le |\VE(G_{2r+2}(y))|-1 < {\vol{2r+2}}$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge {2\vol{2r+2}}|A|/{\vol{2r+2}} = 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
 
   Now it is straightforward to verify that $Q:=Q_1\cup Q_2$ satisifies (\ref{hits_both}).  Furthermore, for each $\mu\in Q_1$, $B_r(\mu)$ contains no object in $Q_1\setminus\{\mu\}$ and contains at most one element of $Q_2$.  Similarly, for each $\nu\in Q_2$, $B_r(\nu)$ contains no element of $Q_2\setminus\{\nu\}$ and contains at most one element of $Q_1$.  Therefore $Q$ satisfies (\ref{spread_out}).
 \end{proof}
@@ -548,7 +550,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 We now have all the pieces needed to complete our lower bound on the linear chromatic number of pseudogrids:
 
 \begin{proof}[Proof of \cref{pseudogrid_lower_bound}]
-  Suppose for the sake of contradiction that $G$ has a linear colouring $\varphi$ using fewer than $\epsilon k$ colours for arbitrarily small $\epsilon >0$.  Then, by \cref{only_frequent}, $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k/2$ having a grid-decomposition $\mathcal{P}':=\{P_\mu':\mu\in \VE(G_{k'})\}$ with the property that, for any $A\subseteq\varphi(V(G'))$, $|\varphi^{-1}_{\mathcal{P'}}(A)\cap\interior_r(G_{k'})|\ge d|A|$, for any $d\le 1/2\epsilon-2$.  In particular, for some $\epsilon \in \Omega(1/r^4)$, \cref{doubled_colour_set} implies that $G'$ contains a set $S$ of $2|\varphi(V(G')|$ vertices containing two vertices of each colour in $\varphi(V(G'))$ such that $|B_r(\mu)\cap S|\le 2$ for each $\mu\in S$.  By \cref{pick_up_everything}, $G'$ contains a path $P$ that contains every vertex in $S$.  Since $P$ is contained in $G'$ $\varphi(V(P))=\varphi(V(G'))$, so $P$ is has no center under $\varphi$, contradicting the assumption that $\varphi$ is a linear colouring of $G$.
+  Suppose for the sake of contradiction that $G$ has a linear colouring $\varphi$ using fewer than $\epsilon k$ colours for arbitrarily small $\epsilon >0$.  Then, by \cref{only_frequent}, $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k/2$ having a grid-decomposition $\mathcal{P}':=\{P_\mu':\mu\in \VE(G_{k'})\}$ with the property that, for any $A\subseteq\varphi(V(G'))$, $|\varphi^{-1}_{\mathcal{P'}}(A)\cap\interior_r(G_{k'})|\ge d|A|$, for any $d\le 1/2\epsilon-2$.  In particular, for some $\epsilon \in \Omega(1/r^4\log r)$, \cref{doubled_colour_set} implies that $G'$ contains a set $S$ of $2|\varphi(V(G')|$ vertices containing two vertices of each colour in $\varphi(V(G'))$ such that $|B_r(\mu)\cap S|\le 2$ for each $\mu\in S$.  By \cref{pick_up_everything}, $G'$ contains a path $P$ that contains every vertex in $S$.  Since $P$ is contained in $G'$ $\varphi(V(P))=\varphi(V(G'))$, so $P$ is has no center under $\varphi$, contradicting the assumption that $\varphi$ is a linear colouring of $G$.
 \end{proof}
 
 
