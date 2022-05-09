@@ -214,8 +214,8 @@ We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently sma
   % This makes it easy to find a single path in $G$ that contains each of these vertices.
   Unfortunately, this process will fail for some subset of the colours that appear in $G$.
 
-  \item For these failed colours, we use \cref{d_hall} (the Polygamous Marriage Theorem) to find a $d$-to-$1$ matching $M$ that associates each failed colour $\alpha$ with $d$ vertices in $S_1$ that each contain a vertex of colour $\alpha$ nearby.  In $M$, no vertex of $S_1$ is matched with more than one failed colour.  
-  
+  \item For these failed colours, we use \cref{d_hall} (the Polygamous Marriage Theorem) to find a $d$-to-$1$ matching $M$ that associates each failed colour $\alpha$ with $d$ vertices in $S_1$ that each contain a vertex of colour $\alpha$ nearby.  In $M$, no vertex of $S_1$ is matched with more than one failed colour.
+
   \item Using $M$ and \cref{weighted_lovasz} (the Lovász Local Lemma) we identify a set $S_2$ that contains two vertices of each of the missing colours and such that no vertex of $S_2$ is close to any other vertex of $S_2$.
 
   \item We construct a path $P$ that contains each vertex in $S_1\cup S_2$.  This is possible because each vertex in $S_1$ is `close to' at most one vertex of $S_2$ and vice-versa.  Aside from these pairs, no pair of vertices is close to each other.
@@ -228,7 +228,7 @@ The most challenging aspect of this proof is the construction of $S_2$, which re
     \begin{tabular}{ccc}
       \includegraphics{figs/bad-example-1} &
       \includegraphics{figs/bad-example-2} &
-      \includegraphics{figs/bad-example-3} 
+      \includegraphics{figs/bad-example-3}
     \end{tabular}
   \end{center}
   \caption{Some examples of $3$- and $4$-element vertex subsets that cannot all be contained in a single path (that must also contain other vertices not pictured).}
@@ -298,8 +298,8 @@ Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathca
 \subsection{Finding Paths Through Well-Separated Pairs}
 \label{path_finding}
 
-Next we show that, given a sufficiently `well-separated' set $S$ of pairs of vertices in $G$, we can always find a path in $G$ that contains every vertex in $S$. 
-% For this, we need some definitions of boxes in $G$ and in $G_k$.  
+Next we show that, given a sufficiently `well-separated' set $S$ of pairs of vertices in $G$, we can always find a path in $G$ that contains every vertex in $S$.
+% For this, we need some definitions of boxes in $G$ and in $G_k$.
 We base our definition of `well-separated' on the concept of boxes, which we now define.
 
 The \defin{$r$-box} centred at a vertex $v:=(i,j)$ of $G_{k}$ is defined as
@@ -330,7 +330,7 @@ We extend these definitions to vertices of a $k\times k$ pseudogrid $G$ with gri
    \tilde{B}_r(\mu) := \bigcup_{\nu\in \VE(G_r(\mu))} V(P_\nu)
 \]
 and, for any $v\in V(G)$, let $\tilde{B}_r(v):=\tilde{B}_r(\mu_v)$ where $P_{\mu_v}$ is the unique part in $\mathcal{P}$ that contains $v$.\footnote{Technically, the notation for $\tilde{B}_r(v)$ should include the partition $\mathcal{P}$, but we omit this since there will never be any ambiguity as to which partition is being used.}
-For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.\todo{Use $B$, $G$, $\tilde{B}$, and $\tilde{G}$ consistently!}
+For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 
 The following lemma, whose proof is a (somewhat tedious) case analysis that appears in \cref{pick_up_two_proof}, is the main tool we use to build a path that contains a set of vertices that can be paired off in such a way that each pair is far from all other vertices.
 
@@ -405,7 +405,7 @@ We will make use of the following fairly standard looking packing lemma.
 %   /* \begin{lstlisting}[frame=single,language=python]
 %     # Sage Code
 %   g(r)=2*(r+1)*(2*r+1)  # |B_r(mu)|
-%   show(g)               
+%   show(g)
 %   show(g.factor())
 %   show(g.full_simplify())
 %   f(r)=2*(r+1)*(2*r+1 + 2*r) + (2*r+1)^2  # |VE(G[B_r(mu)])
@@ -431,7 +431,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   Then there exists $S\subseteq V(\interior_r(G))$ such that
   \begin{compactenum}[(i)]
     \item \label{hits_both} for each $\alpha\in\varphi(V(G))$, $|\varphi^{-1}(\alpha)\cap S|= 2$; and
-    \item \label{spread_out} for each $v\in S$, $|\tilde{B}_r(v)\cap S|\le 2$ for each $v\in S$.
+    \item \label{spread_out} for each $v\in S$, $|\tilde{B}_r(v)\cap S|\le 2$.
   \end{compactenum}
 \end{lem}
 
@@ -447,7 +447,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   If there exists distinct $\mu_1,\mu_2\in\VE(G_k)$ such that
   \begin{compactenum}[(a)]
     \item $\phi(\mu_1)=\phi(\mu_2)=\alpha$; and\label{hits_both_q}
-    \item for each $b\in\{1,2\}$, $\mu_b\not\in \VE(G_r(\mu_{3-b})) \cup \bigcup_{\mu\in Q_1} \VE(G_r(\mu))$,\label{spread_out_q}
+    \item for each $b\in\{1,2\}$, $\mu_b\not\in \VE(G_{2r+2}(\mu_{3-b})) \cup \bigcup_{\mu\in Q_1} \VE(G_{2r+2}(\mu))$,\label{spread_out_q}
   \end{compactenum}
   then we include $\mu_1$ and $\mu_2$ in $Q_1$ and declare the first round an \defin{$\alpha$-success}.  Otherwise, we declare the first round an \defin{$\alpha$-failure}.
 
@@ -456,31 +456,32 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 
   Define a bipartite graph $H$ with parts $L(H):=X:=\varphi(V(G))\setminus \overline{X}$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{2|K|}$ be a random permutation of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
   \[
-    \VE(G_r(\mu_i))\setminus\left(\bigcup_{j=1}^{i-1}\VE(G_{2r}(\mu_j))\right)
+    \VE(G_{2r+2}(\mu_i))\setminus\left(\bigcup_{j=1}^{i-1}\VE(G_{2r+2}(\mu_j))\right)
   \]
-  contains some object $\nu$ of colour $\phi(\nu)=\alpha$.  Note the asymmetry here: In the first round, each element $\mu_j$ that takes part in $Q_1$ prevents elements in $\VE(G_r(\mu))$ from also being part of $Q_1$.  In the second round, $\mu_j$ defines a larger box $\VE(G_{2r}(\mu_j))$ that must be avoided when choosing a second element from $\VE(G_r(\mu_i))$, for each $i>j$.
+  contains some object $\nu$ of colour $\phi(\nu)=\alpha$.  Note the asymmetry here: In the first round, each element $\mu_j$ that takes part in $Q_1$ prevents any elements in $\VE(G_{2r+2}(\mu))$ from also being part of $Q_1$.  In the second round, $\VE(G_{2r+2}(\mu_j))$ need only be avoided when choosing a second element from $\VE(G_r(\mu_i))$, for $i>j$.
 
-  We now want to use the Local Lemma (\cref{weighted_lovasz}) to show that, with probability greater than zero, $\deg_H(\alpha)\ge 2\vol{r}$ for each $\alpha\in X$.
-  For each $\alpha\in X$, let $\Phi_\alpha:=\{\nu\in\VE(G_k):\phi(\nu)=\alpha\}$ and recall that, since $\phi$ comes from \cref{one_colour_per_object}, $|\Phi_\alpha| \ge d$.  Furthermore all but at most $\vol{r}$ elements of $\Phi_\alpha$ are contained in $\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu))$ since otherwise the first round would have been an $\alpha$-success.\todo{Explain more or redefine $\Phi_\alpha$ as $\Phi_\alpha\cap (\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu)))$)}
+  We now want to use the Local Lemma (\cref{weighted_lovasz}) to show that, with probability greater than zero, $\deg_H(\alpha)\ge 2\vol{2r+2}$ for each $\alpha\in X$.  For each $\alpha\in X$, let $\Phi^0_\alpha:=\{\nu\in\VE(G_k):\phi(\nu)=\alpha\}$ and recall that, since $\phi$ comes from \cref{one_colour_per_object}, $|\Phi^0_\alpha| \ge d$.  Furthermore all but at most $\vol{2r+2}$ elements of $\Phi^0_\alpha$ are contained in $\bigcup_{\mu\in Y}\VE(G_{2r+2}(\mu))$ since otherwise the first round would have been an $\alpha$-success.  Therefore, the set $\Phi_\alpha:=\Phi^0_\alpha\cap (\bigcup_{\mu\in Y}\VE(G_{2r+2}(\mu)))$ has size $|\Phi_\alpha|\ge d-\vol{2r+2}$.
+
+
+  % \todo{Continue here...}\todo{Explain more or redefine $\Phi_\alpha$ as $\Phi_\alpha\cap (\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu)))$)}
   % For each $\mu\in Y$, $|\VE(G_{r+1}(\mu))|\in O(r^2)$. Therefore, there are $\Omega(|\Phi_\alpha|/r^2)$ objects $\mu\in Y$ such that $\VE(G_{r+1}(\mu))\cap \Phi_\alpha\neq\emptyset$.
 
-  We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\ceil{|\Phi_\alpha|/\vol{10r}},1/25)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{r})$.  (We make no attempt to optimize constants here.)  Suppose that, for some $\mu\in Y$, $B_r(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$. Then, by \cref{packing_lemma}, the set
+  We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\ceil{|\Phi_\alpha|/\vol{5r}},1/4)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{2r+2})$.  (We make no attempt to optimize constants here.)  Suppose that, for some $\mu\in Y$, $B_{2r+2}(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$. Then, by \cref{packing_lemma}, the set
   \[
-     Y_\nu := \{\xi\in Y:\nu\in\VE(G_{2r}(\xi))\}
+     Y_\nu := \{\xi\in Y:\nu\in\VE(G_{2r+2}(\xi))\}
   \]
-  has size at most $25$. Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/25$. This already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$.
+  has size at most $4$.\todo{Update \cref{packing_lemma}} Observe that the edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  This happens with probability exactly $1/|Y_\nu|\ge 1/4$. This already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$, but in order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_{2r+2}(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J\setminus\VE(G_{5r}(\mu))$.\footnote{The constant $10$ is overkill here and is only used for simplicity; $4r+O(1)$ would be sufficient.}  This process continues until $\VE(G_{2r+2}(\mu))\cap J=\emptyset$ for each $\mu\in Y$. Since $|\VE(G_{5r}(\mu))|\le \vol{5r}$, each step in this process eliminates at most $\vol{5r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{5r}}$
 
-  In order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_r(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J-\VE(G_{10r}(\mu))$.\footnote{The constant $10$ is overkill here and is only used for simplicity; $8r+O(1)$ would be sufficient.}  This process continues until $\VE(G_r(\mu))\cap J=\emptyset$ for each $\mu\in Y$. Since $|\VE(G_{10r}(\mu))|\le \vol{10r}$, each step in this process eliminates at most $\vol{10r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{10r}}$
-
-  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_r\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are disjoint.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_k$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of $Y_{\nu_i}$ in the  permutation $\pi$.  For each $i\in\{1,\ldots,k\}$, $\Pr(U_i)\ge 1/25$.  Therefore, $\sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/25)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
+  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are disjoint.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of $Y_{\nu_i}$ in the  permutation $\pi$.  For each $i\in\{1,\ldots,t\}$, $\Pr(U_i)\ge 1/4$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/4)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
   \begin{align}
-    \Pr\left(\deg_H(\alpha)< 2\vol{r}\right)
-    & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{r}\right) \notag \\
-    & \le \Pr(\binomial(t,1/25)\le 2\vol{r}) \notag \\
-    & \le (2t)^{2\vol{r}}(1/25)^{r^2}(1-1/25)^{t-2\vol{r}} \notag \\
+    \Pr\left(\deg_H(\alpha)< 2\vol{2r+2}\right)
+    & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{2r+2}\right) \notag \\
+    & \le \Pr(\binomial(t,1/4)\le 2\vol{2r+2}) \notag \\
+    & = \sum_{x=0}^{2\vol{2r+2}-1} \binom{t}{x}\cdot (1/4)^x \cdot (3/4)^{t-x} \\
+    & \le (2t)^{2\vol{2r+2}}(1/4)^{2\vol{2r+2}}(3/4)^{t-2\vol{2r+2}} \notag \\
     % & \le \exp(6(2r+1)^2\log(2t)+(t-6(2r+1)^2)\log(1-1/25)) \\
-    & \le \exp({2\vol{r}}(1+\log(2t))-t/25) \notag \\
-    & \le \exp({2\vol{r}}(1+\log(2|\Phi_\alpha|))-|\Phi_\alpha|/25\vol{10r}) \label{probability}
+    & \le \exp({2\vol{2r+2}}(1+\log(2t))-t/4) \notag \\
+    & \le \exp({2\vol{2r+2}}(1+\log(2|\Phi_\alpha|))-|\Phi_\alpha|/4\vol{5r}) \label{probability}
     % & \le \exp(-6(2r+1)^2\log(2t)\log(1-1/?) + t\log(1-1/25)) \\
     % & = \exp(ar^2 - bt)
   \end{align}
