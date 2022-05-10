@@ -111,7 +111,7 @@
 
 %------------- Use this so pdflatex outputs US letter pages -------------
 \usepackage[dvipsnames,hyperref]{xcolor}
-\usepackage[letterpaper]{hyperref}
+\usepackage{hyperref}
 \definecolor{linkblue}{named}{MidnightBlue}
 \hypersetup{colorlinks=true, linkcolor=linkblue,  anchorcolor=linkblue,
 	citecolor=linkblue, filecolor=linkblue, menucolor=linkblue,

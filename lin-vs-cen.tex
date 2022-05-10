@@ -214,8 +214,8 @@ We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently sma
   % This makes it easy to find a single path in $G$ that contains each of these vertices.
   Unfortunately, this process will fail for some subset of the colours that appear in $G$.
 
-  \item For these failed colours, we use \cref{d_hall} (the Polygamous Marriage Theorem) to find a $d$-to-$1$ matching $M$ that associates each failed colour $\alpha$ with $d$ vertices in $S_1$ that each contain a vertex of colour $\alpha$ nearby.  In $M$, no vertex of $S_1$ is matched with more than one failed colour.  
-  
+  \item For these failed colours, we use \cref{d_hall} (the Polygamous Marriage Theorem) to find a $d$-to-$1$ matching $M$ that associates each failed colour $\alpha$ with $d$ vertices in $S_1$ that each contain a vertex of colour $\alpha$ nearby.  In $M$, no vertex of $S_1$ is matched with more than one failed colour.
+
   \item Using $M$ and \cref{weighted_lovasz} (the Lovász Local Lemma) we identify a set $S_2$ that contains two vertices of each of the missing colours and such that no vertex of $S_2$ is close to any other vertex of $S_2$.
 
   \item We construct a path $P$ that contains each vertex in $S_1\cup S_2$.  This is possible because each vertex in $S_1$ is `close to' at most one vertex of $S_2$ and vice-versa.  Aside from these pairs, no pair of vertices is close to each other.
@@ -228,10 +228,11 @@ The most challenging aspect of this proof is the construction of $S_2$, which re
     \begin{tabular}{ccc}
       \includegraphics{figs/bad-example-1} &
       \includegraphics{figs/bad-example-2} &
-      \includegraphics{figs/bad-example-3} 
+      \includegraphics{figs/bad-example-3}
     \end{tabular}
   \end{center}
   \caption{Some examples of $3$- and $4$-element vertex subsets that cannot all be contained in a single path (that must also contain other vertices not pictured).}
+  \label{bad_examples}
 \end{figure}
 
 In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to obtain a sub-pseudogrid in which every colour appears frequently.  In \cref{path_finding} we explain how, given a well-separated set $S$ of vertices in $G$, to find a path that contains every vertex in $S$.  In \cref{packing_lemma_sec} we introduce a fairly standard-looking packing lemma that is needed in several places later.  In \cref{well_separated} we explain how find a well-separated set $S$ that contains two vertices of each colour. Finally \cref{wrapping_up} shows how to assemble these various pieces to prove \cref{pseudogrid_lower_bound}.
@@ -298,8 +299,8 @@ Having each vertex or edge $\mu$ of $G_k$ associated with a set $\varphi_\mathca
 \subsection{Finding Paths Through Well-Separated Pairs}
 \label{path_finding}
 
-Next we show that, given a sufficiently `well-separated' set $S$ of pairs of vertices in $G$, we can always find a path in $G$ that contains every vertex in $S$. 
-% For this, we need some definitions of boxes in $G$ and in $G_k$.  
+Next we show that, given a sufficiently `well-separated' set $S$ of pairs of vertices in $G$, we can always find a path in $G$ that contains every vertex in $S$.
+% For this, we need some definitions of boxes in $G$ and in $G_k$.
 We base our definition of `well-separated' on the concept of boxes, which we now define.
 
 The \defin{$r$-box} centred at a vertex $v:=(i,j)$ of $G_{k}$ is defined as
@@ -405,7 +406,7 @@ We will make use of the following fairly standard looking packing lemma.
 %   /* \begin{lstlisting}[frame=single,language=python]
 %     # Sage Code
 %   g(r)=2*(r+1)*(2*r+1)  # |B_r(mu)|
-%   show(g)               
+%   show(g)
 %   show(g.factor())
 %   show(g.full_simplify())
 %   f(r)=2*(r+1)*(2*r+1 + 2*r) + (2*r+1)^2  # |VE(G[B_r(mu)])
@@ -454,7 +455,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   Let $\overline{X}\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was an $\alpha$-success. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}) since (\ref{spread_out_q}) implies that $\VE(G_r(\mu))\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$.  However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $\overline{X}$.  We now use the second round to create a set $Q_2$ to fix this.
   % Our strategy is to use \cref{d_hall} to find two matchings between the colours in $X$ and the boxes in $\{\tilde{B}_r(\mu):\mu\in Q_1\}$ that contain those colours.
 
-  Define a bipartite graph $H$ with parts $L(H):=X:=\varphi(V(G))\setminus \overline{X}$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{2|K|}$ be a random permutation of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
+  Define a bipartite graph $H$ with parts $L(H):=X:=\varphi(V(G))\setminus \overline{X}$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{|Y|}$ be a random permutation of $Y$.  We include an edge $\alpha\mu_i$ in $H$ if and only if
   \[
     \VE(G_r(\mu_i))\setminus\left(\bigcup_{j=1}^{i-1}\VE(G_{2r}(\mu_j))\right)
   \]
@@ -477,10 +478,13 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
     \Pr\left(\deg_H(\alpha)< 2\vol{r}\right)
     & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{r}\right) \notag \\
     & \le \Pr(\binomial(t,1/25)\le 2\vol{r}) \notag \\
-    & \le (2t)^{2\vol{r}}(1/25)^{r^2}(1-1/25)^{t-2\vol{r}} \notag \\
+    & = \sum_{x=0}^{2\vol{r}} \binom{t}{x}\left(\frac{1}{25}\right)^x\left(\frac{24}{25}\right)^{t-x} \notag \\
+    & < \sum_{x=0}^{2\vol{r}} \binom{t}{x}\left(\frac{24}{25}\right)^{t} \notag \\
+    & \le (2t)^{2\vol{r}}\cdot\left(\frac{24}{25}\right)^{t} \notag \\
     % & \le \exp(6(2r+1)^2\log(2t)+(t-6(2r+1)^2)\log(1-1/25)) \\
-    & \le \exp({2\vol{r}}(1+\log(2t))-t/25) \notag \\
-    & \le \exp({2\vol{r}}(1+\log(2|\Phi_\alpha|))-|\Phi_\alpha|/25\vol{10r}) \label{probability}
+    & = \exp\big({2\vol{r}}\ln(2t)-t\ln(25/24)\big) \notag \\
+    & \le \exp\left({2\vol{r}}\ln(2|\Phi_\alpha|)-\frac{|\Phi_\alpha|\ln(25/24)}{\vol{10r}}\right)
+      & \text{(since $|\Phi_\alpha|/\vol{10r} \le t \le |\Phi_\alpha|$)} \label{probability}
     % & \le \exp(-6(2r+1)^2\log(2t)\log(1-1/?) + t\log(1-1/25)) \\
     % & = \exp(ar^2 - bt)
   \end{align}
@@ -536,7 +540,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % \end{align*}
   % \todo[inline]{Sort out these calculations}
 
-  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\alpha_1,\ldots,\alpha_{2|K|}$ such that $\deg_H(\alpha)\ge {2\vol{r}}$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le |\VE(G_r(y))|-1 < {\vol{r}}$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge {2\vol{r}}|A|/{\vol{r}} = 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
+  Therefore, by \cref{weighted_lovasz}, there exists a permutation $\pi$ of $Y$ that produces a bipartition graph $H$ with $\deg_H(\alpha)\ge {2\vol{r}}$ for each $\alpha\in X$.  On the other hand, $\deg_{H}(y)\le |\VE(G_r(y))|-1 < {\vol{r}}$ for each $y\in Y$.  Therefore, for any $A\subseteq X$, $|N_H(A)|\ge {2\vol{r}}|A|/{\vol{r}} = 2|A|$.  Therefore, by \cref{d_hall}, there is a subgraph $M$ of $H$ in which $\deg_M(\alpha)=2$ for each $\alpha\in X$ and $\deg_M(\mu)\le 1$ for each $\mu\in Y$. Each edge $\alpha\mu$ of $M$ corresponds to some $\nu\in X_\alpha\cap\VE(G_r(\mu))$, which we place in $Q_2$.
 
   Now it is straightforward to verify that $Q:=Q_1\cup Q_2$ satisifies (\ref{hits_both}).  Furthermore, for each $\mu\in Q_1$, $B_r(\mu)$ contains no object in $Q_1\setminus\{\mu\}$ and contains at most one element of $Q_2$.  Similarly, for each $\nu\in Q_2$, $B_r(\nu)$ contains no element of $Q_2\setminus\{\nu\}$ and contains at most one element of $Q_1$.  Therefore $Q$ satisfies (\ref{spread_out}).
 \end{proof}
