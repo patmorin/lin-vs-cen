@@ -126,7 +126,7 @@ In addition to the (admittedly modest) improvement on the exponent in \cref{kun_
 
 \section{Preliminaries}
 
-In this paper, all graphs are simple and undirected. For a graph $G$, $V(G)$ denotes the vertex set of $G$, $E(G)$ denotes the edge set of $G$ and $\VE(G):=V(G)\cup E(G)$ denotes the set of vertices and edges of $G$. We will usually refer to an arbitrary element/edge/vertex in $\VE(G)$ as an \defin{object}. For a vertex $v\in V(G)$,  $N_G(v):=\{w\in V(G):vw\in E(G)\}$  denotes the open neighbourhood of $v$ in $G$ and for any set $S\subseteq V(G)$, $N_G(S):=\{w\in V(G):vw\in E(G),\, v\in S,\, w\not\in S\}$.  We use $\deg_G(v):=|N_G(v)|$ to denote the degree of the vertex $v$ in the graph $G$.
+In this paper, all graphs are simple and undirected. For a graph $G$, $V(G)$ denotes the vertex set of $G$, $E(G)$ denotes the edge set of $G$ and $\VE(G):=V(G)\cup E(G)$ denotes the set of vertices and edges of $G$. We will usually refer to an arbitrary element/edge/vertex in $\VE(G)$ as an \defin{object}. For a vertex $v\in V(G)$,  $N_G(v):=\{w\in V(G):vw\in E(G)\}$  denotes the open neighbourhood of $v$ in $G$ and for any set $S\subseteq V(G)$, $N_G(S):=\{w\in V(G):vw\in E(G),\, v\in S,\, w\not\in S\}$.  We use $\deg_G(v):=|N_G(v)|$ to denote the \defin{degree} of the vertex $v$ in the graph $G$.
 
 For a  bipartite graph $H$, the two parts of $V(H)$ are denoted by $L(H)$ and $R(H)$ and we use the convention of writing an edge $xy$ so that its first endpoint $x$ is in $L(H)$ and its second endpoint $y$ is in $R(H)$.  A \defin{matching} $M$ in a bipartite graph $H$ is a subgraph of $H$ in which each vertex has degree at most $1$.  We say that $M$ \defin{saturates} a set $S\subseteq V(H)$ if $\deg_M(v)=1$ for each $v\in S$.  We make use of (the difficult half of) Hall's Marriage Theorem (see, for example \citet[Theorem~2.1.2]{diestel:graph}):
 
@@ -139,7 +139,7 @@ We make use of the following (polygamous) consequence of Hall's Marriage Theorem
   Let $d\ge 1$ be an integer and let $H$ be a bipartite graph with the property that $|N_H(A)|\ge d|A|$ for each $A\subseteq L(H)$.  Then $H$ contains a subgraph $M$ such that $\deg_M(v)=d$ for each $x\in L(H)$ and $\deg_M(y)\le 1$ for each $y\in R(H)$.
 \end{cor}
 
-\cref{d_hall} can be deduced by adding $d-1$ twins $x_2,\ldots,x_d$ for each vertex $x\in L(H)$, i.e., by applying \cref{hall} on the graph $H':=H\cup\{x_iy:x\in L(H),\, i\in\{2,\ldots,d\},\, y\in N_H(x)\}$.
+\cref{d_hall} can be deduced from \cref{hall} by adding $d-1$ \defin{twins} $x_2,\ldots,x_d$ for each vertex $x\in L(H)$, i.e., by applying \cref{hall} on the graph $H':=H\cup\{x_iy:x\in L(H),\, i\in\{2,\ldots,d\},\, y\in N_H(x)\}$.
 
 
 Late in the game, we will make use of the following asymmetric version of the Lovász Local Lemma (see, for example, \citet[Lemma~5.1.1]{alon.spencer:probabilistic}):
@@ -156,7 +156,7 @@ Late in the game, we will make use of the following asymmetric version of the Lo
 
 \section{The Linear Chromatic Number of Pseudogrids}
 
-For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the \defin{$j$th row} is the vertex set $\{(1,j),\ldots,(a,j)\}$.  For any integer $0\le r\le\min\{a,b\}/2$, the \defin{r-interior} of $G_{a\times b}$ defined as $\interior_r(G_{a\times b}):=G_{a\times b}[\{1+r,\ldots,a-r\}\times\{1+r,\ldots,b-r\}]$.  For $r\ge\min\{a,b\}/2$, $\interior_r(G_{a\times b})$ is the empty graph.
+For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the \defin{$j$th row} is the vertex set $\{(1,j),\ldots,(a,j)\}$.  For any integer $0\le r<\min\{a,b\}/2$, the \defin{r-interior} of $G_{a\times b}$ defined as $\interior_r(G_{a\times b}):=G_{a\times b}[\{1+r,\ldots,a-r\}\times\{1+r,\ldots,b-r\}]$.  For $r\ge\min\{a,b\}/2$, $\interior_r(G_{a\times b})$ is the empty graph.
 
 \begin{figure}
   \begin{center}
@@ -169,7 +169,7 @@ For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ 
 Refer to \cref{pseudogrid_fig}.  An \defin{$a\times b$-pseudogrid} is any graph that can be obtained from $G_{a\times b}$ in the following way:
 \begin{compactitem}
   \item Replace each edge $vw$ of $G_{a\times b}$ with a path $\overline{P}_{vw}$ whose endpoints are $v$ and $w$.  (In other words, $\overline{P}_{vw}$ is a path obtained by subdividing the edge $vw$ zero or more times.)
-  \item Replace each degree-$4$ vertex $(i,j)$ of $G_{a\times b}$ with a non-empty path $P_v$. If $P_v$ has only one vertex then the unique vertex of $P_v$ is adjacent to each of $(i\pm 1,j\pm 1)$ and this has no effect on the underlying graph.  Otherwise, $P_v$ has two endpoints $p$ and $q$, each of which is adjacent to two vertices among $(i\pm 1,j\pm 1)$.  It is useful to consider three possible cases:
+  \item Replace each degree-$4$ vertex $v:=(i,j)$ of $G_{a\times b}$ with a non-empty path $P_v$. If $P_v$ has only one vertex then the unique vertex of $P_v$ is adjacent to each element of $N_{G_{a\times b}}(v)$ and this has no effect on the underlying graph.  Otherwise, $P_v$ has two endpoints $p$ and $q$, each of which is adjacent to two vertices among $N_{G_{a\times b}}(v)$.  It is useful to consider three possible cases, each of which appears at least once in \cref{pseudogrid_fig}:
   \begin{compactenum}[(Q1)]
     \item \label{q_i} $p$ is adjacent to $\{(i-1,j), (i,j-1)\}$ and $q$ is adjacent to $(i+1,j),(i,j+1)$;
     \item \label{q_ii} $p$ is adjacent to $\{(i,j+1), (i-1,j)\}$ and $q$ is adjacent to $(i,j-1),(i+1,j)$; or
@@ -182,7 +182,7 @@ The \defin{$r$-interior} of $G$ is $\interior_r(G):=\bigcup_{\mu\in\VE(\interior
 
  % The \defin{boundary} of $G$ is defined as $\partial G:=\bigcup_{\mu\in\partial G_{a\times b}} V(P_\mu)$.  The \defin{interior} of $G$ is $G-\partial G$.
 
-Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path $C$  in $G$ that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the rows and columns of $G$, which we will do immediately.
+Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path $C$  in $G$ that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the \defin{rows} and \defin{columns} of $G$, which we will do immediately.
 
 As part of our proof, we use the operation of \defin{deleting} a row (or column) $R$ of $G$, which works as follows:  We remove all edges of $R$ from $G$ and eliminate any isolated vertices.  If this produces vertices of degree $1$ (which happens when $R$ is the first or last row of $G$ or when $R=v_1,\ldots,v_r$ does not contains $P_{v_i}$ for some $i\in\{1,\ldots,r\}$) then we repeatedly remove vertices of degree at most $1$ until none remain.  If $G$ is an $a\times b$ pseudogrid and we delete some row $R$, then the resulting graph is an $a\times (b-1)$ pseudogrid.  Similarly, if we delete column $C$ of $G$, then the resulting graph is a $(a-1)\times b$ pseudogrid.
 
@@ -194,7 +194,7 @@ If some graph contains a $k\times k$ grid minor then it contains a $k\times k$ p
   For any $k\times k$ pseudogrid $G$, $\chilin(G)\in\Omega(k)$.
 \end{lem}
 
-We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently small $\epsilon >0$,  any $\epsilon k$-colouring of any $k\times k$ pseudogrid $G$ contains an uncentred path $P$. We will prove the existence of $P$ in several steps (see \cref{outline}):
+We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently small $\epsilon >0$,  any $\epsilon k$-colouring of any $k\times k$ pseudogrid $G$ contains an uncentred path $P$. We will prove the existence of $P$ in several steps; see \cref{outline}:
 
 \begin{figure}
   \begin{center}
@@ -214,7 +214,7 @@ We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently sma
 
   \item We greedily choose a set $S_1$ of vertices in $G$ that contains two vertices of each colour and that is `well-separated' in the sense that the corresponding set of vertices/edges in $G_{k\times k}$ have a minimum distance between them.  In \cref{outline} this minimum distance corresponds to the fact that the box drawn centered at each vertex in $S_1$ contains no other vertices of $S_1$.
   % This makes it easy to find a single path in $G$ that contains each of these vertices.
-  Unfortunately, this process will fail for some subset of the colours that appear in $G$.
+  Unfortunately, this process can fail for some subset of the colours that appear in $G$.
 
   \item For these failed colours, we use \cref{d_hall} (the Polygamous Marriage Theorem) and \cref{weighted_lovasz} (the Lovász Local Lemma) to identify a set $S_2$ that contains two vertices of each of the missing colours and such that no vertex of $S_2$ is close to any other vertex of $S_2$ and each vertex of $S_1$ is close to at most one vertex of $S_2$.
 
@@ -237,15 +237,15 @@ The most challenging aspect of this proof is the construction of $S_2$, which re
 
 To avoid this, we take a random permutation $\pi$ of the vertices in $S_1$ and process them in order.  When a vertex is processed it \defin{claims} all the unmarked vertices in its box and then marks all the vertices in a larger box so that no subsequent vertex in $S_1$ is able to claim them.  The Local Lemma is then used to show that with positive probability, for each missing colour $\alpha$, there are many vertices of $S_1$ that claim a vertex of colour $\alpha$.  Finally, the Marriage Theorem is then used to show that we can find a matching between vertices in $S_1$ and claimed vertices so that each vertex of $S_1$ that takes part in the matching is matched with a vertex it claims and, for each missing colour $\alpha$, there are two vertices of colour $\alpha$ that take part in the matching.
 
-The rest of this section expands the preceding sketch into a complete proof of \cref{pseudogrid_lower_bound}. In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to obtain a sub-pseudogrid in which every colour appears frequently.  In \cref{path_finding} we explain how, given a well-separated set $S$ of vertices in $G$, to find a path that contains every vertex in $S$.  In \cref{packing_lemma_sec} we introduce a fairly standard-looking packing lemma that is needed in several places later.  In \cref{well_separated} we explain how find a well-separated set $S$ that contains two vertices of each colour. Finally \cref{wrapping_up} shows how to assemble these various pieces to prove \cref{pseudogrid_lower_bound}.
+The rest of this section expands the preceding sketch into a complete proof of \cref{pseudogrid_lower_bound}. In \cref{only_frequent_sec} we explain how to remove rows and columns of $G$ to obtain a sub-pseudogrid in which every colour appears frequently.  In \cref{path_finding} we explain how, given a well-separated set $S$ of vertices in $G$, to find a path that contains every vertex in $S$.  In \cref{packing_lemma_sec} we introduce a fairly standard-looking packing lemma that is needed in several places later.  In \cref{well_separated} we explain how to find a well-separated set $S$ that contains two vertices of each colour. Finally, \cref{wrapping_up} shows how to assemble these various pieces to prove \cref{pseudogrid_lower_bound}.
 
 
 
 \subsection{Pseudogrids with Exclusively Frequent Colours}
 \label{only_frequent_sec}
 
-For convenience, let $G_k:=G_{k\times k}$.
-Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=\{P_\mu:\mu\in\VE(G_{k})\}$ and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$.  The partition $\mathcal{P}$ associates each vertex of $G$ with an edge or vertex $\mu$ of $G_k$, so $\varphi$ associates a colour set with each object in $\VE(G_k)$, as follows.  For each $\mu\in\VE(G_{k})$, we let $\varphi_{\mathcal{P}}(\mu):=\{\varphi(v):v\in V(P_\mu)\}$.  For each colour $\alpha\in\{1,\ldots,c\}$, define $\varphi^{-1}(\alpha):=\{v\in V(G):\varphi(v)=\alpha\}$ and define $\varphi_\mathcal{P}^{-1}(\alpha):=\{\mu\in \VE(G_{k\times k}):\alpha\in\varphi_\mathcal{P}(\mu)\}$.  For any colour set $A\subseteq\{1,\ldots,c\}$ define $\varphi^{-1}(A):=\bigcup_{\alpha\in A}\varphi^{-1}(\alpha)$ and $\varphi_\mathcal{P}^{-1}(A):=\bigcup_{\alpha\in A}\varphi_{\mathcal{P}}^{-1}(\alpha)$.  (Throughout this section, we will use the idiom $\varphi(V(G))$ to denote the set of all colours used by $\varphi$ to colour the vertices of $G$.)
+For the sake of compactness, let $G_k:=G_{k\times k}$.
+Let $G$ be a $k\times k$ pseudogrid with grid partition $\mathcal{P}:=\{P_\mu:\mu\in\VE(G_{k})\}$ and let $\varphi:V(G)\to\{1,\ldots,c\}$ be a vertex colouring of $G$.  The partition $\mathcal{P}$ associates each vertex of $G$ with an edge or vertex $\mu$ of $G_k$, so $\varphi$ associates a colour set with each object in $\VE(G_k)$, as follows.  For each $\mu\in\VE(G_{k})$, we let $\varphi_{\mathcal{P}}(\mu):=\{\varphi(v):v\in V(P_\mu)\}$.  For each colour $\alpha\in\{1,\ldots,c\}$, define $\varphi^{-1}(\alpha):=\{v\in V(G):\varphi(v)=\alpha\}$ and define $\varphi_\mathcal{P}^{-1}(\alpha):=\{\mu\in \VE(G_{k\times k}):\alpha\in\varphi_\mathcal{P}(\mu)\}$.  For any colour set $A\subseteq\{1,\ldots,c\}$ define $\varphi^{-1}(A):=\bigcup_{\alpha\in A}\varphi^{-1}(\alpha)$ and $\varphi_\mathcal{P}^{-1}(A):=\bigcup_{\alpha\in A}\varphi_{\mathcal{P}}^{-1}(\alpha)$.  Throughout this section, we will use the idiom $\varphi(V(G))$ to denote the set of all colours used by $\varphi$ to colour the vertices of $G$.
 
 The following lemma gives conditions that allow us to delete rows and columns from $G$ to obtain a sub-pseudogrid in which every colour occurs frequently in the interior.
 % \todo{Do we really need $\interior_r(G)$ or can we use $\interior_2(G)$?  We could change it, but let's not.}
@@ -338,7 +338,7 @@ For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 The following lemma, whose proof is a case analysis that appears in \cref{pick_up_two_proof}, is the main tool we use to build a path that contains a set of vertices that can be paired off in such a way that each pair is far from all other vertices.
 
 \begin{lem}\label{pick_up_two}
-  Let $G$ be a $a\times a$ pseudogrid with $a\ge 5$,  let $s,v,w,t$ be vertices of $G$ with $s$ in column $1$ of $G$, $v,w\in\interior_1(G)$, and $t$ in column $a$ of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
+  Let $G$ be a $a\times a$ pseudogrid with $a\ge 5$,  let $s,v,w,t$ be vertices of $G$ with $s$ in column $1$ of $G$, $v,w\in \interior_1(G)$, and $t$ in column $a$ of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
 \end{lem}
 
 The next lemma shows how to take a well separated collection of pairs of vertices and cover them with disjoint boxes, each of which is compatible with \cref{pick_up_two}.
@@ -356,7 +356,7 @@ The next lemma shows how to take a well separated collection of pairs of vertice
 \begin{proof}
   For any integer $q$, say that two elements $v,w\in S$ are a \defin{$q$-pair} if $v\in \tilde{B}_{q}(w)$ or $w\in \tilde{B}_q(v)$.  First observe that any $v\in S$ takes part in at most one $(r-1)$-pair since, otherwise, $|\tilde{B}_{r}(v)\cap S|\ge 3$.
 
-  Refer to \cref{make_disjoint_fig}.  We will define the set $X$ so that it satisfies (\ref{covers_s}) and for each $x\in X$ we will choose $1$ or $2$ elements of $\tilde{B}_{p}(x)\cap S$ and say that $x$ \defin{covers} those elements.  Let $S_1$ be the subset of $S$ containing only those elements that do not take part in any $(r-1)$-pair.  Let $X_1:= S_1$ and we say that each $x\in X_1$ covers itself.
+  Refer to \cref{make_disjoint_fig}.  We will define the set $X$ so that it satisfies (\ref{covers_s}) and for each $x\in X$ we will choose one or two elements of $\tilde{B}_{p}(x)\cap S$ and say that $x$ \defin{covers} those elements.  Let $S_1$ be the subset of $S$ containing only those elements that do not take part in any $(r-1)$-pair.  Let $X_1:= S_1$ and we say that each $x\in X_1$ covers itself.
 
   \begin{figure}
     \begin{center}
@@ -376,7 +376,7 @@ The next lemma shows how to take a well separated collection of pairs of vertice
 
   Let $X:=X_1\cup X_2\cup X_3$.  By construction, $X$ satisfies (\ref{covers_s}), so it only remains to show that $X$ satisfies (\ref{two_per_box}) and (\ref{disjoint_boxes}).  That $X$ satisfies (\ref{two_per_box}) follows from (\ref{disjoint_boxes}), the fact that each element of $S$ is covered by some $x\in X$, and the fact that each $x\in X$ covers at most two elements of $S$.
 
-  To see that $X$ satisifies (\ref{disjoint_boxes}), observe that if $x\in X$ covers $v\in S$ then $\tilde{B}_{p+1}(x)\subseteq \tilde{B}_{2p+2}(v)$. Therefore, if $x\in X$ covers $v\in S$ and $y\in X$ covers $w\in S$ and $\tilde{B}_{p+1}(x)\cap \tilde{B}_{p+1}(y)\neq\emptyset$ then $w\in \tilde{B}_{4p+4}(v)$ or $v\in \tilde{B}_{4p+4}(w)$.  Since $r-1 \ge 4p+4$, this implies that $v=w$ or $v$ and $w$ are an $(r-1)$-pair.  In the former case, $x=y$ and there is nothing to prove. In the latter case, $v,w\in S_2$ or $v,w\in S_3$.  If $v,w\in S_2$ then, again $x=y$ and there is nothing to prove.  If $v,w\in S_3$ then $x$ and $y$ are specifically chosen so that $\tilde{B}_{p+1}(x)$ and $\tilde{B}_{p+1}(y)$ are disjoint.
+  To see that $X$ satisifies (\ref{disjoint_boxes}), observe that if $x\in X$ covers $v\in S$ then $\tilde{B}_{p+1}(x)\subseteq \tilde{B}_{2p+2}(v)$. Therefore, if $x\in X$ covers $v\in S$,  $y\in X$ covers $w\in S$, and $\tilde{B}_{p+1}(x)\cap \tilde{B}_{p+1}(y)\neq\emptyset$ then $w\in \tilde{B}_{4p+4}(v)$ or $v\in \tilde{B}_{4p+4}(w)$.  Since $r-1 \ge 4p+4$, this implies that $v=w$ or $v$ and $w$ are an $(r-1)$-pair.  In the former case, $x=y$ and there is nothing to prove. In the latter case, $v,w\in S_2$ or $v,w\in S_3$.  If $v,w\in S_2$ then, again $x=y$ and there is nothing to prove.  If $v,w\in S_3$ then $x$ and $y$ are specifically chosen so that $\tilde{B}_{p+1}(x)$ and $\tilde{B}_{p+1}(y)$ are disjoint.
 \end{proof}
 
 
@@ -385,7 +385,7 @@ The next lemma shows how to take a well separated collection of pairs of vertice
 \end{lem}
 
 \begin{proof}
-  Apply \cref{make_disjoint} with $p=\floor{(r-5)/4}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod{2p+1}$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $G[\tilde{B}_{p+1}(x)]$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap B_{p+1}(x)$ with a path that is contained in $\tilde{B}_{p+1}(x)$ and contains the (at most two) vertices of $\tilde{B}_{p+1}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$.
+  Apply \cref{make_disjoint} with $p=\floor{(r-5)/4}$ to obtain the set $X$.  Now, consider a `snake-like' path $P_0$ that contains every row $i$ with $i\equiv 1\pmod{2p+1}$ and, aside from those rows contains only vertices of columns $1$ and $k$.   For each $x\in X$, this path intersects exactly one row of $G[\tilde{B}_{p+1}(x)]$.  For each $x\in X$ we use \cref{pick_up_two} to replace $V(P_0)\cap \tilde{B}_{p+1}(x)$ with a path that is contained in $\tilde{B}_{p+1}(x)$ and contains the (at most two) vertices of $\tilde{B}_{p+1}(x)\cap S$.  After doing this for each $x\in X$ we obtain a path $P$ that contains every vertex in $S$.
 \end{proof}
 
 \subsection{A Packing Lemma}
@@ -440,7 +440,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   \end{compactenum}
   then we include $\mu_1$ and $\mu_2$ in $Q_1$ and declare the first round an \defin{$\alpha$-success}.  Otherwise, we declare the first round an \defin{$\alpha$-failure}.
 
-  Let $\overline{X}\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was an $\alpha$-success. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}).  In fact, it implies an even stronger property: $B_{2r+1}(\mu)\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$, which implies that $|B_r(\nu)\cap Q_1|\le 1$ for each $\nu\in\VE(G_k)$. However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $\overline{X}$.  We now use the second round to create a set $Q_2$ to handle the colours in $X:=\varphi(V(G))\setminus \overline{X}$.
+  Let $\overline{X}\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was an $\alpha$-success. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}).  In fact, it satisfies an even stronger property: $B_{2r+1}(\mu)\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$, which implies that $|B_r(\nu)\cap Q_1|\le 1$ for each $\nu\in\VE(G_k)$. However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $\overline{X}$.  We now use the second round to create a set $Q_2$ to handle the colours in $X:=\varphi(V(G))\setminus \overline{X}$.
 
   Define a bipartite graph $H$ with parts $L(H):=X$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{|Y|}$ be a random permutation of $Y$.\footnote{Here random permutation means a permutation chosen uniformly from the set of all $|Y|!$ permutations of $Y$.}  We include an edge $\alpha\mu_i$ in $H$ if and only if
   \[
@@ -458,9 +458,9 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   \[
      Y_\nu := \{\xi\in Y:\nu\in\VE(G_{3r+1}(\xi))\} \enspace .
   \]
-  The edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  By \cref{packing_lemma}, $|Y_\nu|\le 16$, so the probability that the edge $\alpha\mu$ appears in $H$ is at least $1/|Y_\nu|\ge 1/16$. This is already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$, but in order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.\footnote{There are many ways to obtain a concentration result here and we use a simple method with the goal of being self-contained.  For a tighter result, use the method of bounded differences \cite{mcdiarmid:on}.}  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_{2r+1}(\mu))\cap J$ contains at least one element $\nu$ and then set $J:=J\setminus \VE(G_{7r}(\nu))$.\footnote{The constant $7$ is overkill here and is only used for simplicity; $6r+O(1)$ would be sufficient.}  This process continues until $J$ is empty. Since $|\VE(G_{7r}(\mu))|\le \vol{7r}$, each iteration in this process eliminates at most $\vol{7r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{7r}}$.
+  The edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  By \cref{packing_lemma}, $|Y_\nu|\le 16$, so the probability that the edge $\alpha\mu$ appears in $H$ is at least $1/|Y_\nu|\ge 1/16$. This is already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$, but in order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.\footnote{There are many ways to obtain a concentration result here and we use a simple method with the goal of being self-contained.  For a tighter result, use the method of bounded differences \cite{mcdiarmid:on}.}  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_{2r+1}(\mu))\cap J$ contains at least one element $\nu$ and then setting $J:=J\setminus \VE(G_{7r}(\nu))$.\footnote{The constant $7$ is overkill here and is only used for simplicity; $6r+O(1)$ would be sufficient.}  This process continues until $J$ is empty. Since $|\VE(G_{7r}(\mu))|\le \vol{7r}$, each iteration in this process eliminates at most $\vol{7r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{7r}}$.
 
-  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are pairwise disjoint.  Indeed, $Y_{\nu_i}\subseteq B_{3r+2}(\nu_i)$, $Y_{\nu_j}\subseteq B_{3r+2}(\nu_j)$ and the fact that $\nu_i\not\in B_{7r}(\nu_j)$ implies that $G_{3r+2}(\nu_i)\cap G_{3r+2}(\nu_j)=\emptyset$.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of the subset $Y_{\nu_i}$ in the permutation $\pi$.  For each $i\in\{1,\ldots,k\}$, $\Pr(U_i)\ge 1/16$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/16)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
+  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are pairwise disjoint.  Indeed, $Y_{\nu_i}\subseteq B_{3r+2}(\nu_i)$, $Y_{\nu_j}\subseteq B_{3r+2}(\nu_j)$ and the fact that $\nu_i\not\in B_{7r}(\nu_j)$ implies that $\VE(G_{3r+2}(\nu_i))\cap \VE(G_{3r+2}(\nu_j))=\emptyset$.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of the subset $Y_{\nu_i}$ in the permutation $\pi$.  For each $i\in\{1,\ldots,k\}$, $\Pr(U_i)\ge 1/16$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/16)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
   \begin{align}
     \Pr\left(\deg_H(\alpha)< 2\vol{2r+1}\right)
     & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{2r+1}\right) \notag \\
@@ -526,7 +526,7 @@ We now have all the pieces needed to complete our lower bound on the linear chro
 \section*{Acknowledgement}
 
 The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment.
-Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace.
+Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace and to Omer Angel for pointing out that the problem on $k\times k$ grid has a simple solution.
 
 
 \bibliographystyle{plainurlnat}
