@@ -89,7 +89,27 @@
 \renewcommand{\Pr}{\mathbb{P}}
 
 \begin{abstract}
-  We prove that the linear chromatic number of any $k\times k$ pseudogrid is $\Omega(k)$.  By an argument of Kun et al (Algorithmica, 2021), this result gives a tighter upper bound on the treedepth of a graph as a function of its linear chromatic number and gives further evidence in support of their conjecture that the treedepth of any graph is upper bounded by a linear function of its linear chromatic number.
+  A \emph{centered colouring} of a graph is one in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is one in which every path contains a vertex whose colour is unique.  For a graph $G$ the \emph{centered colouring number} $\chicen(G)$ and the \emph{linear colouring number} $\chilin(G)$ denote the minimum number distinct colours required for a centered, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centered colouring number is equivalent to treedepth and has been studied extensively, but much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear coloring number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear colouring $\Omega(\sqrt{k})$. Our main contribution is establishing a tight
+  bound on the linear coloring number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$
+  for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound
+  for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{9})$. In addition this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centered colouring number (i.e. treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
+%   entered coloring (def). linear col definition. centered col same as
+% well studied tree depth. x_cen <= x_lin. There are plethora of results
+% on centred colouring much less is known about linear col. Bla proved
+% that x_cen <= BLA and conjectured that x_cen < 2 x_lin, for all
+% graphs. Their upper bound proof relies on establishing a lower bound
+% on the linear coloring number of pseudo grids. Pseudo grids appear in
+% the proof due to their critical relationship to tree width.
+% Specifically they prove that k x k pseud grids have linear colouring
+% number Omega(sqrt(k)). Our main contribution is establishing a tight
+% bound on linear coloring number of pseudo grids, specifically Theta(k)
+% for k x k pseudogrids. As a consequence we improved the general bound
+% for all graphs to BLA. In addition this tight bound gives further
+% evidence in support to the BLA's conjecture above that centered
+% colouring's (i.e. treedepth) of any graph is upper bounded by a linear
+% function of its linear chromatic number.
+
+  % We prove that the linear chromatic number of any $k\times k$ pseudogrid is $\Omega(k)$.  By an argument of Kun et al (Algorithmica, 2021), this result gives a tighter upper bound on the treedepth of a graph as a function of its linear chromatic number and gives further evidence in support of their conjecture that the treedepth of any graph is upper bounded by a linear function of its linear chromatic number.
 \end{abstract}
 
 \section{Introduction}
