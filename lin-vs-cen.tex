@@ -89,60 +89,52 @@
 \renewcommand{\Pr}{\mathbb{P}}
 
 \begin{abstract}
-  A \emph{centered colouring} of a graph is one in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is one in which every path contains a vertex whose colour is unique.  For a graph $G$ the \emph{centered colouring number} $\chicen(G)$ and the \emph{linear colouring number} $\chilin(G)$ denote the minimum number distinct colours required for a centered, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centered colouring number is equivalent to treedepth and has been studied extensively, but much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear coloring number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear colouring $\Omega(\sqrt{k})$. Our main contribution is establishing a tight
-  bound on the linear coloring number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$
-  for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound
-  for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{9})$. In addition this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centered colouring number (i.e. treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
-%   entered coloring (def). linear col definition. centered col same as
-% well studied tree depth. x_cen <= x_lin. There are plethora of results
-% on centred colouring much less is known about linear col. Bla proved
-% that x_cen <= BLA and conjectured that x_cen < 2 x_lin, for all
-% graphs. Their upper bound proof relies on establishing a lower bound
-% on the linear coloring number of pseudo grids. Pseudo grids appear in
-% the proof due to their critical relationship to tree width.
-% Specifically they prove that k x k pseud grids have linear colouring
-% number Omega(sqrt(k)). Our main contribution is establishing a tight
-% bound on linear coloring number of pseudo grids, specifically Theta(k)
-% for k x k pseudogrids. As a consequence we improved the general bound
-% for all graphs to BLA. In addition this tight bound gives further
-% evidence in support to the BLA's conjecture above that centered
-% colouring's (i.e. treedepth) of any graph is upper bounded by a linear
-% function of its linear chromatic number.
-
-  % We prove that the linear chromatic number of any $k\times k$ pseudogrid is $\Omega(k)$.  By an argument of Kun et al (Algorithmica, 2021), this result gives a tighter upper bound on the treedepth of a graph as a function of its linear chromatic number and gives further evidence in support of their conjecture that the treedepth of any graph is upper bounded by a linear function of its linear chromatic number.
+  A \emph{centred colouring} of a graph is a vertex colouring in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is a vertex colouring in which every path contains a vertex whose colour is unique.  For a graph $G$ the \emph{centred chromatic number} $\chicen(G)$ and the \emph{linear chromatic number} $\chilin(G)$ denote the minimum number distinct colours required for a centred, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centred chromatic number is equivalent to treedepth and has been studied extensively. Much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear coloring number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear colouring $\Omega(\sqrt{k})$. Our main contribution is establishing a tight bound on the linear coloring number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$ for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{9})$. In addition this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centred chromatic number (i.e. treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
 \end{abstract}
 
 \section{Introduction}
 
-Let $G$ be a simple undirected graph.  A \defin{$k$-colouring} of $G$ is any function $\varphi:V(G)\to C$ where $C$ is a set of size $k$.  A vertex $v$ of $G$ is a \defin{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \defin{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \defin{linear} if every simple path in $G$ has a centre with respect to $\varphi$.
+Let $G$ be a simple undirected graph.  A \defin{$k$-colouring} of $G$ is any function $\varphi:V(G)\to C$ where $C$ is a set of size $k$.  A vertex $v$ of $G$ is a \defin{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \defin{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \defin{linear} if every simple path in $G$ has a centre with respect to $\varphi$. The \defin{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring and the \defin{linear chromatic number} $\chilin(G)$ is the minimum integer $c$ such $G$ has a linear $c$-colouring.
 
-The \defin{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring.  An easy argument shows that centred chromatic number and treedepth are equivalent, i.e., $\td(G)=\chicen(G)$ for every graph $G$ \cite{nesetril.ossona:sparsity}. The \defin{linear chromatic number} of $G$ is the minimum integer $\ell$ such that $G$ has a linear $\ell$-colouring.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$.  The fundamental problem on linear colouring is the question of upper bounding $\chicen(G)$ in terms of $\chilin(G)$.
-
-Motivated by finding efficiently-computable approximations of treedepth in bounded expansion classes, linear colourings were introduced by \citet{kun.obrien.ea:polynomial} who were able to establish a polynomial upper bound on $\chicen(G)$ as a function of $\chilin(G)$.  By combining their arguments with recent improvements by \citet{czerwinski.nadara.ea:improved} on the relationship between treedepth and treewidth, the following theorem is established:
+The centered chromatic number of any graph $G$ is equal to the treedepth of $G$ and has been studied extensively \cite{nesetril.ossona:sparsity,X,Y}.  Linear chromatic number was introduced by \citet{kun.obrien.ea:polynomial} who were motivated by finding efficiently-computable approximations of treedepth in bounded expansion classes.  Much less is known about linear chromatic number.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$. In the other direction, \citet{kun.obrien.ea:polynomial} were able to establish that $\chicen(G)\le \chilin(G)^{190}\log^{O(1)}\chilin(G)$.  This upper bounded was subsequently improved by \citet{czerwinski.nadara.ea:improved}, who reduced the exponent to $19$.
 
 \begin{thm}[\cite{kun.obrien.ea:polynomial,czerwinski.nadara.ea:improved}]\label{kun_obrien_general}
   For any graph $G$, $\chicen(G)\le (\chilin(G))^{19}\cdot(\log(\chilin(G)))^{O(1)}$.
 \end{thm}
 
-In the other direction, \citet{kun.obrien.ea:polynomial} show that, for any $\epsilon >0$, there exists a graph $G$ with $\chicen(G) \ge (2-\epsilon)\chilin(G)$.  The same authors make the following bold conjecture:
+\citet{kun.obrien.ea:polynomial} give a family of graphs that contains, for every $\epsilon > 0$, a graph $G$ with $\chicen(G)\ge (2-\epsilon)\chilin(G)$. They conjecture that this bound is tight:
 
-\begin{conj}[\citet{kun.obrien.ea:polynomial}]\label{crazy_conjecture}
-  For any graph $G$, $\chicen(G)\le 2\chilin(G)$.
+\begin{conj}[\cite{kun.obrien.ea:polynomial}]\label{crazy_conjecture}
+  For every graph $G$, $\chicen(G)\le 2\chilin(G)$.
 \end{conj}
 
-Currently, the only class of graphs for which centred chromatic number is known to be bounded by a linear function of linear chromatic number is the class of bounded degree trees \cite[Theorem~4]{kun.obrien.ea:polynomial}.  To place the current contribution into context it is useful to understand the proof of \cref{kun_obrien_general}, which has three main ingredients:
+This is a very bold conjecture since until now the only class of graphs for which a linear bound is known is the class of bounded degree trees. Specifically, for any tree $T$ of maximum-degree $\Delta\ge 3$, $\chicen(T) \le (\log_2(\Delta))\chilin(G)$ \cite[Theorem~4]{kun.obrien.ea:polynomial}.
+
+To put our results into context, we summarize the proof of \cref{kun_obrien_general}:
+
 \begin{enumerate}
   \item A theorem of \citet{czerwinski.nadara.ea:improved} shows that, if $\chicen(G)\ge k^{19}\log^{q} k$ then $G$ contains a subcubic tree of treedepth $\Omega(k)$, or $\tw(G)\in\Omega(k^{18}\log^q k)$.\footnote{The result of \citet{czerwinski.nadara.ea:improved} is, of course, more general:  If $\chicen(G)\ge a\times b$, then $\tw(G)\in\Omega(a)$ or $G$ contains a subcubic tree of treedepth $\Omega(b)$. This is just an application of their result with $a=k^{18}\log^q k$ and $b=k$.}  In the former case, an asymptotically optimal result of \citet{kun.obrien.ea:polynomial} on subcubic trees completes the proof, so we are left with the case where $\tw(G)\in\Omega(k^{18}\log^q k)$.
+
   \item The current-best version of the Excluded Grid Theorem due to \citet{chuzhoy.tan:towards} shows that, if $\tw(G)\in\Omega(k^{18}\log^q k)$ (for a particular fixed positive $q$), then $G$ contains an $\Omega(k^2)\times \Omega(k^2)$ grid minor.
+
   \item A technical lemma \cite[Lemma~5]{kun.obrien.ea:polynomial} shows that, if $G$ contains a $\Omega(k^2)\times \Omega(k^2)$ grid minor, then $\chilin(G)\in\Omega(k)$.
 \end{enumerate}
 
-In the current work, we spend considerable effort to improve the technical lemma in Point~3 to show that a $\Omega(k)\times\Omega(k)$ grid minor is sufficient to guarantee that $\chilin(G)\in\Omega(k)$. This improves the exponent in \cref{kun_obrien_general} from $19$ to $10$, yielding the following improvement to \cref{kun_obrien_general}:
+In the current work, we spend considerable effort to improve the technical lemma in Point~3 and prove the following:
+
+\begin{lem}\label{pseudogrid_lower_bound}
+  For any $k\times k$ pseudogrid $G$, $\chilin(G)\in\Omega(k)$.
+\end{lem}
+
+This improves the exponent in \cref{kun_obrien_general} from $19$ to $10$, yielding the following improvement to \cref{kun_obrien_general}:
+
 \begin{thm}\label{kun_obrien_general2}
   For any graph $G$, $\chicen(G)\in (\chilin(G))^{10}\log(\chilin(G))^{O(1)}$.
 \end{thm}
 
-In addition to the (admittedly modest) improvement on the exponent in \cref{kun_obrien_general}, the current result adds further evidence in support of \cref{crazy_conjecture} by establishing that, when $G$ is a $k\times k$ pseudogrid, then $\chicen(G)\in\Theta(\chilin(G))$.
+Any further improvement to \cref{kun_obrien_general2} will either require an improved Excluded Grid Theorem or an entirely new approach.
+
+In addition to the improvement on the exponent in \cref{kun_obrien_general}, \cref{pseudogrid_lower_bound} adds further evidence in support of \cref{crazy_conjecture} by establishing that, when $G$ is a $k\times k$ pseudogrid, then $\chicen(G)\in\Theta(\chilin(G))$.
 
 \section{Preliminaries}
 
@@ -208,13 +200,7 @@ As part of our proof, we use the operation of \defin{deleting} a row (or column)
 
 \subsection{Proof Outline}
 
-If some graph contains a $k\times k$ grid minor then it contains a $k\times k$ pseudogrid as a subgraph \cite{kun.obrien.ea:polynomial}.  Therefore to prove \cref{kun_obrien_general2}, it suffices to establish:
-
-\begin{lem}\label{pseudogrid_lower_bound}
-  For any $k\times k$ pseudogrid $G$, $\chilin(G)\in\Omega(k)$.
-\end{lem}
-
-We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently small $\epsilon >0$,  any $\epsilon k$-colouring of any $k\times k$ pseudogrid $G$ contains an uncentred path $P$. We will prove the existence of $P$ in several steps; see \cref{outline}:
+If some graph contains a $k\times k$ grid minor then it contains a $k\times k$ pseudogrid as a subgraph \cite{kun.obrien.ea:polynomial}.  Therefore to prove \cref{kun_obrien_general2}, it suffices to establish \cref{pseudogrid_lower_bound}.  We do this by showing that, for sufficiently small $\epsilon >0$, any $\epsilon k$-colouring of any $k\times k$ pseudogrid $G$ contains an uncentred path $P$. We prove the existence of $P$ in several steps; see \cref{outline}:
 
 \begin{figure}
   \begin{center}
@@ -232,7 +218,7 @@ We will prove \cref{pseudogrid_lower_bound} by showing that for sufficiently sma
 
   \item We first delete rows and columns from $G$ so that each colour that appears in $G$ appears at least $d$ times in the interior of $G$, for some large constant $d$.  From this point on the goal is to construct $P$ so that it contains each remaining colour at least twice.
 
-  \item We greedily choose a set $S_1$ of vertices in $G$ that contains two vertices of each colour and that is `well-separated' in the sense that the corresponding set of vertices/edges in $G_{k\times k}$ have a minimum distance between them.  In \cref{outline} this minimum distance corresponds to the fact that the box drawn centered at each vertex in $S_1$ contains no other vertices of $S_1$.
+  \item We greedily choose a set $S_1$ of vertices in $G$ that contains two vertices of each colour and that is `well-separated' in the sense that the corresponding set of vertices/edges in $G_{k\times k}$ have a minimum distance between them.  In \cref{outline} this minimum distance corresponds to the fact that the box drawn centred at each vertex in $S_1$ contains no other vertices of $S_1$.
   % This makes it easy to find a single path in $G$ that contains each of these vertices.
   Unfortunately, this process can fail for some subset of the colours that appear in $G$.
 
