@@ -1,0 +1,10 @@
+/lin-vs-cen.pdf
+/*.aux
+/*.bbl
+/*.blg
+/*.fdb_latexmk
+/*.fls
+/*.log
+/*.out
+/figs/*.pdf
+/figs/doc_data.txt
