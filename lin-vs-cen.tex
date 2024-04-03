@@ -502,13 +502,19 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   \begin{align}
     w(E_\alpha)\prod_{E_\beta\in\Gamma_\alpha} (1-w(E_\beta))
     & = \tfrac{1}{\tau}\left(1-\tfrac{1}{\tau}\right)^{|\Gamma_\alpha|-1} \notag \\
-    & \ge \exp\left(-\ln\tau - |\Gamma_\alpha|/(\tau-1)\right) & \text{(Since $(1-1/\tau)^{\tau-1} > 1/e$)} \notag \\
-    & \ge \exp\left(-\ln\tau - \vol{7r}\cdot|\Phi_\alpha|/(\tau-1)\right)
-    & \text{(since $|\Gamma_\alpha|\le \vol{7r}\cdot\Phi_\alpha$).}  \label{weight_product}
+    & > \tfrac{1}{\tau}\left(1-\tfrac{1}{\tau}\right)^{|\Gamma_\alpha|}
+      & \text{(since $1-1/\tau<1$)}\notag \\
+    % & = \exp(-\ln\tau)\cdot \left(1-\tfrac{1}{\tau}\right)^{|\Gamma_\alpha|} \notag \\
+    % & = \exp(-\ln\tau)\cdot \left(1-\tfrac{1}{\tau}\right)^{|\Gamma_\alpha|} \notag \\
+    & > \exp(-\ln\tau-|\Gamma_\alpha|/\tau)
+      & \text{(since $e^{-1/\tau}> 1-1/\tau$)}\notag \\
+    % & \ge \exp\left(-\ln\tau - |\Gamma_\alpha|/(\tau-1)\right) & \text{(Since $(1-1/\tau)^{\tau-1} > 1/e$)} \notag \\
+    & \ge \exp\left(-\ln\tau - \vol{7r}\cdot|\Phi_\alpha|/\tau\right)
+      & \text{(since $|\Gamma_\alpha|\le \vol{7r}\cdot\Phi_\alpha$).}  \label{weight_product}
   \end{align}
 
   Comparing \cref{weight_product,probability} we see that both quantities decrease exponentially in $|\Phi_\alpha|$ but \cref{weight_product} does so at a rate that can be controlled with $\tau$.
-  Taking $\tau = {32\vol{7r}^2}+1$, and using \cref{weight_product,probability}, we find that
+  Taking $\tau = {32\vol{7r}^2}$, and using \cref{weight_product,probability}, we find that
   \[
      \Pr\left(E_\alpha\right) \le w(E_\alpha)\prod_{\beta\in\Gamma_\alpha}(1-w(E_\beta))
   \]
