@@ -6,5 +6,6 @@
 /*.fls
 /*.log
 /*.out
+/*.synctex.gz
 /figs/*.pdf
 /figs/doc_data.txt
