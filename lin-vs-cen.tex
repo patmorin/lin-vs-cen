@@ -11,6 +11,10 @@
 \usepackage[noend]{algorithmic}
 \usepackage{bbm}  % needed for \mathbbm{1}
 \usepackage{listings}
+\usepackage{thmtools}
+\usepackage{thm-restate}
+
+\newtheorem{zeb}[theorem]{Lemma}
 
 \usepackage[normalem]{ulem}
 \usepackage{cancel}
@@ -90,7 +94,7 @@
 \renewcommand{\Pr}{\mathbb{P}}
 
 \begin{abstract}
-  A \emph{centred colouring} of a graph is a vertex colouring in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is a vertex colouring in which every (not-necessarily induced) path contains a vertex whose colour is unique.  For a graph $G$, the \emph{centred chromatic number} $\chicen(G)$ and the \emph{linear chromatic number} $\chilin(G)$ denote the minimum number of distinct colours required for a centred, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centred chromatic number is equivalent to treedepth and has been studied extensively. Much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear chromatic number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear chromatic number $\Omega(\sqrt{k})$. Our main contribution is establishing a tight bound on the linear chromatic number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$ for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{10})$. In addition this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centred chromatic number (i.e., the treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
+  A \emph{centred colouring} of a graph is a vertex colouring in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is a vertex colouring in which every (not-necessarily induced) path contains a vertex whose colour is unique.  For a graph $G$, the \emph{centred chromatic number} $\chicen(G)$ and the \emph{linear chromatic number} $\chilin(G)$ denote the minimum number of distinct colours required for a centred, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centred chromatic number is equivalent to treedepth and has been studied extensively. Much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear chromatic number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear chromatic number $\Omega(\sqrt{k})$. Our main contribution is establishing a tight bound on the linear chromatic number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$ for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{10})$. In addition, this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centred chromatic number (i.e., the treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
 \end{abstract}
 
 \section{Introduction}
@@ -103,7 +107,7 @@ The centered chromatic number of any graph $G$ is equal to the treedepth of $G$ 
   For any graph $G$, $\chicen(G)\le (\chilin(G))^{19}\cdot(\log(\chilin(G)))^{O(1)}$.
 \end{thm}
 
-\citet{kun.obrien.ea:polynomial} give a family of graphs that contains, for every $\epsilon > 0$, a graph $G$ with $\chicen(G)\ge (2-\epsilon)\chilin(G)$. They conjecture that this bound is tight:
+\citet{kun.obrien.ea:polynomial} construct a family of graphs that contains, for every $\epsilon > 0$, a graph $G$ with $\chicen(G)\ge (2-\epsilon)\chilin(G)$. They conjecture that this bound is tight:
 
 \begin{conj}[\cite{kun.obrien.ea:polynomial}]\label{crazy_conjecture}
   For every graph $G$, $\chicen(G)\le 2\chilin(G)$.
@@ -137,7 +141,10 @@ This improves the exponent in \cref{kun_obrien_general} from $19$ to $10$, yield
 
 In addition to the improvement on the exponent in \cref{kun_obrien_general}, \cref{pseudogrid_lower_bound} adds further evidence in support of \cref{crazy_conjecture} by establishing that, when $G$ is a $k\times k$ pseudogrid, $\chicen(G)\in\Theta(\chilin(G))$.
 
-Any further improvement to \cref{kun_obrien_general2} will either require an improved Excluded Grid Theorem or an entirely new approach. However, no improvement to the Excluded Grid Theorem will sufficient to establish a linear relationship between the centred and the linear chromatic number.  Indeed, the best possible Excluded Grid Theorem would state that any graph of treewidth $k^2\log k$ contains an $\Omega(k)\times\Omega(k)$ grid minor, and the preceding argument would only show that $\chicen(G)\in O((\chilin(G))^3\log(\chilin(G)))$.  Even the Excluded Grid Theorem for Planar Graphs states that any planar graph of treewidth $k$ contains an $\Omega(k)\times\Omega(k)$ grid minor.  Combining this with the argument above and \cref{pseudogrid_lower_bound} shows only that, for any planar graph $G$, $\chicen(G)\in\Theta((\chilin(G))^2)$.
+Any further improvement to \cref{kun_obrien_general2} will either require an improved Excluded Grid Theorem or an entirely new approach. However, no improvement to the Excluded Grid Theorem will sufficient to establish a linear relationship between the centred and the linear chromatic number.  Indeed, the best possible Excluded Grid Theorem would state that any graph of treewidth $k^2\log k$ contains an $\Omega(k)\times\Omega(k)$ grid minor \cite{robertson.seymour.ea:quickly}, and the preceding argument would only show that $\chicen(G)\in O((\chilin(G))^3\log(\chilin(G)))$.  Even the Excluded Grid Theorem for Planar Graphs states that any planar graph of treewidth $k$ contains an $\Omega(k)\times\Omega(k)$ grid minor
+% \cite[(6.2)]{robertson.seymour.ea:quickly}.
+\cite{robertson.seymour.ea:quickly}.
+Combining this with the argument above and \cref{pseudogrid_lower_bound} shows only that, for any planar graph $G$, $\chicen(G)\in\Theta((\chilin(G))^2)$.
 
 
 \section{Preliminaries}
@@ -200,7 +207,7 @@ The \defin{$r$-interior} of $G$ is $\interior_r(G):=\bigcup_{\mu\in\VE(\interior
 
 Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path $C$  in $G$ that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the \defin{rows} and \defin{columns} of $G$, which we will do immediately.
 
-As part of our proof, we use the operation of \defin{deleting} a row (or column) of $G$.  To delete a row $R$ of $G$ that corresponds to the row $R':=v_1,\ldots,v_a$, we remove the edges of $\overline{P}_{v_{i}v_{i+1}}$ for each $i\in\{2,\ldots,a\}$.  If this produces vertices of degree $1$ (which happens when $R$ is the first or last row of $G$ or when $R=v_1,\ldots,v_r$ does not contains $P_{v_i}$ for some $i\in\{1,\ldots,r\}$) then we repeatedly remove vertices of degree at most $1$ until none remain.  If $G$ is an $a\times b$ pseudogrid and we delete some row $R$, then the resulting graph is an $a\times (b-1)$ pseudogrid.  Similarly, if we delete column $C$ of $G$, then the resulting graph is a $(a-1)\times b$ pseudogrid.
+As part of our proof, we use the operation of \defin{deleting} a row (or column) of $G$.  To delete a row $R$ of $G$ that corresponds to the row $R':=v_1,\ldots,v_a$ in $G_{a\times b}$, we remove the edges of $\overline{P}_{v_{i}v_{i+1}}$ for each $i\in\{2,\ldots,a\}$.  If this produces vertices of degree $1$ (which happens when $R$ is the first or last row of $G$ or when $R=v_1,\ldots,v_r$ does not contains $P_{v_i}$ for some $i\in\{1,\ldots,r\}$) then we repeatedly remove vertices of degree at most $1$ until none remain.  If $G$ is an $a\times b$ pseudogrid and we delete some row $R$, then the resulting graph is an $a\times (b-1)$ pseudogrid.  Similarly, if we delete column $C$ of $G$, then the resulting graph is a $(a-1)\times b$ pseudogrid.
 
 \subsection{Proof Outline}
 
@@ -348,9 +355,9 @@ For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 
 The following lemma, whose proof is a case analysis that appears in \cref{pick_up_two_proof}, is the main tool we use to build a path that contains a set of vertices that can be paired off in such a way that each pair is far from all other vertices.
 
-\begin{lem}\label{pick_up_two}
+\begin{restatable}{zeb}{blechblech}\label{pick_up_two}
   Let $G$ be an $a\times a$ pseudogrid with $a\ge 5$,  let $s,v,w,t$ be vertices of $G$ with $s$ in column $1$ of $G$, $v,w\in \interior_1(G)$, and $t$ in column $a$ of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
-\end{lem}
+\end{restatable}
 
 The next lemma shows how to take a well separated collection of pairs of vertices and cover them with disjoint boxes, each of which is compatible with \cref{pick_up_two}.
 
@@ -467,7 +474,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % \todo{Explain more or redefine $\Phi_\alpha$ as $\Phi_\alpha\cap (\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu)))$)}
   % For each $\mu\in Y$, $|\VE(G_{r+1}(\mu))|\in O(r^2)$. Therefore, there are $\Omega(|\Phi_\alpha|/r^2)$ objects $\mu\in Y$ such that $\VE(G_{r+1}(\mu))\cap \Phi_\alpha\neq\emptyset$.
 
-  We now show that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.} a $\binomial(\ceil{|\Phi_\alpha|/\vol{7r}},1/16)$ random variable, which allows us to establish an exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{2r+1})$. Suppose that, for some $\alpha\in X$ and $\mu\in Y$, $B_{2r+1}(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$ and consider the set
+  Our next step is to show that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.} a $\binomial(\ceil{|\Phi_\alpha|/\vol{7r}},1/16)$ random variable, which allows us to establish an exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{2r+1})$. Suppose that, for some $\alpha\in X$ and $\mu\in Y$, $B_{2r+1}(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$ and consider the set
   \[
      Y_\nu := \{\xi\in Y:\nu\in\VE(G_{3r+1}(\xi))\} \enspace .
   \]
@@ -538,7 +545,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 We now have all the pieces needed to complete our lower bound on the linear chromatic number of pseudogrids:
 
 \begin{proof}[Proof of \cref{pseudogrid_lower_bound}]
-  Suppose, for the sake of contradiction, that $G$ has a linear colouring $\varphi$ using fewer than $\epsilon k$ colours where $\epsilon:=1/(d+2r)$, $r:= 13$ and $d\in O(r^4\log r)=O(1)$ is some large integer constant.  Then, by \cref{only_frequent}, $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k/2$ having a grid-decomposition $\mathcal{P}':=\{P_\mu':\mu\in \VE(G_{k'})\}$ with the property that, for any $A\subseteq\varphi(V(G'))$, $|\varphi^{-1}_{\mathcal{P'}}(A)\cap\interior_r(G_{k'})|\ge d|A|$.  \Cref{doubled_colour_set} implies that $G'$ contains a set $S$ of $2|\varphi(V(G')|$ vertices containing two vertices of each colour in $\varphi(V(G'))$ such that $|B_r(\mu)\cap S|\le 2$ for each $\mu\in S$.  By \cref{pick_up_everything}, $G'$ contains a path $P$ that contains every vertex in $S$.  Since $P$ is contained in $G'$, $\varphi(V(P))=\varphi(V(G'))$, so $P$ is has no center under $\varphi$, contradicting the assumption that $\varphi$ is a linear colouring of $G$.
+  Let $G$ be a $k\times k$ pseudogrid and suppose, for the sake of contradiction, that $G$ has a linear colouring $\varphi$ using fewer than $\epsilon k$ colours where $\epsilon:=1/(d+2r)$, $r:= 13$ and $d\in O(r^4\log r)=O(1)$ is some large integer constant.  Then, by \cref{only_frequent}, $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k/2$ having a grid-decomposition $\mathcal{P}':=\{P_\mu':\mu\in \VE(G_{k'})\}$ with the property that, for any $A\subseteq\varphi(V(G'))$, $|\varphi^{-1}_{\mathcal{P'}}(A)\cap\interior_r(G_{k'})|\ge d|A|$.  For a sufficiently large constant $d$, \cref{doubled_colour_set} implies that $G'$ contains a set $S$ of $2|\varphi(V(G')|$ vertices containing two vertices of each colour in $\varphi(V(G'))$ such that $|B_r(\mu)\cap S|\le 2$ for each $\mu\in S$.  By \cref{pick_up_everything}, $G'$ contains a path $P$ that contains every vertex in $S$.  Since $P$ is contained in $G'$, $\varphi(V(P))=\varphi(V(G'))$, so $P$ is has no center under $\varphi$, contradicting the assumption that $\varphi$ is a linear colouring of $G$.
 \end{proof}
 
 
@@ -547,7 +554,7 @@ We now have all the pieces needed to complete our lower bound on the linear chro
 The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment.
 Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace.
 
-We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution: Partition the grid into $2\times 2$ grids and repeatedly delete a subgrid if it contains a vertex whose colour is unique.  If this causes the grid to become disconnected, keep only the largest remaining component and continue.  This process deletes at most $4\epsilon k$ vertices.  For $\epsilon < 1/4$, this implies that the graph that remains at the end has at least $k^2/2$ vertices.  In particular, the graph that remains is non-empty and every colour that appears in this graph appears in at least two vertices.  Finally, this graph has a Hamiltonian path (which can be constructed by traversing the boundary of  a spanning-tree of the dual graph).
+We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution: Partition the grid into $2\times 2$ grids and repeatedly delete a subgrid if it contains a vertex whose colour is unique.  If this causes the grid to become disconnected, keep only the largest remaining component and continue.  This process deletes at most $4\epsilon k$ vertices.  For $\epsilon < 1/4$, this implies that the graph that remains at the end of thie process has at least $k^2/2$ vertices.  In particular, the graph that remains is non-empty and every colour that appears in this graph is used on at least two vertices.  Finally, this graph has a Hamiltonian path (which can be constructed by traversing the boundary of  a spanning-tree of the dual graph).
 
 
 
@@ -559,6 +566,7 @@ We are also grateful to Omer Angel for pointing out that the problem on a $k\tim
 \section{Proof of \cref{pick_up_two}}
 \label{pick_up_two_proof}
 
+\blechblech
 
 \begin{proof}[Proof of \cref{pick_up_two}]
   Let $\mathcal{P}:=\{P_\mu:\mu\in \VE(G_a)\}$ be a grid partition of $G$ and let $\mu_v,\mu_w\in \VE(G_a)$ be such that $v\in V(P_{\mu_v})$ and $w\in V(P_{\mu_w})$.  Define $\mu_s$ and $\mu_t$ similarly, with respect to $s$ and $t$.  Very roughly, this lemma says that the grid $G_a$ contains a path $P_a$ with $\mu_v,\mu_w\in\VE(P_a)$ whose first edge/vertex is $\mu_s$, and whose last edge/vertex is $\mu_t$.
