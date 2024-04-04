@@ -89,14 +89,14 @@
 \renewcommand{\Pr}{\mathbb{P}}
 
 \begin{abstract}
-  A \emph{centred colouring} of a graph is a vertex colouring in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is a vertex colouring in which every path contains a vertex whose colour is unique.  For a graph $G$ the \emph{centred chromatic number} $\chicen(G)$ and the \emph{linear chromatic number} $\chilin(G)$ denote the minimum number distinct colours required for a centred, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centred chromatic number is equivalent to treedepth and has been studied extensively. Much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear chromatic number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear chromatic number $\Omega(\sqrt{k})$. Our main contribution is establishing a tight bound on the linear chromatic number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$ for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{10})$. In addition this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centred chromatic number (i.e. treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
+  A \emph{centred colouring} of a graph is a vertex colouring in which every connected subgraph contains a vertex whose colour is unique and a \emph{linear colouring} is a vertex colouring in which every (not-necessarily induced) path contains a vertex whose colour is unique.  For a graph $G$, the \emph{centred chromatic number} $\chicen(G)$ and the \emph{linear chromatic number} $\chilin(G)$ denote the minimum number of distinct colours required for a centred, respectively, linear colouring of $G$. From these definitions, it follows immediately that $\chilin(G)\le \chicen(G)$ for every graph $G$. The centred chromatic number is equivalent to treedepth and has been studied extensively. Much less is known about linear colouring.  Kun \etal\ [\textit{Algorithmica} \textbf{83}(1)] prove that $\chicen(G) \le \tilde{O}(\chilin(G)^{190})$ for any graph $G$ and conjecture that $\chicen(G)\le 2\chilin(G)$.  Their upper bound was subsequently improved by Czerwinski \etal\ [\textit{SIDMA} \textbf{35}(2)] to $\chicen(G)\le\tilde{O}(\chilin(G)^{19})$. The proof of both upper bounds relies on establishing a lower bound on the linear chromatic number of pseudogrids, which appear in the proof due to their critical relationship to treewidth.  Specifically, Kun \etal\ prove that $k\times k$ pseudogrids have linear chromatic number $\Omega(\sqrt{k})$. Our main contribution is establishing a tight bound on the linear chromatic number of pseudogrids, specifically $\chilin(G)\ge \Omega(k)$ for every $k\times k$ pseudogrid $G$. As a consequence we improve the general bound for all graphs to $\chicen(G)\le \tilde{O}(\chilin(G)^{10})$. In addition this tight bound gives further evidence in support of Kun \etal's conjecture (above) that the centred chromatic number (i.e., the treedepth) of any graph is upper bounded by a linear function of its linear chromatic number.
 \end{abstract}
 
 \section{Introduction}
 
-Let $G$ be a simple undirected graph.  A \defin{$k$-colouring} of $G$ is any function $\varphi:V(G)\to C$ where $C$ is a set of size $k$.  A vertex $v$ of $G$ is a \defin{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \defin{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \defin{linear} if every simple path in $G$ has a centre with respect to $\varphi$. The \defin{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring and the \defin{linear chromatic number} $\chilin(G)$ is the minimum integer $c$ such $G$ has a linear $c$-colouring.
+Let $G$ be a simple undirected graph.  A \defin{$k$-colouring} of $G$ is any function $\varphi:V(G)\to C$ where $C$ is a set of size $k$.  A vertex $v$ of $G$ is a \defin{centre} of $G$ with respect to $\varphi$ if $\varphi(v)\not\in\{\varphi(w):w\in V(G)\setminus\{v\}\}$, i.e., $v$ is the unique vertex of $G$ having colour $\varphi(v)$.  A colouring $\varphi$ of $G$ is \defin{centred} if every connected subgraph of $G$ has a centre with respect to $\varphi$. A colouring $\varphi$ of $G$ is \defin{linear} if every path\footnote{A \defin{path} in a graph $G$ is a sequence of distinct vertices $v_0,\ldots,v_r$ such that $v_{i-1}v_i$ is an edge of $G$ for each $i\in\{1,\ldots,r\}$.} in $G$ has a centre with respect to $\varphi$.  The \defin{centred chromatic number} $\chicen(G)$ of $G$ is the minimum integer $c$ such that $G$ has a centred $c$-colouring and the \defin{linear chromatic number} $\chilin(G)$ is the minimum integer $c$ such $G$ has a linear $c$-colouring.  Since each edge of $G$ is both a connected subgraph and a path in $G$, any centred colouring and any linear colouring is a proper colouring of $G$.
 
-The centered chromatic number of any graph $G$ is equal to the treedepth of $G$ and has been studied extensively \cite{nesetril.ossona:sparsity,nesetril.ossona:on,nesetril.ossona:grad,nesetril.ossona:tree-depth,pilipczuk.siebertz:polynomial,dereniowski.nadolski:vertex,dereniowski.kubale:cholesky,deogun.kloks.ea:on,bodlaender.gilbert.ea:approximating,bodlaender.deogun.ea:rankings}. Much less is known about linear chromatic number.  Linear chromatic number was introduced by \citet{kun.obrien.ea:polynomial} who were motivated by finding efficiently-computable approximations of treedepth in bounded expansion classes.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$. In the other direction, \citet{kun.obrien.ea:polynomial} were able to establish that $\chicen(G)\le \chilin(G)^{190}\log^{O(1)}\chilin(G)$.  This upper bounded was subsequently improved by \citet{czerwinski.nadara.ea:improved}, who reduced the exponent to $19$.
+The centered chromatic number of any graph $G$ is equal to the treedepth of $G$ and has been studied extensively \cite{nesetril.ossona:sparsity,nesetril.ossona:on,nesetril.ossona:grad,nesetril.ossona:tree-depth,pilipczuk.siebertz:polynomial,dereniowski.nadolski:vertex,dereniowski.kubale:cholesky,deogun.kloks.ea:on,bodlaender.gilbert.ea:approximating,bodlaender.deogun.ea:rankings}. Much less is known about the linear chromatic number.  Linear chromatic number was introduced by \citet{kun.obrien.ea:polynomial} who were motivated by finding efficiently-computable approximations of treedepth in bounded expansion classes.  Since every path in $G$ is a connected subgraph of $G$, every centred colouring of $G$ is also a linear colouring of $G$, so $\chilin(G)\le\chicen(G)$. In the other direction, \citet{kun.obrien.ea:polynomial} were able to establish that $\chicen(G)\le \chilin(G)^{190}\cdot(\log(\chilin(G)))^{O(1)}$.  This upper bound was subsequently improved by \citet{czerwinski.nadara.ea:improved}, who reduced the exponent to $19$.
 
 \begin{thm}[\cite{kun.obrien.ea:polynomial,czerwinski.nadara.ea:improved}]\label{kun_obrien_general}
   For any graph $G$, $\chicen(G)\le (\chilin(G))^{19}\cdot(\log(\chilin(G)))^{O(1)}$.
@@ -112,7 +112,7 @@ This is a very bold conjecture since until now the only class of graphs for whic
 
 To prove \cref{kun_obrien_general}, \citet{kun.obrien.ea:polynomial} establish the critical role that lower bounds on the linear chromatic number of pseudogrids and subcubic trees play in establishing an upper bound on $\chicen(G)$ as a function of $\chilin(G)$. In their work, they establish (asymptotically) tight lower bounds for the linear chromatic number of subcubic trees, but their lower bounds for pseudogrids are not tight.
 
-With the goal of making progress on \cref{crazy_conjecture}, our objective in this paper is to establish a tight lower bound on the linear chromatic number of pseudogrids. To put our results into context and to be more precise, we first summarize the proof of \cref{kun_obrien_general}:
+With the goal of better understanding the difficulty of \cref{crazy_conjecture}, our objective in this paper is to establish a tight lower bound on the linear chromatic number of pseudogrids. To put our results into context and to be more precise, we first summarize the proof of \cref{kun_obrien_general}:
 
 \begin{enumerate}
   \item A theorem of \citet{czerwinski.nadara.ea:improved} shows that, if $\chicen(G)\ge k^{19}\log^{q} k$ then $G$ contains a subcubic tree of treedepth $\Omega(k)$, or $\tw(G)\in\Omega(k^{18}\log^q k)$.\footnote{The result of \citet{czerwinski.nadara.ea:improved} is, of course, more general:  If $\chicen(G)\ge a\times b$, then $\tw(G)\in\Omega(a)$ or $G$ contains a subcubic tree of treedepth $\Omega(b)$. This is just an application of their result with $a=k^{18}\log^q k$ and $b=k$.}  In the former case, an asymptotically optimal result of \citet{kun.obrien.ea:polynomial} on subcubic trees completes the proof, so we are left with the case where $\tw(G)\in\Omega(k^{18}\log^q k)$.
@@ -134,9 +134,9 @@ This improves the exponent in \cref{kun_obrien_general} from $19$ to $10$, yield
   For any graph $G$, $\chicen(G)\in (\chilin(G))^{10}\log(\chilin(G))^{O(1)}$.
 \end{thm}
 
-In addition to the improvement on the exponent in \cref{kun_obrien_general}, \cref{pseudogrid_lower_bound} adds further evidence in support of \cref{crazy_conjecture} by establishing that, when $G$ is a $k\times k$ pseudogrid, then $\chicen(G)\in\Theta(\chilin(G))$.
+In addition to the improvement on the exponent in \cref{kun_obrien_general}, \cref{pseudogrid_lower_bound} adds further evidence in support of \cref{crazy_conjecture} by establishing that, when $G$ is a $k\times k$ pseudogrid, $\chicen(G)\in\Theta(\chilin(G))$.
 
-Any further improvement to \cref{kun_obrien_general2} will either require an improved Excluded Grid Theorem or an entirely new approach.
+Any further improvement to \cref{kun_obrien_general2} will either require an improved Excluded Grid Theorem or an entirely new approach. However, no improvement to the Excluded Grid Theorem will sufficient to establish a linear relationship between the centred and the linear chromatic number.  Indeed, the best possible Excluded Grid Theorem would state that any graph of treewidth $k^2\log k$ contains an $\Omega(k)\times\Omega(k)$ grid minor, and the preceding argument would only show that $\chicen(G)\in O((\chilin(G))^3\log(\chilin(G)))$.  Even the Excluded Grid Theorem for Planar Graphs states that any planar graph of treewidth $k$ contains an $\Omega(k)\times\Omega(k)$ grid minor.  Combining this with the argument above and \cref{pseudogrid_lower_bound} shows only that, for any planar graph $G$, $\chicen(G)\in\Theta((\chilin(G))^2)$.
 
 
 \section{Preliminaries}
@@ -171,25 +171,25 @@ Late in the game, we will make use of the following asymmetric version of the Lo
 
 \section{The Linear Chromatic Number of Pseudogrids}
 
-For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contain an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the \defin{$j$th row} is the vertex set $\{(1,j),\ldots,(a,j)\}$.  For any integer $0\le r<\min\{a,b\}/2$, the \defin{r-interior} of $G_{a\times b}$ defined as $\interior_r(G_{a\times b}):=G_{a\times b}[\{1+r,\ldots,a-r\}\times\{1+r,\ldots,b-r\}]$.  For $r\ge\min\{a,b\}/2$, $\interior_r(G_{a\times b})$ is the empty graph.
+For positive integers $a$ and $b$, the \defin{$a\times b$ grid} $G_{a\times b}$ is the graph with vertex set $V(G_{a\times b}):=\{1,\ldots,a\}\times\{1,\ldots,b\}$ and that contains an edge with endpoints $(i_1,j_1)$ and $(i_2,j_2)$ if and only if $|i_1-i_2|+|j_1-j_2|=1$.  Such an edge is \defin{vertical} if $i_1=i_2$ and \defin{horizontal} if $j_1=j_2$.  For each $i\in\{1,\ldots,a\}$, the \defin{$i$th column} of $G_{a\times b}$ is the vertex set $\{(i,1),\ldots,(i,b)\}$ and, for each $j\in\{1,\ldots,b\}$, the \defin{$j$th row} is the vertex set $\{(1,j),\ldots,(a,j)\}$.  For any integer $0\le r<\min\{a,b\}/2$, the \defin{r-interior} of $G_{a\times b}$ defined as $\interior_r(G_{a\times b}):=G_{a\times b}[\{1+r,\ldots,a-r\}\times\{1+r,\ldots,b-r\}]$.  For $r\ge\min\{a,b\}/2$, $\interior_r(G_{a\times b})$ is the empty graph.
 
 \begin{figure}
   \begin{center}
     \includegraphics{figs/pseudogrid-2}
   \end{center}
-  \caption{A $6\times 4$ pseudogrid.  Black vertices are contained in $P_v$ for some vertex $v$ of $G_{6\times 4}$ and white vertices are contained in $P_{vw}$ for some edge of $G_{6\times 4}$.}
+  \caption{A $6\times 4$ pseudogrid.  Black vertices are contained in $P_v$ for some vertex $v$ of $G_{6\times 4}$ and white vertices are contained in $P_{vw}$ for some edge of $G_{6\times 4}$. Colour are used to distinguish between cases (Q1) (blue), (Q2) (pink), and (Q3) (gold).}
   \label{pseudogrid_fig}
 \end{figure}
 
 Refer to \cref{pseudogrid_fig}.  An \defin{$a\times b$-pseudogrid} is any graph that can be obtained from $G_{a\times b}$ in the following way:
 \begin{compactitem}
-  \item Replace each edge $vw$ of $G_{a\times b}$ with a path $\overline{P}_{vw}$ whose endpoints are $v$ and $w$.  (In other words, $\overline{P}_{vw}$ is a path obtained by subdividing the edge $vw$ zero or more times.)
-  \item Replace each degree-$4$ vertex $v:=(i,j)$ of $G_{a\times b}$ with a non-empty path $P_v$. If $P_v$ has only one vertex then the unique vertex of $P_v$ is adjacent to each element of $N_{G_{a\times b}}(v)$ and this has no effect on the underlying graph.  Otherwise, $P_v$ has two endpoints $p$ and $q$, each of which is adjacent to two vertices among $N_{G_{a\times b}}(v)$.  It is useful to consider three possible cases, each of which appears at least once in \cref{pseudogrid_fig}:
+  \item Replace each degree-$4$ vertex $v$ whose neighbours (in counterclockwise order, starting with the neighbour $w$ above $v$) are $w,x,y,z$ with a non-empty path $P_v$. If $P_v$ has only one vertex then the unique vertex of $P_v$ is adjacent to each of $w,x,y,z$ and this has no effect on the underlying graph.  Otherwise, $P_v$ has two endpoints $p$ and $q$, each of which is adjacent to two vertices among $w,x,y,z$.  It is useful to consider three possible cases, each of which appears at least once in \cref{pseudogrid_fig}:
   \begin{compactenum}[(Q1)]
-    \item \label{q_i} $p$ is adjacent to $\{(i-1,j), (i,j-1)\}$ and $q$ is adjacent to $(i+1,j),(i,j+1)$;
-    \item \label{q_ii} $p$ is adjacent to $\{(i,j+1), (i-1,j)\}$ and $q$ is adjacent to $(i,j-1),(i+1,j)$; or
-    \item \label{q_iii} $p$ is adjacent to $\{(i-1,j),(i+1,j)\}$ and $q$ is adjacent to $\{(i,j-1),(i,j+1)\}$.
+    \item \label{q_i} $p$ is adjacent to $\{w,x\}$ and $q$ is adjacent to $\{y,z\}$;
+    \item \label{q_ii} $p$ is adjacent to $\{x,y\}$ and $q$ is adjacent to $\{w,z\}$; or
+    \item \label{q_iii} $p$ is adjacent to $\{w,y\}$ and $q$ is adjacent to $\{x,z\}$.
   \end{compactenum}
+  \item At this point, each edge $vw$ of $G_{a\times b}$ has a corresponding edge $v'w'$ in the modified graph, and we replace $v'w'$ with a path $\overline{P}_{vw}$ whose endpoints are $v'$ and $w'$.  (In other words, $\overline{P}_{vw}$ is a path obtained by subdividing the edge $v'w'$ zero or more times.)
 \end{compactitem}
 
 Let $G$ be an $a\times b$ pseudogrid.  For an edge $vw$ of $G_{a\times b}$, we let $P_{vw}:=\overline{P}_{vw}-\{v,w\}$ denote the (possibly empty) subpath containing the internal vertices of $\overline{P}_{vw}$.  For each vertex $v$ of $G_{a\times b}$ of degree less than $4$ we define $P_{v}$ to be the $1$-vertex path that contains only $v$.  In this way, $\mathcal{P}:=\{V(P_\mu):\mu\in \VE(G_{a\times b})\}$ is a partition of $V(G)$ into induced paths.  We call $\mathcal{P}$ a \defin{grid-partition} of $G$.
@@ -199,7 +199,7 @@ The \defin{$r$-interior} of $G$ is $\interior_r(G):=\bigcup_{\mu\in\VE(\interior
 
 Each row $R':=v_1,\ldots,v_a$ of $G_{a\times b}$ corresponds naturally to a path $R$ of $G$. The path $R$ contains $V(\overline{P}_{v_iv_{i+1}})$ for each $i\in\{1,\ldots,a-1\}$.  However, for $i\in\{2,\ldots,a-1\}$ $R$ may or may not contain $V(P_{v_i})$.  In particular, if $P_{v_i}$ was created using (Q\ref{q_iii}) then $R$ does not contain any internal vertices in $P_{v_i}$. Similarly, a column $C':=v_1,\ldots,v_b$ of $G_{a\times b}$ corresponds to a path $C$  in $G$ that contains $V(\overline{P}_{v_jv_{j+1}})$ for each $j\in\{1,\ldots,b-1\}$. This correspondence allows us to talk about the \defin{rows} and \defin{columns} of $G$, which we will do immediately.
 
-As part of our proof, we use the operation of \defin{deleting} a row (or column) $R$ of $G$, which works as follows:  We remove all edges of $R$ from $G$ and eliminate any isolated vertices.  If this produces vertices of degree $1$ (which happens when $R$ is the first or last row of $G$ or when $R=v_1,\ldots,v_r$ does not contains $P_{v_i}$ for some $i\in\{1,\ldots,r\}$) then we repeatedly remove vertices of degree at most $1$ until none remain.  If $G$ is an $a\times b$ pseudogrid and we delete some row $R$, then the resulting graph is an $a\times (b-1)$ pseudogrid.  Similarly, if we delete column $C$ of $G$, then the resulting graph is a $(a-1)\times b$ pseudogrid.
+As part of our proof, we use the operation of \defin{deleting} a row (or column) of $G$.  To delete a row $R$ of $G$ that corresponds to the row $R':=v_1,\ldots,v_a$, we remove the edges of $\overline{P}_{v_{i}v_{i+1}}$ for each $i\in\{2,\ldots,a\}$.  If this produces vertices of degree $1$ (which happens when $R$ is the first or last row of $G$ or when $R=v_1,\ldots,v_r$ does not contains $P_{v_i}$ for some $i\in\{1,\ldots,r\}$) then we repeatedly remove vertices of degree at most $1$ until none remain.  If $G$ is an $a\times b$ pseudogrid and we delete some row $R$, then the resulting graph is an $a\times (b-1)$ pseudogrid.  Similarly, if we delete column $C$ of $G$, then the resulting graph is a $(a-1)\times b$ pseudogrid.
 
 \subsection{Proof Outline}
 
@@ -262,16 +262,16 @@ The following lemma gives conditions that allow us to delete rows and columns fr
 
 \begin{lem}\label{only_frequent}
   Let $d,k,r\ge 1$ be integers, let $G$ be a $k\times k$ pseudogrid and let $\varphi$ be a vertex colouring of $G$ that uses $|\varphi(V(G))|\le k/(d+2r)$ colours.
-  Then $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k - (d+2r)|\varphi(V(G))|$ that has a grid-partition $\mathcal{P}':=\{V(P'_\mu):\mu\in \VE(G_{k})\}$ such that
+  Then $G$ contains a $k'\times k'$ pseudogrid $G'$ with $k'\ge k - (d+2r)|\varphi(V(G))|$ that has a grid-partition $\mathcal{P}':=\{V(P'_\mu):\mu\in \VE(G_{k'})\}$ such that
   for any $A\subseteq \varphi(V(G'))$, $|\varphi_{\mathcal{P}'}^{-1}(A)\cap \interior_r(G_{k'})| \ge d|A|$.
 \end{lem}
 
 \begin{proof}
-  The proof is by induction on $|\varphi(V(G))|$, the number of colours used by the colouring $\varphi$.  If there exists no $A\subseteq \varphi(V(G))$ with $|\varphi_{\mathcal{P}}^{-1}(A)\cap\interior_r(G_k)| < d|A|$ then taking $G':=G$ and $\mathcal{P}':=\mathcal{P}$ satisfies the requirements of the lemma.  Otherwise, we will remove a set $R$ of rows and a set $C$ of columns from $G$ with $|R|=|C|\le d|A|+2r \le (d+2r)|A|$ to eliminate all vertices with colours in $A$, as follows:
+  The proof is by induction on $|\varphi(V(G))|$, the number of colours used by the colouring $\varphi$.  If there exists no $A\subseteq \varphi(V(G))$ with $|\varphi_{\mathcal{P}}^{-1}(A)\cap\interior_r(G_k)| < d|A|$ then taking $G':=G$ and $\mathcal{P}':=\mathcal{P}$ satisfies the requirements of the lemma.  Otherwise, fix such a set $A$. We will remove a set $R$ of rows and a set $C$ of columns from $G$ with $|R|=|C|\le d|A|+2r \le (d+2r)|A|$ to eliminate all vertices with colours in $A$, as follows:
   \begin{compactitem}
     \item For each vertex $v:=(i,j)\in V(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(v)\neq\emptyset$, we include row $j$ in $R$ and column $i$ in $C$.
-    \item For each horizontal edge $vw\in E(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
-    \item For each vertical edge $vw\in E(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row of $G$ that contains $P_{vw}$ in $R$.
+    \item For each horizontal edge $vw\in E(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the row $R$ of $G$ that contains $P_{vw}$.
+    \item For each vertical edge $vw\in E(\interior_r(G_{k}))$ with $A\cap\varphi_\mathcal{P}(vw)\neq\emptyset$, we include the column $C$ of $G$ that contains $P_{vw}$.
     \item We add the first and last $r$ rows to $R$ and the first and last $r$ columns to $C$.
     \item Finally, we add arbitrary rows to $R$ or columns to $C$ to ensure that $|R|=|C|$.
   \end{compactitem}
@@ -292,15 +292,16 @@ Having each object $\mu\in\VE(G_k)$ associated with a set $\varphi_\mathcal{P}(\
 \begin{lem}\label{one_colour_per_object}
   Let $d,r>1$ be integers, let $G$ be a $k\times k$ pseudogrid with grid-partition $\mathcal{P}$, and let $\varphi$ be a vertex colouring of $G$ such that, for any $A\subseteq\varphi(V(G))$, $|\varphi_{\mathcal{P}}^{-1}(A)\cap\interior_r(G_k)| \ge d|A|$. Then there exists a colouring $\phi:\VE(G_{k})\to \varphi(V(G))\cup\{\perp\}$ with the following properties:
   \begin{compactenum}[(i)]
-    \item $\phi(\mu)=\perp$ for each For each $\mu\not\in\VE(\interior_r(G_{k}))$;
+    \item $\phi(\mu)=\perp$ for each $\mu\not\in\VE(\interior_r(G_{k}))$;
     \item $\phi(\mu)=\perp$ or $\phi(\mu)\in\varphi_\mathcal{P}(\mu)$ for each $\mu\in\VE(G_{k})$; and
-    \item $|\phi^{-1}(\alpha)|\ge d$ for each $\mu\in\VE(G_{k})$.
+    \item $|\phi^{-1}(\alpha)|\ge d$ for each $\alpha\in\varphi(V(G))$.
+    % $\mu\in\VE(G_{k})$.
     % $|\{\mu\in\VE(G_{k}):\phi(\mu)=\alpha\}|\ge d$.
   \end{compactenum}
 \end{lem}
 
 \begin{proof}
-  Consider the bipartite graph $H$ with parts $X:=\{1,\ldots,c\}$ and $Y:=\VE(\interior_r(G_k))$ and edge set
+  Consider the bipartite graph $H$ with parts $X:=\varphi(V(G))$ and $Y:=\VE(\interior_r(G_k))$ and edge set
   \[
     E(H) := \{ (\alpha,\mu)\in X\times Y: \alpha\in\varphi_\mathcal{P}(\mu) \}
   \]
@@ -347,7 +348,7 @@ For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 The following lemma, whose proof is a case analysis that appears in \cref{pick_up_two_proof}, is the main tool we use to build a path that contains a set of vertices that can be paired off in such a way that each pair is far from all other vertices.
 
 \begin{lem}\label{pick_up_two}
-  Let $G$ be a $a\times a$ pseudogrid with $a\ge 5$,  let $s,v,w,t$ be vertices of $G$ with $s$ in column $1$ of $G$, $v,w\in \interior_1(G)$, and $t$ in column $a$ of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
+  Let $G$ be an $a\times a$ pseudogrid with $a\ge 5$,  let $s,v,w,t$ be vertices of $G$ with $s$ in column $1$ of $G$, $v,w\in \interior_1(G)$, and $t$ in column $a$ of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
 \end{lem}
 
 The next lemma shows how to take a well separated collection of pairs of vertices and cover them with disjoint boxes, each of which is compatible with \cref{pick_up_two}.
@@ -434,7 +435,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 \end{lem}
 
 \begin{proof}
-  We begin by applying \cref{one_colour_per_object} to obtain the colouring $\phi:\VE(G_k)\to\varphi(V(G))\cup\{\perp\}$.  Observe that it is now sufficient to find a $2|\varphi(V(G))|$-element subset $Q\subseteq\VE(\interior_r(G_k))$ such that
+  We begin by applying \cref{one_colour_per_object} to obtain the colouring $\phi:\VE(G_k)\to\varphi(V(G))\cup\{\perp\}$ in which $\phi^{-1}(\alpha)\ge d$ for each $\alpha\in\varphi(V(G))$.  Observe that it is now sufficient to find a $2|\varphi(V(G))|$-element subset $Q\subseteq\VE(\interior_r(G_k))$ such that
   \begin{compactenum}[(i)]
     \item $|\phi^{-1}(\alpha)\cap Q|= 2$ for each $\alpha\in\varphi(V(G))$ and
     \item $|\VE(G_r(\mu))\cap Q|\le 2$ for each $\mu\in Q$.
@@ -451,7 +452,7 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
 
   Let $\overline{X}\subseteq\varphi(V(G))$ be the set of colours $\alpha$ for which the first round was an $\alpha$-success. At the end of this process, the set $Q_1$ certainly satisfies (\ref{spread_out}).  In fact, it satisfies an even stronger property: $B_{2r+1}(\mu)\cap Q_1=\{\mu\}$ for each $\mu\in Q_1$, which implies that $|B_r(\nu)\cap Q_1|\le 1$ for each $\nu\in\VE(G_k)$. However, $Q_1$ only satisfies (\ref{hits_both}) for the colours in $\overline{X}$.  We now use the second round to create a set $Q_2$ to handle the colours in $X:=\varphi(V(G))\setminus \overline{X}$.
 
-  Define a bipartite graph $H$ with parts $L(H):=X$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{|Y|}$ be a random permutation of $Y$.\footnote{Here random permutation means a permutation chosen uniformly from the set of all $|Y|!$ permutations of $Y$.}  We include an edge $\alpha\mu_i$ in $H$ if and only if
+  Define a bipartite graph $H$ with parts $L(H):=X$ and $R(H):=Y:=Q_1$.  Let $\pi:=\mu_1,\ldots,\mu_{|Y|}$ be a random permutation of $Y$.\footnote{A \defin{random permutation} of $Y$ is a permutation chosen uniformly from the set of all $|Y|!$ permutations of $Y$.}  We include an edge $\alpha\mu_i$ in $H$ if and only if
   \[
     \VE(G_{2r+1}(\mu_i))\setminus\left(\bigcup_{j=1}^{i-1}\VE(G_{3r+1}(\mu_j))\right)
   \]
@@ -463,13 +464,13 @@ Next we show how, given a colouring $\varphi$ like that guaranteed by \cref{only
   % \todo{Explain more or redefine $\Phi_\alpha$ as $\Phi_\alpha\cap (\bigcup_{\mu\in Y}\VE(G_{r+1}(\mu)))$)}
   % For each $\mu\in Y$, $|\VE(G_{r+1}(\mu))|\in O(r^2)$. Therefore, there are $\Omega(|\Phi_\alpha|/r^2)$ objects $\mu\in Y$ such that $\VE(G_{r+1}(\mu))\cap \Phi_\alpha\neq\emptyset$.
 
-  We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates a $\binomial(\ceil{|\Phi_\alpha|/\vol{7r}},1/16)$ random variable, which allows us to establish en exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{2r+1})$. Suppose that, for some $\alpha\in X$ and $\mu\in Y$, $B_{2r+1}(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$ and consider the set
+  We begin by showing that, for each $\alpha\in X$, the random variable $\deg_H(\alpha)$ dominates\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.} a $\binomial(\ceil{|\Phi_\alpha|/\vol{7r}},1/16)$ random variable, which allows us to establish an exponential inequality for $\Pr(\deg_H(\alpha) < 2\vol{2r+1})$. Suppose that, for some $\alpha\in X$ and $\mu\in Y$, $B_{2r+1}(\mu)\cap \Phi_\alpha$ contains at least one element $\nu$ and consider the set
   \[
      Y_\nu := \{\xi\in Y:\nu\in\VE(G_{3r+1}(\xi))\} \enspace .
   \]
   The edge $\alpha\mu$ will appear in $H$ if, in our random permutation $\pi$ of $Y$, $\nu$ appears before any other element of $Y_\nu$.  By \cref{packing_lemma}, $|Y_\nu|\le 16$, so the probability that the edge $\alpha\mu$ appears in $H$ is at least $1/|Y_\nu|\ge 1/16$. This is already enough to establish that $\E(\deg_H(\alpha)) \in \Omega(|\Phi_\alpha|/r^2)$, but in order to obtain a sufficiently strong concentration result for $\deg_H(\alpha)$ we need to find some independence.\footnote{There are many ways to obtain a concentration result here and we use a simple method with the goal of being self-contained.  For a tighter result, use the method of bounded differences \cite{mcdiarmid:on}.}  To do this, set $J:=\Phi_\alpha$ and consider the greedy process of repeatedly choosing some $\mu\in Y$ such that $\VE(G_{2r+1}(\mu))\cap J$ contains at least one element $\nu$ and then setting $J:=J\setminus \VE(G_{7r}(\nu))$.\footnote{The constant $7$ is overkill here and is only used for simplicity; $6r+O(1)$ would be sufficient.}  This process continues until $J$ is empty. Since $|\VE(G_{7r}(\mu))|\le \vol{7r}$, each iteration in this process eliminates at most $\vol{7r}$ elements from $J$ so the number, $t$, of iterations is at least $\ceil{|\Phi_\alpha|/\vol{7r}}$.
 
-  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are pairwise disjoint.  Indeed, $Y_{\nu_i}\subseteq B_{3r+2}(\nu_i)$, $Y_{\nu_j}\subseteq B_{3r+2}(\nu_j)$ and the fact that $\nu_i\not\in B_{7r}(\nu_j)$ implies that $\VE(G_{3r+2}(\nu_i))\cap \VE(G_{3r+2}(\nu_j))=\emptyset$.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of the subset $Y_{\nu_i}$ in the permutation $\pi$.  For each $i\in\{1,\ldots,k\}$, $\Pr(U_i)\ge 1/16$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/16)$ random variable.\footnote{A random variable $X$ dominates a random variable $Y$ if $\Pr(X\ge x)\ge \Pr(Y\ge x)$ for all $x\in\R$.}  Therefore,
+  Let $\{\mu_1',\ldots,\mu_t'\}$ be the subset of $Y$ chosen by this process and let $\{\nu_1,\ldots,\nu_t\}\subseteq\Phi_\alpha$ be the corresponding elements of $\Phi_\alpha$.  The important observation now is that the sets $Y_{\nu_1},\ldots,Y_{\nu_t}$ are pairwise disjoint.  Indeed, $Y_{\nu_i}\subseteq B_{3r+2}(\nu_i)$, $Y_{\nu_j}\subseteq B_{3r+2}(\nu_j)$ and the fact that $\nu_i\not\in B_{7r}(\nu_j)$ implies that $\VE(G_{3r+2}(\nu_i))\cap \VE(G_{3r+2}(\nu_j))=\emptyset$.  Therefore, if we let $U_i$ denote the event ``$\mu_i'$ apppears in $\pi$ before any other element of $Y_{\nu_i}$'' then the events $U_1,\ldots,U_t$ are mutually independent.  Indeed, each $U_i$ depends only on the relative order of the subset $Y_{\nu_i}$ in the permutation $\pi$.  For each $i\in\{1,\ldots,k\}$, $\Pr(U_i)\ge 1/16$.  Therefore, $\deg_H(\alpha)\ge \sum_{i=1}^t \mathbbm{1}_{U_i}$ dominates a $\binomial(t,1/16)$ random variable.  Therefore,
   \begin{align}
     \Pr\left(\deg_H(\alpha)< 2\vol{2r+1}\right)
     & \le \Pr\left(\sum_{i=1}^t \mathbbm{1}_{U_i} < 2\vol{2r+1}\right) \notag \\
@@ -541,7 +542,7 @@ We now have all the pieces needed to complete our lower bound on the linear chro
 \section*{Acknowledgement}
 
 The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment.
-Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace. We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution.
+Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace. We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution. (By partitioning the rows into consecutive pairs and the columns  into consecutive pairs, and then repeatedly deleting a pair of rows and columns whose intersection contains a vertex whose colour is unique, one is left with a graph that has a Hamiltonian path in which each colour apppears on at least two vertices.)
 
 
 \bibliographystyle{plainurlnat}
