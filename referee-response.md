@@ -1,10 +1,10 @@
-The referee had 4 broad comments:
+We thank the referee for carefully reading the manuscript and giving thoughtful and helpful feedback.  The referee had 4 broad comments:
 
 **Referee Comment 1:** The paper's title is a bit ambitious since, as the authors point out, the machinery for relating the linear chromatic number to the centred one was already introduced previously (and this manuscript does not develop on it at all). A more honest title would be something along the lines of "The linear chromatic number of pseudogrids".  
 
 **Response:** We have chosen to leave the title as is.  In our opinion, the current title doesn't promise much.  The proposed title, on the other hand, suggests that the results apply only to pseudogrids.  Consider, for example, the similar-sounding title "The linear chromatic number of cactus graphs."
 
-With the current title a reader will still learn, within the first two pages that the improvement comes only by studying the linear chromatic number pseudogrids and decide for themselves whether it's worthwhile reading the rest of the argument.  (These first two pages also have the benefit of catching-up a reader on the current state of the art and the limitations of Kun et al's argument.)
+With the current title a reader will still learn, within the first two pages, that the improvement comes only by studying the linear chromatic number pseudogrids and decide for themselves whether it's worthwhile reading the rest of the argument.  (These first two pages also have the benefit of catching-up a reader on the current state of the art and the limitations of Kun et al's argument.)
 
 
 **Referee Comment 2:** There are a few places (e.g. in section 3.6 -- see PDF) where the authors cut a few corners in their proofs; this should be addressed, but I don't think it is anything serious.  
@@ -17,7 +17,7 @@ During the initial writing phase of this result, we tried several such strategie
 
 **Referee Comment 4:** In the acknowledgements, the authors mention that it was pointed out to them the problem on a grid (as opposed to pseudogrid) has a simple solution. Assuming the person who pointed that out is happy with it, it might be interesting to include the solution.  
 
-TODO
+**Response:** We have added the solution along with the acknowledgement.
 
 ---
 
@@ -30,7 +30,7 @@ TODO
 
 **Referee Comment:** I do not understand how this works when removing edges in $P_{v_i}$ -- doesn't $P_{v_i}$ belong to both a row and a column (and thus deleting it leaves us with both fewer rows and columns?)
 
-**Response:** The referee is correct.  The description of deletion has been corrected.  Now we only delete edges of $G$ that correspond to edges of the grid (and then repeatedly remove vertices of degree at most $1$).
+**Response:** The referee is correct.  The description of deletion has been corrected.  Now we only delete edges of $G$ that correspond to edges of the grid (and then repeatedly remove vertices of degree at most $1$).  This avoids disconnecting a column when deleting a row, and vice versa.
 
 **Referee Comment:** $d$ has not been defined. The last part of the proof (where it is shown that a certain value of $d$ would work) should come first -- or at the very least, $d$ should be chosen bigger than some bound given here (and the last part of the proof would show this bound works). This is important, since I am having some trouble keeping track of the dependencies between the variables, so that should be made more transparent.
 

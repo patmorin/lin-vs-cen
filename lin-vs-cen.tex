@@ -3,6 +3,7 @@
 \usepackage{pat}
 \usepackage{paralist}
 \usepackage{dsfont}  % for \mathds{A}
+\usepackage[OT1]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage{skull}
 \usepackage{paralist}
@@ -544,7 +545,10 @@ We now have all the pieces needed to complete our lower bound on the linear chro
 \section*{Acknowledgement}
 
 The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment.
-Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace. We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution. (By partitioning the rows into consecutive pairs and the columns  into consecutive pairs, and then repeatedly deleting a pair of rows and columns whose intersection contains a vertex whose colour is unique, one is left with a graph that has a Hamiltonian path in which each colour apppears on at least two vertices.)
+Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace.
+
+We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution: Partition the grid into $2\times 2$ grids and repeatedly delete a subgrid if it contains a vertex whose colour is unique.  If this causes the grid to become disconnected, keep only the largest remaining component and continue.  This process deletes at most $4\epsilon k$ vertices.  For $\epsilon < 1/4$, this implies that the graph that remains at the end has at least $k^2/2$ vertices.  In particular, the graph that remains is non-empty and every colour that appears in this graph appears in at least two vertices.  Finally, this graph has a Hamiltonian path (which can be constructed by traversing the boundary of  a spanning-tree of the dual graph).
+
 
 
 \bibliographystyle{plainurlnat}
