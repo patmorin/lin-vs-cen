@@ -2,23 +2,11 @@
 \listfiles
 \usepackage{pat}
 \usepackage{paralist}
-\usepackage{dsfont}  % for \mathds{A}
 \usepackage[OT1]{fontenc}
 \usepackage[utf8x]{inputenc}
-\usepackage{skull}
 \usepackage{paralist}
-\usepackage{graphicx}
-\usepackage[noend]{algorithmic}
 \usepackage{bbm}  % needed for \mathbbm{1}
-\usepackage{listings}
-\usepackage{thmtools}
-\usepackage{thm-restate}
 
-\newtheorem{zeb}[theorem]{Lemma}
-
-\usepackage[normalem]{ulem}
-\usepackage{cancel}
-%\usepackage{enumitem}
 
 \usepackage{todonotes}
 
@@ -355,9 +343,9 @@ For any $v\in V(G)$, define $\tilde{G}_r(v):=G[\tilde{B}_r(v)]$.
 
 The following lemma, whose proof is a case analysis that appears in \cref{pick_up_two_proof}, is the main tool we use to build a path that contains a set of vertices that can be paired off in such a way that each pair is far from all other vertices.
 
-\begin{restatable}{zeb}{blechblech}\label{pick_up_two}
+\begin{lem}[restate=pickuptwo,label=pick_up_two]
   Let $G$ be an $a\times a$ pseudogrid with $a\ge 5$,  let $s,v,w,t$ be vertices of $G$ with $s$ in column $1$ of $G$, $v,w\in \interior_1(G)$, and $t$ in column $a$ of $G$.  Then $G$ contains a path $P$ with endpoints $s$ and $t$ that contains $v$ and $w$.
-\end{restatable}
+\end{lem}
 
 The next lemma shows how to take a well separated collection of pairs of vertices and cover them with disjoint boxes, each of which is compatible with \cref{pick_up_two}.
 
@@ -554,8 +542,20 @@ We now have all the pieces needed to complete our lower bound on the linear chro
 The main subject of this paper was posed as an open problem at the 9th Annual Bellairs Workshop on Geometry and Graphs (v2), which was held January 21--28, 2022 and again at the 16th Annual Workshop on Probability and Combinatorics, which was held March 25--April 1, 2022. We are grateful to the organizers and participants of both workshops for providing a stimulating research environment.
 Pat~Morin especially enjoyed early-morning discussions with Stefan~Langerman on the Seabourne Terrace.
 
-We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution: Partition the grid into $2\times 2$ grids and repeatedly delete a subgrid if it contains a vertex whose colour is unique.  If this causes the grid to become disconnected, keep only the largest remaining component and continue.  This process deletes at most $4\epsilon k$ vertices.  For $\epsilon < 1/4$, this implies that the graph that remains at the end of thie process has at least $k^2/2$ vertices.  In particular, the graph that remains is non-empty and every colour that appears in this graph is used on at least two vertices.  Finally, this graph has a Hamiltonian path (which can be constructed by traversing the boundary of  a spanning-tree of the dual graph).
+We are also grateful to Omer Angel for pointing out that the problem on a $k\times k$ grid (as opposed to pseudogrid) has a simple solution, illustrated in \cref{omer}: Partition the grid into $2\times 2$ grids and repeatedly delete a subgrid if it contains a vertex whose colour is unique.  If this causes the grid to become disconnected, keep only the largest remaining component and continue.  This process deletes at most $4\epsilon k$ vertices.  For $\epsilon < 1/4$, this implies that the graph that remains at the end of thie process has at least $k^2/2$ vertices.  In particular, the graph that remains is non-empty and every colour that appears in this graph is used on at least two vertices.  Finally, this graph has a Hamiltonian path (which can be constructed by traversing the boundary of a certain tree contained in the dual graph).  Unfortunately, this solution breaks down immediately for pseudogrids since a pseudogrid is not necessarily Hamiltonian, even before removing some of its vertices and edges.
 
+
+\begin{figure}
+  \centering
+  \begin{tabular}{cccc}
+    \includegraphics[page=1]{figs/omer} &
+    \includegraphics[page=2]{figs/omer} &
+    % \includegraphics[page=3]{figs/omer} &
+    \includegraphics[page=4]{figs/omer}
+  \end{tabular}
+  \caption{A simpler solution for colourings of the grid. The (orange) tree used to create the (purple) Hamiltonian path is created so that its edges and leaves use only odd-numbered rows and columns of the dual graph.}
+  \label{omer}
+\end{figure}
 
 
 \bibliographystyle{plainurlnat}
@@ -566,7 +566,8 @@ We are also grateful to Omer Angel for pointing out that the problem on a $k\tim
 \section{Proof of \cref{pick_up_two}}
 \label{pick_up_two_proof}
 
-\blechblech
+
+\pickuptwo*
 
 \begin{proof}[Proof of \cref{pick_up_two}]
   Let $\mathcal{P}:=\{P_\mu:\mu\in \VE(G_a)\}$ be a grid partition of $G$ and let $\mu_v,\mu_w\in \VE(G_a)$ be such that $v\in V(P_{\mu_v})$ and $w\in V(P_{\mu_w})$.  Define $\mu_s$ and $\mu_t$ similarly, with respect to $s$ and $t$.  Very roughly, this lemma says that the grid $G_a$ contains a path $P_a$ with $\mu_v,\mu_w\in\VE(P_a)$ whose first edge/vertex is $\mu_s$, and whose last edge/vertex is $\mu_t$.
