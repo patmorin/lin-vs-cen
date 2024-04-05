@@ -17,7 +17,7 @@ During the initial writing phase of this result, we tried several such strategie
 
 **Referee Comment 4:** In the acknowledgements, the authors mention that it was pointed out to them the problem on a grid (as opposed to pseudogrid) has a simple solution. Assuming the person who pointed that out is happy with it, it might be interesting to include the solution.  
 
-**Response:** We have added the solution along with the acknowledgement.
+**Response:** We have added a sketch of Omer's solution and a figure that illustrates it.
 
 ---
 
